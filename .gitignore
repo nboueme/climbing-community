@@ -1,0 +1,17 @@
+# Mac
+.DS_Store
+
+# Project
+/target
+/*-*/target
+
+# IDE
+/.idea
+/.settings
+/.project
+*.iml
+/*-*/.project
+/*-*/.settings
+/*-*/.classpath
+/*-*/.checkstyle
+/*-*/.springBeans
