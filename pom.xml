@@ -2,17 +2,37 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <!-- =============================================================== -->
+    <!-- Project information -->
+    <!-- =============================================================== -->
+    <!-- ===== Maven information ===== -->
     <groupId>com.nicolasboueme.climbing</groupId>
     <artifactId>climbing-community</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
+    <!-- ===== General information ===== -->
     <name>climbing-community</name>
-    <url>http://maven.apache.org</url>
+    <url>https://www.climbing-community.com</url>
+    <description>
+        ClimbingCommunity : An online community around climbing!
+    </description>
 
+    <organization>
+        <name>Nicolas Bouème</name>
+        <url>https://www.nicolasboueme.com</url>
+    </organization>
+
+    <!-- =============================================================== -->
+    <!-- Properties -->
+    <!-- =============================================================== -->
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
+    <!-- =============================================================== -->
+    <!-- Modules -->
+    <!-- =============================================================== -->
     <modules>
         <module>climbing-webapp</module>
         <module>climbing-business</module>
@@ -20,8 +40,12 @@
         <module>climbing-model</module>
     </modules>
 
+    <!-- =============================================================== -->
+    <!-- Dependency management -->
+    <!-- =============================================================== -->
     <dependencyManagement>
         <dependencies>
+            <!-- ===== Modules ===== -->
             <dependency>
                 <groupId>com.nicolasboueme.climbing</groupId>
                 <artifactId>climbing-webapp</artifactId>
@@ -42,6 +66,12 @@
                 <artifactId>climbing-model</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
+
+            <!-- ===== Third-party libraries ===== -->
         </dependencies>
     </dependencyManagement>
+
+    <!-- =============================================================== -->
+    <!-- Build -->
+    <!-- =============================================================== -->
 </project>

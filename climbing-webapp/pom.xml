@@ -2,19 +2,32 @@
 <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
+
+    <!-- =============================================================== -->
+    <!-- Project information -->
+    <!-- =============================================================== -->
+    <!-- ===== Maven parent project ===== -->
     <parent>
         <groupId>com.nicolasboueme.climbing</groupId>
         <artifactId>climbing-community</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
+
+    <!-- ===== Maven information ===== -->
     <groupId>com.nicolasboueme.climbing</groupId>
     <artifactId>climbing-webapp</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>climbing-webapp Maven Webapp</name>
-    <url>http://maven.apache.org</url>
 
+    <!-- ===== General information ===== -->
+    <name>climbing-webapp Maven Webapp</name>
+    <url>https://www.climbing-community.com</url>
+
+    <!-- =============================================================== -->
+    <!-- Dependencies -->
+    <!-- =============================================================== -->
     <dependencies>
+        <!-- ===== Modules ===== -->
         <dependency>
             <groupId>com.nicolasboueme.climbing</groupId>
             <artifactId>climbing-business</artifactId>
@@ -24,6 +37,7 @@
             <artifactId>climbing-model</artifactId>
         </dependency>
 
+        <!-- ===== Third-party libraries ===== -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -32,6 +46,9 @@
         </dependency>
     </dependencies>
 
+    <!-- =============================================================== -->
+    <!-- Build -->
+    <!-- =============================================================== -->
     <build>
         <finalName>climbing-webapp</finalName>
     </build>
