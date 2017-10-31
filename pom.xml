@@ -1,22 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+    <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.nicolasboueme.climbing</groupId>
-  <artifactId>climbing-community</artifactId>
-  <version>1.0-SNAPSHOT</version>
-  <packaging>pom</packaging>
+    <groupId>com.nicolasboueme.climbing</groupId>
+    <artifactId>climbing-community</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
 
-  <name>climbing-community</name>
-  <url>http://maven.apache.org</url>
+    <name>climbing-community</name>
+    <url>http://maven.apache.org</url>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
-  <modules>
-    <module>climbing-webapp</module>
-    <module>climbing-business</module>
-    <module>climbing-consumer</module>
-    <module>climbing-model</module>
-  </modules>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+    <modules>
+        <module>climbing-webapp</module>
+        <module>climbing-business</module>
+        <module>climbing-consumer</module>
+        <module>climbing-model</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.nicolasboueme.climbing</groupId>
+                <artifactId>climbing-webapp</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.nicolasboueme.climbing</groupId>
+                <artifactId>climbing-business</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.nicolasboueme.climbing</groupId>
+                <artifactId>climbing-consumer</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.nicolasboueme.climbing</groupId>
+                <artifactId>climbing-model</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>
