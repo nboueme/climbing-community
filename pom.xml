@@ -68,7 +68,7 @@
             </dependency>
 
             <!-- ===== Bill Of Materials ===== -->
-            <dependency>
+            <!--<dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-framework-bom</artifactId>
                 <version>4.3.11.RELEASE</version>
@@ -81,7 +81,7 @@
                 <version>2.3.34</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>
+            </dependency>-->
 
             <!-- ===== Third-party libraries ===== -->
             <dependency>
