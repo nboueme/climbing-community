@@ -24,6 +24,15 @@
     <url>https://www.climbing-community.com</url>
 
     <!-- =============================================================== -->
+    <!-- Properties -->
+    <!-- =============================================================== -->
+    <properties>
+        <application.name>ClimbingCommunity</application.name>
+        <maven.build.timestamp.format>dd/MM/yyyy</maven.build.timestamp.format>
+        <buildTimestamp>${maven.build.timestamp}</buildTimestamp>
+    </properties>
+
+    <!-- =============================================================== -->
     <!-- Dependencies -->
     <!-- =============================================================== -->
     <dependencies>
@@ -69,5 +78,24 @@
     <!-- =============================================================== -->
     <build>
         <finalName>climbing-webapp</finalName>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <webResources>
+                        <resource>
+                            <filtering>true</filtering>
+                            <directory>src/main/webapp</directory>
+                            <includes>
+                                <include>WEB-INF/*.jsp</include>
+                                <include>WEB-INF/*/*.jsp</include>
+                            </includes>
+                        </resource>
+                    </webResources>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 </project>
