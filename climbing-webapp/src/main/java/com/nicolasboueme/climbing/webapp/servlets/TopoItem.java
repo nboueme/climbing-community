@@ -1,7 +1,7 @@
 package com.nicolasboueme.climbing.webapp.servlets;
 
 import com.nicolasboueme.climbing.consumer.dao.DaoFactory;
-import com.nicolasboueme.climbing.consumer.dao.SpotDao;
+import com.nicolasboueme.climbing.consumer.dao.TopoDao;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -9,12 +9,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class Spot extends HttpServlet {
-    private SpotDao spotDao;
+public class TopoItem extends HttpServlet {
+    private TopoDao topoDao;
 
     public void init() throws ServletException {
         DaoFactory daoFactory = DaoFactory.getInstance();
-        this.spotDao = daoFactory.getSpotDao();
+        this.topoDao = daoFactory.getTopoDao();
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -22,7 +22,7 @@ public class Spot extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("spotList", spotDao.listSpot());
-        this.getServletContext().getRequestDispatcher("/WEB-INF/climbing.jsp").forward(request, response);
+        request.setAttribute("topo", topoDao.getTopo());
+        this.getServletContext().getRequestDispatcher("/WEB-INF/topo_item.jsp").forward(request, response);
     }
 }

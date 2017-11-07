@@ -3,27 +3,27 @@
 <html lang="fr">
 <head>
     <%@ include file="_include/html_head.jsp" %>
-    <title>${application.name} - Topo</title>
+    <title>${application.name} - Secteur</title>
 </head>
 <body>
 
     <%@ include file="_include/header.jsp" %>
 
     <div class="container">
-        <h1>Liste des topo</h1>
+        <h1>Liste des secteurs</h1>
 
         <table class="table table-bordered table-striped table-condensed">
             <thead>
             <tr>
-                <th>Topo</th>
-                <th>Description</th>
+                <th>Secteur</th>
+                <th>Hauteur</th>
             </tr>
             </thead>
             <tbody>
-                <c:forEach var="topo" items="${ topoList }">
+                <c:forEach var="sector" items="${ sectorList }">
                     <tr>
-                        <td><a href="${pageContext.request.contextPath}/topo/item"><c:out value="${ topo.name }" /></a></td>
-                        <td><c:out value="${ topo.description }" /></td>
+                        <td><a href="${pageContext.request.contextPath}/climbing/route"><c:out value="${ sector.name }" /></a></td>
+                        <td><c:out value="${ sector.height == 0 ? 'hauteur inconnue' : sector.height }" /></td>
                     </tr>
                 </c:forEach>
             </tbody>

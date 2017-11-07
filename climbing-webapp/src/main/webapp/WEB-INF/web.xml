@@ -21,6 +21,33 @@
         <servlet-name>Climbing</servlet-name>
         <url-pattern>/climbing</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Sector</servlet-name>
+        <servlet-class>com.nicolasboueme.climbing.webapp.servlets.Sector</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Sector</servlet-name>
+        <url-pattern>/climbing/sector</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Route</servlet-name>
+        <servlet-class>com.nicolasboueme.climbing.webapp.servlets.Route</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Route</servlet-name>
+        <url-pattern>/climbing/route</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>RouteItem</servlet-name>
+        <servlet-class>com.nicolasboueme.climbing.webapp.servlets.RouteItem</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RouteItem</servlet-name>
+        <url-pattern>/climbing/route/item</url-pattern>
+    </servlet-mapping>
     
     <servlet>
         <servlet-name>Topo</servlet-name>
@@ -29,6 +56,15 @@
     <servlet-mapping>
         <servlet-name>Topo</servlet-name>
         <url-pattern>/topo</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>TopoItem</servlet-name>
+        <servlet-class>com.nicolasboueme.climbing.webapp.servlets.TopoItem</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TopoItem</servlet-name>
+        <url-pattern>/topo/item</url-pattern>
     </servlet-mapping>
 
     <welcome-file-list>

@@ -1,23 +1,34 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-
+    <%@ include file="_include/html_head.jsp" %>
     <title>${application.name} - Sites</title>
-
-    <link rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-          crossorigin="anonymous">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/style/custom.css" />
 </head>
 <body>
 
     <%@ include file="_include/header.jsp" %>
 
-    <p>Sites</p>
+    <div class="container">
+        <h1>Liste des sites</h1>
+
+        <table class="table table-bordered table-striped table-condensed">
+            <thead>
+                <tr>
+                    <th>Site</th>
+                    <th>Hauteur</th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:forEach var="spot" items="${ spotList }">
+                    <tr>
+                        <td><a href="${pageContext.request.contextPath}/climbing/sector"><c:out value="${ spot.name }" /></a></td>
+                        <td>?</td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+    </div>
 
     <%@ include file="_include/footer.jsp" %>
 

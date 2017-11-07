@@ -10,7 +10,7 @@
 ----------------------------------------
 ### listSpots
 ```
-SELECT publication.name, spot.description, spot.height
+SELECT publication.name, spot.height
 FROM publication, spot
 WHERE publication.id = spot.publication_id;
 ```
@@ -25,7 +25,7 @@ AND spot.publication_id = ?;
 
 ### listSectors
 ```
-SELECT publication.name, sector.height, sector.publication_id
+SELECT publication.name, sector.height
 FROM publication, sector
 WHERE publication.id = sector.publication_id
 AND sector.spot_id = ?;
@@ -42,7 +42,7 @@ AND sector.publication_id = ?;
 
 ### listRoutes
 ```
-SELECT publication.name, route.height, route.points_number, route.quotation, route.publication_id
+SELECT publication.name, route.height, route.points_number, route.quotation
 FROM publication, route
 WHERE publication.id = route.publication_id
 AND route.sector_id = ?;
@@ -59,7 +59,7 @@ AND route.publication_id = ?;
 
 ### listTopo
 ```
-SELECT publication.name, topo.description
+SELECT publication.name
 FROM publication, topo
 WHERE publication.id = topo.publication_id;
 ```

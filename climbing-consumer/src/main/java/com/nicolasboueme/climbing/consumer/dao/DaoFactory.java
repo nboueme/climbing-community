@@ -34,4 +34,16 @@ public class DaoFactory {
     public TopoDao getTopoDao() {
         return new TopoDaoImplementation(this);
     }
+
+    public SpotDao getSpotDao() {
+        return new SpotDaoImplementation(this);
+    }
+
+    public SectorDao getSectorDao() {
+        return new SectorDaoImplementation(this);
+    }
+
+    public RouteDao getRouteDao() {
+        return new RouteDaoImplementation(this);
+    }
 }
