@@ -7,30 +7,30 @@
 </head>
 <body>
 
-    <%@ include file="_include/header.jsp" %>
+<%@ include file="_include/header.jsp" %>
 
-    <div class="container">
-        <h1>Liste des topo</h1>
+<div class="container">
+    <h1>Liste des topo</h1>
 
-        <table class="table table-bordered table-striped table-condensed">
-            <thead>
+    <table class="table table-bordered table-striped table-condensed">
+        <thead>
+        <tr>
+            <th>Topo</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach var="topo" items="${ topoList }">
             <tr>
-                <th>Topo</th>
-                <th>Description</th>
+                <td><a href="${pageContext.request.contextPath}/topo/item"><c:out value="${ topo.name }" /></a></td>
+                <td><c:out value="${ topo.description }" /></td>
             </tr>
-            </thead>
-            <tbody>
-                <c:forEach var="topo" items="${ topoList }">
-                    <tr>
-                        <td><a href="${pageContext.request.contextPath}/topo/item"><c:out value="${ topo.name }" /></a></td>
-                        <td><c:out value="${ topo.description }" /></td>
-                    </tr>
-                </c:forEach>
-            </tbody>
-        </table>
-    </div>
+        </c:forEach>
+        </tbody>
+    </table>
+</div>
 
-    <%@ include file="_include/footer.jsp" %>
+<%@ include file="_include/footer.jsp" %>
 
 </body>
 </html>

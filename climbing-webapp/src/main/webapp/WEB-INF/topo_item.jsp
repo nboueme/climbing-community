@@ -6,14 +6,14 @@
 </head>
 <body>
 
-    <%@ include file="_include/header.jsp" %>
+<%@ include file="_include/header.jsp" %>
 
-    <div class="container">
-        <h1>${ topo.name }</h1>
-        <p>${ topo.description }</p>
-    </div>
+<div class="container">
+    <h1>${ topo.name }</h1>
+    <p>${ topo.description }</p>
+</div>
 
-    <%@ include file="_include/footer.jsp" %>
+<%@ include file="_include/footer.jsp" %>
 
 </body>
 </html>

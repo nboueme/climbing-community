@@ -1,7 +1,6 @@
 package com.nicolasboueme.climbing.webapp.servlets;
 
-import com.nicolasboueme.climbing.consumer.dao.DaoFactory;
-import com.nicolasboueme.climbing.consumer.dao.RouteDao;
+import com.nicolasboueme.climbing.business.RouteBusiness;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -10,11 +9,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class Route extends HttpServlet {
-    private RouteDao routeDao;
+    private RouteBusiness webappToConsumer = new RouteBusiness();
 
+    @Override
     public void init() throws ServletException {
-        DaoFactory daoFactory = DaoFactory.getInstance();
-        routeDao = daoFactory.getRouteDao();
+        webappToConsumer.initDao();
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -22,7 +21,7 @@ public class Route extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("routeList", routeDao.listRoute());
+        request.setAttribute("routeList", webappToConsumer.getRouteDao().listRoute());
         this.getServletContext().getRequestDispatcher("/WEB-INF/route.jsp").forward(request, response);
     }
 }

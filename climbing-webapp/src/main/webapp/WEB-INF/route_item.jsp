@@ -6,14 +6,14 @@
 </head>
 <body>
 
-    <%@ include file="_include/header.jsp" %>
+<%@ include file="_include/header.jsp" %>
 
-    <div class="container">
-        <h1>${ route.name }</h1>
-        <p>${ route.name } -> ${ route.height } mètres, ${ route.points_number } points, coté ${ route.quotation }</p>
-    </div>
+<div class="container">
+    <h1>${ route.name }</h1>
+    <p>${ route.name } -> ${ route.height } mètres, ${ route.points_number } points, coté ${ route.quotation }</p>
+</div>
 
-    <%@ include file="_include/footer.jsp" %>
+<%@ include file="_include/footer.jsp" %>
 
 </body>
 </html>

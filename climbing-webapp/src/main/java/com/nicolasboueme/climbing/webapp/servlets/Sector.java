@@ -1,7 +1,6 @@
 package com.nicolasboueme.climbing.webapp.servlets;
 
-import com.nicolasboueme.climbing.consumer.dao.DaoFactory;
-import com.nicolasboueme.climbing.consumer.dao.SectorDao;
+import com.nicolasboueme.climbing.business.SectorBusiness;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -10,11 +9,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class Sector extends HttpServlet {
-    private SectorDao sectorDao;
+    private SectorBusiness webappToConsumer = new SectorBusiness();
 
+    @Override
     public void init() throws ServletException {
-        DaoFactory daoFactory = DaoFactory.getInstance();
-        sectorDao = daoFactory.getSectorDao();
+        webappToConsumer.initDao();
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -22,7 +21,7 @@ public class Sector extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("sectorList", sectorDao.listSector());
+        request.setAttribute("sectorList", webappToConsumer.getSectorDao().listSector());
         this.getServletContext().getRequestDispatcher("/WEB-INF/sector.jsp").forward(request, response);
     }
 }

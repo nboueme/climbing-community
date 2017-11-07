@@ -6,13 +6,13 @@
 </head>
 <body>
 
-    <%@ include file="_include/header.jsp" %>
+<%@ include file="_include/header.jsp" %>
 
-    <div class="container">
-        <h1>Accueil</h1>
-    </div>
+<div class="container">
+    <h1>Accueil</h1>
+</div>
 
-    <%@ include file="_include/footer.jsp" %>
+<%@ include file="_include/footer.jsp" %>
 
 </body>
 </html>

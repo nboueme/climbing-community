@@ -2,7 +2,7 @@ package com.nicolasboueme.climbing.model.beans;
 
 import java.util.Date;
 
-public class Publication {
+public abstract class Publication {
     private int id;
     private int user_account_id;
     private String name;

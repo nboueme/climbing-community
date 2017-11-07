@@ -15,7 +15,7 @@
                 <li><a href="${pageContext.request.contextPath}/">Accueil</a></li>
                 <li><a href="${pageContext.request.contextPath}/climbing">Sites</a></li>
                 <li><a href="${pageContext.request.contextPath}/topo">Topo</a></li>
-                <li><a href="#">Recherche</a></li>
+                <li><a href="${pageContext.request.contextPath}/search">Recherche</a></li>
                 <li><a href="#">Créer un compte</a></li>
                 <li><a href="#">S’identifier</a></li>
             </ul>

@@ -46,4 +46,8 @@ public class DaoFactory {
     public RouteDao getRouteDao() {
         return new RouteDaoImplementation(this);
     }
+
+    public PublicationDao getPublicationDao() {
+        return new PublicationDaoImplementation(this);
+    }
 }
