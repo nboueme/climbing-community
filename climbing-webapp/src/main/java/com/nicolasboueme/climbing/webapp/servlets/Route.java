@@ -21,7 +21,7 @@ public class Route extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("routeList", webappToConsumer.getRouteDao().listRoute());
+        request.setAttribute("routeList", webappToConsumer.getRouteDao().listRoutesFromParent(Integer.parseInt(request.getParameter("id"))));
         this.getServletContext().getRequestDispatcher("/WEB-INF/route.jsp").forward(request, response);
     }
 }

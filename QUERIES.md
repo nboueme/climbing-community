@@ -10,39 +10,22 @@
 ----------------------------------------
 ### listSpots
 ```
-SELECT publication.name, spot.height
+SELECT publication.name, spot.height, spot.publication_id
 FROM publication, spot
 WHERE publication.id = spot.publication_id;
 ```
 
-### getSpot
+### listSectorsFromParent
 ```
-SELECT publication.name, spot.description, spot.height
-FROM publication, spot
-WHERE publication.id = spot.publication_id
-AND spot.publication_id = ?;
-```
-
-### listSectors
-```
-SELECT publication.name, sector.height
+SELECT publication.name, sector.height, sector.publication_id
 FROM publication, sector
 WHERE publication.id = sector.publication_id
 AND sector.spot_id = ?;
 ```
 
-### getSector
+### listRoutesFromParent
 ```
-SELECT publication.name, sector.height, sector.publication_id
-FROM publication, sector
-WHERE publication.id = sector.publication_id
-AND sector.spot_id = ?
-AND sector.publication_id = ?;
-```
-
-### listRoutes
-```
-SELECT publication.name, route.height, route.points_number, route.quotation
+SELECT publication.name, route.height, route.points_number, route.quotation, route.publication_id
 FROM publication, route
 WHERE publication.id = route.publication_id
 AND route.sector_id = ?;
@@ -50,16 +33,15 @@ AND route.sector_id = ?;
 
 ### getRoute
 ```
-SELECT publication.name, route.height, route.points_number, route.quotation, route.publication_id
+SELECT publication.name, route.height, route.points_number, route.quotation
 FROM publication, route
 WHERE publication.id = route.publication_id
-AND route.sector_id = ?
 AND route.publication_id = ?;
 ```
 
 ### listTopo
 ```
-SELECT publication.name
+SELECT publication.name, topo.description, topo.publication_id
 FROM publication, topo
 WHERE publication.id = topo.publication_id;
 ```

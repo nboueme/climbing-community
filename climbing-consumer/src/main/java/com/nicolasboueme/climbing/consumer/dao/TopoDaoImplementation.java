@@ -2,10 +2,7 @@ package com.nicolasboueme.climbing.consumer.dao;
 
 import com.nicolasboueme.climbing.model.beans.Topo;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,14 +22,16 @@ public class TopoDaoImplementation implements TopoDao {
         try {
             connection = daoFactory.getConnection();
             statement = connection.createStatement();
-            result = statement.executeQuery("SELECT publication.name, topo.description FROM publication, topo WHERE publication.id = topo.publication_id;");
+            result = statement.executeQuery("SELECT publication.name, topo.description, topo.publication_id FROM publication, topo WHERE publication.id = topo.publication_id;");
 
             while (result.next()) {
                 String name = result.getString("name");
                 String description = result.getString("description");
+                int publicationId = result.getInt("publication_id");
                 Topo topo = new Topo();
                 topo.setName(name);
                 topo.setDescription(description);
+                topo.setPublication_id(publicationId);
                 topoList.add(topo);
             }
         } catch (SQLException e) {
@@ -42,16 +41,17 @@ public class TopoDaoImplementation implements TopoDao {
         return topoList;
     }
 
-    public Topo getTopo() {
+    public Topo getTopo(int publicationId) {
         Topo topo = new Topo();
         Connection connection;
-        Statement statement;
+        PreparedStatement preparedStatement;
         ResultSet result;
 
         try {
             connection = daoFactory.getConnection();
-            statement = connection.createStatement();
-            result = statement.executeQuery("SELECT publication.name, topo.description FROM publication, topo WHERE publication.id = topo.publication_id AND topo.publication_id = 1;");
+            preparedStatement = connection.prepareStatement("SELECT publication.name, topo.description FROM publication, topo WHERE publication.id = topo.publication_id AND topo.publication_id = ?;");
+            preparedStatement.setInt(1, publicationId);
+            result = preparedStatement.executeQuery();
 
             while (result.next()) {
                 String name = result.getString("name");

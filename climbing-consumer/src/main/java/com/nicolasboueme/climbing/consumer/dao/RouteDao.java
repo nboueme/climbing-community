@@ -5,6 +5,6 @@ import com.nicolasboueme.climbing.model.beans.Route;
 import java.util.List;
 
 public interface RouteDao {
-    List<Route> listRoute();
-    Route getRoute();
+    List<Route> listRoutesFromParent(int sectorId);
+    Route getRoute(int publicationId);
 }

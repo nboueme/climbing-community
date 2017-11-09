@@ -2,10 +2,7 @@ package com.nicolasboueme.climbing.consumer.dao;
 
 import com.nicolasboueme.climbing.model.beans.Sector;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,23 +13,26 @@ public class SectorDaoImplementation implements SectorDao {
         this.daoFactory = daoFactory;
     }
 
-    public List<Sector> listSector() {
+    public List<Sector> listSectorsFromParent(int spotId) {
         List<Sector> sectorList = new ArrayList<Sector>();
         Connection connection;
-        Statement statement;
+        PreparedStatement preparedStatement;
         ResultSet result;
 
         try {
             connection = daoFactory.getConnection();
-            statement = connection.createStatement();
-            result = statement.executeQuery("SELECT publication.name, sector.height FROM publication, sector WHERE publication.id = sector.publication_id AND sector.spot_id = 2;");
+            preparedStatement = connection.prepareStatement("SELECT publication.name, sector.height, sector.publication_id FROM publication, sector WHERE publication.id = sector.publication_id AND sector.spot_id = ?;");
+            preparedStatement.setInt(1, spotId);
+            result = preparedStatement.executeQuery();
 
             while (result.next()) {
                 String name = result.getString("name");
                 int height = result.getInt("height");
+                int publicationId = result.getInt("publication_id");
                 Sector sector = new Sector();
                 sector.setName(name);
                 sector.setHeight(height);
+                sector.setPublication_id(publicationId);
                 sectorList.add(sector);
             }
         } catch (SQLException e) {
@@ -40,29 +40,5 @@ public class SectorDaoImplementation implements SectorDao {
         }
 
         return sectorList;
-    }
-
-    public Sector getSector() {
-        Sector sector = new Sector();
-        Connection connection;
-        Statement statement;
-        ResultSet result;
-
-        try {
-            connection = daoFactory.getConnection();
-            statement = connection.createStatement();
-            result = statement.executeQuery("SELECT publication.name, sector.height FROM publication, sector WHERE publication.id = sector.publication_id AND sector.spot_id = 2 AND sector.publication_id = 3;");
-
-            while (result.next()) {
-                String name = result.getString("name");
-                int height = result.getInt("height");
-                sector.setName(name);
-                sector.setHeight(height);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return sector;
     }
 }

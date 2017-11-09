@@ -21,7 +21,7 @@ public class Spot extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("spotList", webappToConsumer.getSpotDao().listSpot());
+        request.setAttribute("spotList", webappToConsumer.getSpotDao().listSpots());
         this.getServletContext().getRequestDispatcher("/WEB-INF/climbing.jsp").forward(request, response);
     }
 }

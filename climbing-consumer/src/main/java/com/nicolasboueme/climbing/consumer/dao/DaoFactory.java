@@ -9,7 +9,7 @@ public class DaoFactory {
     private String username;
     private String password;
 
-    DaoFactory(String url, String username, String password) {
+    private DaoFactory(String url, String username, String password) {
         this.url = url;
         this.username = username;
         this.password = password;
@@ -22,9 +22,10 @@ public class DaoFactory {
 
         }
 
-        DaoFactory instance = new DaoFactory(
-                "jdbc:postgresql://localhost:5432/app_climbing", "admin_climbing", "Shangri_La");
-        return instance;
+        return new DaoFactory(
+                "jdbc:postgresql://localhost:5432/app_climbing",
+                "admin_climbing",
+                "Shangri_La");
     }
 
     public Connection getConnection() throws SQLException {

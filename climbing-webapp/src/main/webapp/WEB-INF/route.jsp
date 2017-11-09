@@ -24,7 +24,7 @@
         <tbody>
         <c:forEach var="route" items="${ routeList }">
             <tr>
-                <td><a href="${pageContext.request.contextPath}/climbing/route/item"><c:out value="${ route.name }" /></a></td>
+                <td><a href="${pageContext.request.contextPath}/climbing/route/item?id=${ route.publication_id }"><c:out value="${ route.name }" /></a></td>
                 <td><c:out value="${ route.height }" /></td>
                 <td><c:out value="${ route.points_number }" /></td>
                 <td><c:out value="${ route.quotation }" /></td>

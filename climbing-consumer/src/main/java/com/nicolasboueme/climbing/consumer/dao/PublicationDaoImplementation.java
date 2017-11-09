@@ -1,5 +1,6 @@
 package com.nicolasboueme.climbing.consumer.dao;
 
+import com.nicolasboueme.climbing.model.beans.Comment;
 import com.nicolasboueme.climbing.model.beans.Publication;
 
 import java.sql.*;
@@ -37,6 +38,10 @@ public class PublicationDaoImplementation implements PublicationDao {
 
         return publicationList;*/
 
+        return null;
+    }
+
+    public List<Comment> getCommentsFromPublication() {
         return null;
     }
 }

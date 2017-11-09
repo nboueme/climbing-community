@@ -21,7 +21,7 @@ public class TopoItem extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("topo", webappToConsumer.getTopoDao().getTopo());
+        request.setAttribute("topo", webappToConsumer.getTopoDao().getTopo(Integer.parseInt(request.getParameter("id"))));
         this.getServletContext().getRequestDispatcher("/WEB-INF/topo_item.jsp").forward(request, response);
     }
 }

@@ -21,7 +21,7 @@ public class Sector extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("sectorList", webappToConsumer.getSectorDao().listSector());
+        request.setAttribute("sectorList", webappToConsumer.getSectorDao().listSectorsFromParent(Integer.parseInt(request.getParameter("id"))));
         this.getServletContext().getRequestDispatcher("/WEB-INF/sector.jsp").forward(request, response);
     }
 }

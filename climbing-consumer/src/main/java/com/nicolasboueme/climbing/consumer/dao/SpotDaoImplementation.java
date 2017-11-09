@@ -2,10 +2,7 @@ package com.nicolasboueme.climbing.consumer.dao;
 
 import com.nicolasboueme.climbing.model.beans.Spot;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +13,7 @@ public class SpotDaoImplementation implements SpotDao {
         this.daoFactory = daoFactory;
     }
 
-    public List<Spot> listSpot() {
+    public List<Spot> listSpots() {
         List<Spot> spotList = new ArrayList<Spot>();
         Connection connection;
         Statement statement;
@@ -25,14 +22,16 @@ public class SpotDaoImplementation implements SpotDao {
         try {
             connection = daoFactory.getConnection();
             statement = connection.createStatement();
-            result = statement.executeQuery("SELECT publication.name, spot.height FROM publication, spot WHERE publication.id = spot.publication_id;");
+            result = statement.executeQuery("SELECT publication.name, spot.height, spot.publication_id FROM publication, spot WHERE publication.id = spot.publication_id;");
 
             while (result.next()) {
                 String name = result.getString("name");
                 int height = result.getInt("height");
+                int publicationId = result.getInt("publication_id");
                 Spot spot = new Spot();
                 spot.setName(name);
                 spot.setHeight(height);
+                spot.setPublication_id(publicationId);
                 spotList.add(spot);
             }
         } catch (SQLException e) {
@@ -40,31 +39,5 @@ public class SpotDaoImplementation implements SpotDao {
         }
 
         return spotList;
-    }
-
-    public Spot getSpot() {
-        Spot spot = new Spot();
-        Connection connection;
-        Statement statement;
-        ResultSet result;
-
-        try {
-            connection = daoFactory.getConnection();
-            statement = connection.createStatement();
-            result = statement.executeQuery("SELECT publication.name, spot.description, spot.height FROM publication, spot WHERE publication.id = spot.publication_id AND spot.publication_id = 2;");
-
-            while (result.next()) {
-                String name = result.getString("name");
-                String description = result.getString("description");
-                int height = result.getInt("height");
-                spot.setName(name);
-                spot.setHeight(height);
-                spot.setDescription(description);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return spot;
     }
 }

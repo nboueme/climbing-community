@@ -22,7 +22,7 @@
         <tbody>
         <c:forEach var="topo" items="${ topoList }">
             <tr>
-                <td><a href="${pageContext.request.contextPath}/topo/item"><c:out value="${ topo.name }" /></a></td>
+                <td><a href="${pageContext.request.contextPath}/topo/item?id=${ topo.publication_id }"><c:out value="${ topo.name }" /></a></td>
                 <td><c:out value="${ topo.description }" /></td>
             </tr>
         </c:forEach>
