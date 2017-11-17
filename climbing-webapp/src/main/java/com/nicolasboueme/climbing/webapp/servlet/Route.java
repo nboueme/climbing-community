@@ -1,6 +1,6 @@
-package com.nicolasboueme.climbing.webapp.servlets;
+package com.nicolasboueme.climbing.webapp.servlet;
 
-import com.nicolasboueme.climbing.business.TopoBusiness;
+import com.nicolasboueme.climbing.business.RouteBusiness;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class Topo extends HttpServlet {
-    private TopoBusiness webappToConsumer = new TopoBusiness();
+public class Route extends HttpServlet {
+    private RouteBusiness webappToConsumer = new RouteBusiness();
 
     @Override
     public void init() throws ServletException {
@@ -21,7 +21,7 @@ public class Topo extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("topoList", webappToConsumer.getTopoDao().listTopo());
-        this.getServletContext().getRequestDispatcher("/WEB-INF/topo.jsp").forward(request, response);
+        request.setAttribute("routeList", webappToConsumer.getRouteDao().listRoutesFromParent(Integer.parseInt(request.getParameter("id"))));
+        this.getServletContext().getRequestDispatcher("/WEB-INF/route.jsp").forward(request, response);
     }
 }

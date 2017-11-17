@@ -1,6 +1,6 @@
 package com.nicolasboueme.climbing.consumer.dao;
 
-import com.nicolasboueme.climbing.model.beans.Spot;
+import com.nicolasboueme.climbing.model.entity.Spot;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ public class SpotDaoImplementation implements SpotDao {
                 Spot spot = new Spot();
                 spot.setName(name);
                 spot.setHeight(height);
-                spot.setPublication_id(publicationId);
+                spot.setPublicationId(publicationId);
                 spotList.add(spot);
             }
         } catch (SQLException e) {

@@ -1,16 +1,16 @@
-package com.nicolasboueme.climbing.model.beans;
+package com.nicolasboueme.climbing.model.entity;
 
 public class Spot extends Publication {
-    private int publication_id;
+    private int publicationId;
     private String description;
     private int height;
 
-    public int getPublication_id() {
-        return publication_id;
+    public int getPublicationId() {
+        return publicationId;
     }
 
-    public void setPublication_id(int publication_id) {
-        this.publication_id = publication_id;
+    public void setPublicationId(int publicationId) {
+        this.publicationId = publicationId;
     }
 
     public String getDescription() {

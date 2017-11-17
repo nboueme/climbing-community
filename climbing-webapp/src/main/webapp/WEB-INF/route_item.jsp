@@ -10,7 +10,7 @@
 
 <div class="container">
     <h1>${ route.name }</h1>
-    <p>${ route.name } -> ${ route.height } mètres, ${ route.points_number } points, coté ${ route.quotation }</p>
+    <p>${ route.name } -> ${ route.height } mètres, ${ route.pointsNumber } points, coté ${ route.quotation }</p>
 </div>
 
 <%@ include file="_include/footer.jsp" %>

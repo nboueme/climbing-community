@@ -1,4 +1,4 @@
-package com.nicolasboueme.climbing.webapp.servlets;
+package com.nicolasboueme.climbing.webapp.servlet;
 
 import com.nicolasboueme.climbing.business.RouteBusiness;
 
@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class Route extends HttpServlet {
+public class RouteItem extends HttpServlet {
     private RouteBusiness webappToConsumer = new RouteBusiness();
 
     @Override
@@ -21,7 +21,7 @@ public class Route extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("routeList", webappToConsumer.getRouteDao().listRoutesFromParent(Integer.parseInt(request.getParameter("id"))));
-        this.getServletContext().getRequestDispatcher("/WEB-INF/route.jsp").forward(request, response);
+        request.setAttribute("route", webappToConsumer.getRouteDao().getRoute(Integer.parseInt(request.getParameter("id"))));
+        this.getServletContext().getRequestDispatcher("/WEB-INF/route_item.jsp").forward(request, response);
     }
 }

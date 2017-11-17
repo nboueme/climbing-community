@@ -28,7 +28,8 @@ AND sector.spot_id = ?;
 SELECT publication.name, route.height, route.points_number, route.quotation, route.publication_id
 FROM publication, route
 WHERE publication.id = route.publication_id
-AND route.sector_id = ?;
+AND route.sector_id = ?
+AND type_route = ?;
 ```
 
 ### getRoute

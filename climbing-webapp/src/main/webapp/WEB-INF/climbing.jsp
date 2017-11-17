@@ -22,7 +22,7 @@
         <tbody>
         <c:forEach var="spot" items="${ spotList }">
             <tr>
-                <td><a href="${pageContext.request.contextPath}/climbing/sector?id=${ spot.publication_id }"><c:out value="${ spot.name }" /></a></td>
+                <td><a href="${pageContext.request.contextPath}/climbing/sector?id=${ spot.publicationId }"><c:out value="${ spot.name }" /></a></td>
                 <td>?</td>
             </tr>
         </c:forEach>

@@ -22,7 +22,7 @@
         <tbody>
         <c:forEach var="sector" items="${ sectorList }">
             <tr>
-                <td><a href="${pageContext.request.contextPath}/climbing/route?id=${ sector.publication_id }"><c:out value="${ sector.name }" /></a></td>
+                <td><a href="${pageContext.request.contextPath}/climbing/route?id=${ sector.publicationId }"><c:out value="${ sector.name }" /></a></td>
                 <td><c:out value="${ sector.height == 0 ? 'hauteur inconnue' : sector.height }" /></td>
             </tr>
         </c:forEach>

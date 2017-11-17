@@ -1,6 +1,6 @@
 package com.nicolasboueme.climbing.consumer.dao;
 
-import com.nicolasboueme.climbing.model.beans.Topo;
+import com.nicolasboueme.climbing.model.entity.Topo;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package com.nicolasboueme.climbing.consumer.dao;
 
-import com.nicolasboueme.climbing.model.beans.Sector;
+import com.nicolasboueme.climbing.model.entity.Sector;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -32,7 +32,7 @@ public class SectorDaoImplementation implements SectorDao {
                 Sector sector = new Sector();
                 sector.setName(name);
                 sector.setHeight(height);
-                sector.setPublication_id(publicationId);
+                sector.setPublicationId(publicationId);
                 sectorList.add(sector);
             }
         } catch (SQLException e) {

@@ -1,6 +1,6 @@
 package com.nicolasboueme.climbing.consumer.dao;
 
-import com.nicolasboueme.climbing.model.beans.Topo;
+import com.nicolasboueme.climbing.model.entity.Topo;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ public class TopoDaoImplementation implements TopoDao {
                 Topo topo = new Topo();
                 topo.setName(name);
                 topo.setDescription(description);
-                topo.setPublication_id(publicationId);
+                topo.setPublicationId(publicationId);
                 topoList.add(topo);
             }
         } catch (SQLException e) {

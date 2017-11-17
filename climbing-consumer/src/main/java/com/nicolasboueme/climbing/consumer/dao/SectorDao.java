@@ -1,6 +1,6 @@
 package com.nicolasboueme.climbing.consumer.dao;
 
-import com.nicolasboueme.climbing.model.beans.Sector;
+import com.nicolasboueme.climbing.model.entity.Sector;
 
 import java.util.List;
 

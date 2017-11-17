@@ -1,6 +1,6 @@
 package com.nicolasboueme.climbing.consumer.dao;
 
-import com.nicolasboueme.climbing.model.beans.Route;
+import com.nicolasboueme.climbing.model.entity.Route;
 
 import java.util.List;
 

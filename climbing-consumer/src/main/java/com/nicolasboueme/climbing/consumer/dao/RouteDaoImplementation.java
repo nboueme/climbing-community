@@ -1,6 +1,6 @@
 package com.nicolasboueme.climbing.consumer.dao;
 
-import com.nicolasboueme.climbing.model.beans.Route;
+import com.nicolasboueme.climbing.model.entity.Route;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -21,8 +21,10 @@ public class RouteDaoImplementation implements RouteDao {
 
         try {
             connection = daoFactory.getConnection();
-            preparedStatement = connection.prepareStatement("SELECT publication.name, route.height, route.points_number, route.quotation, route.publication_id FROM publication, route WHERE publication.id = route.publication_id AND route.sector_id = ?;");
+            preparedStatement = connection.prepareStatement(
+                    "SELECT publication.name, route.height, route.points_number, route.quotation, route.publication_id FROM publication, route WHERE publication.id = route.publication_id AND route.sector_id = ? AND type_route = ?;");
             preparedStatement.setInt(1, sectorId);
+            preparedStatement.setString(2, "route");
             result = preparedStatement.executeQuery();
 
             while (result.next()) {
@@ -34,9 +36,9 @@ public class RouteDaoImplementation implements RouteDao {
                 Route route = new Route();
                 route.setName(name);
                 route.setHeight(height);
-                route.setPoints_number(pointsNumber);
+                route.setPointsNumber(pointsNumber);
                 route.setQuotation(quotation);
-                route.setPublication_id(publicationId);
+                route.setPublicationId(publicationId);
                 routeList.add(route);
             }
         } catch (SQLException e) {
@@ -65,7 +67,7 @@ public class RouteDaoImplementation implements RouteDao {
                 String quotation = result.getString("quotation");
                 route.setName(name);
                 route.setHeight(height);
-                route.setPoints_number(pointsNumber);
+                route.setPointsNumber(pointsNumber);
                 route.setQuotation(quotation);
             }
         } catch (SQLException e) {

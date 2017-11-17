@@ -1,10 +1,8 @@
 package com.nicolasboueme.climbing.consumer.dao;
 
-import com.nicolasboueme.climbing.model.beans.Comment;
-import com.nicolasboueme.climbing.model.beans.Publication;
+import com.nicolasboueme.climbing.model.entity.Comment;
+import com.nicolasboueme.climbing.model.entity.Publication;
 
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class PublicationDaoImplementation implements PublicationDao {

@@ -6,7 +6,7 @@
     
     <servlet>
         <servlet-name>Home</servlet-name>
-        <servlet-class>com.nicolasboueme.climbing.webapp.servlets.Home</servlet-class>
+        <servlet-class>com.nicolasboueme.climbing.webapp.servlet.Home</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Home</servlet-name>
@@ -15,7 +15,7 @@
 
     <servlet>
         <servlet-name>Climbing</servlet-name>
-        <servlet-class>com.nicolasboueme.climbing.webapp.servlets.Spot</servlet-class>
+        <servlet-class>com.nicolasboueme.climbing.webapp.servlet.Spot</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Climbing</servlet-name>
@@ -24,7 +24,7 @@
 
     <servlet>
         <servlet-name>Sector</servlet-name>
-        <servlet-class>com.nicolasboueme.climbing.webapp.servlets.Sector</servlet-class>
+        <servlet-class>com.nicolasboueme.climbing.webapp.servlet.Sector</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Sector</servlet-name>
@@ -33,7 +33,7 @@
 
     <servlet>
         <servlet-name>Route</servlet-name>
-        <servlet-class>com.nicolasboueme.climbing.webapp.servlets.Route</servlet-class>
+        <servlet-class>com.nicolasboueme.climbing.webapp.servlet.Route</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Route</servlet-name>
@@ -42,7 +42,7 @@
     
     <servlet>
         <servlet-name>RouteItem</servlet-name>
-        <servlet-class>com.nicolasboueme.climbing.webapp.servlets.RouteItem</servlet-class>
+        <servlet-class>com.nicolasboueme.climbing.webapp.servlet.RouteItem</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>RouteItem</servlet-name>
@@ -51,7 +51,7 @@
     
     <servlet>
         <servlet-name>Topo</servlet-name>
-        <servlet-class>com.nicolasboueme.climbing.webapp.servlets.Topo</servlet-class>
+        <servlet-class>com.nicolasboueme.climbing.webapp.servlet.Topo</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Topo</servlet-name>
@@ -60,7 +60,7 @@
 
     <servlet>
         <servlet-name>TopoItem</servlet-name>
-        <servlet-class>com.nicolasboueme.climbing.webapp.servlets.TopoItem</servlet-class>
+        <servlet-class>com.nicolasboueme.climbing.webapp.servlet.TopoItem</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>TopoItem</servlet-name>
@@ -69,7 +69,7 @@
     
     <servlet>
         <servlet-name>Search</servlet-name>
-        <servlet-class>com.nicolasboueme.climbing.webapp.servlets.Search</servlet-class>
+        <servlet-class>com.nicolasboueme.climbing.webapp.servlet.Search</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Search</servlet-name>

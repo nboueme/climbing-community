@@ -1,4 +1,4 @@
-package com.nicolasboueme.climbing.webapp.servlets;
+package com.nicolasboueme.climbing.webapp.servlet;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
