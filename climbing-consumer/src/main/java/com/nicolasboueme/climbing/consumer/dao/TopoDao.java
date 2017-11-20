@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface TopoDao {
     List<Topo> listTopo();
-    Topo getTopo(int publicationId);
+    Topo getTopo(int topoId);
 }

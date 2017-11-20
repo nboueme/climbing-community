@@ -27,15 +27,6 @@
         <servlet-name>DispatcherServlet</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
-    
-    <servlet>
-        <servlet-name>Search</servlet-name>
-        <servlet-class>com.nicolasboueme.climbing.webapp.controller.Search</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Search</servlet-name>
-        <url-pattern>/search</url-pattern>
-    </servlet-mapping>
 
     <!-- Je cache l'erreur à l'utilisateur par une page error404 -->
     <!--<error-page>

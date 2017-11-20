@@ -33,6 +33,7 @@ public class SectorDaoImplementation implements SectorDao {
                 sector.setName(name);
                 sector.setHeight(height);
                 sector.setPublicationId(publicationId);
+                sector.setSpotId(spotId);
                 sectorList.add(sector);
             }
         } catch (SQLException e) {

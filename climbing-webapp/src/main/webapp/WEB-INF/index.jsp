@@ -1,3 +1,4 @@
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -9,7 +10,7 @@
 <%@ include file="_include/header.jsp" %>
 
 <div class="container">
-    <h1>Accueil</h1>
+    <h1><spring:message code="menu.home"/></h1>
 </div>
 
 <%@ include file="_include/footer.jsp" %>

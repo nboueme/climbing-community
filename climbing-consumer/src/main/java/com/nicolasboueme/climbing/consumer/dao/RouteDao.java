@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface RouteDao {
     List<Route> listRoutesFromParent(int sectorId);
-    Route getRoute(int publicationId);
+    Route getRoute(int routeId);
 }

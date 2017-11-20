@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -12,18 +13,19 @@
 <div class="container">
     <h1>Recherche</h1>
 
-    <form method="post" action="search">
-        <label for="publication_name">Nom : </label>
-        <input type="text" name="publication_name" id="publication_name">
+    <form:form method="post" action="/search" modelAttribute="searchPublication">
+        <form:label path="name">Nom : </form:label>
+        <form:input path="name" />
 
         <input type="submit" />
-    </form>
+    </form:form>
 
-    <c:if test="${ !empty publication_name }">
+    <c:if test="${ !empty publicationName }">
         <ul>
             <c:forEach var="publication" items="${ publicationList }">
                 <li><c:out value="${ publication.name }" /></li>
             </c:forEach>
+            <li>TEST : ${ publicationName }</li>
         </ul>
     </c:if>
 </div>

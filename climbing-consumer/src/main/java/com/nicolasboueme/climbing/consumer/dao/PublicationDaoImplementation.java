@@ -3,6 +3,11 @@ package com.nicolasboueme.climbing.consumer.dao;
 import com.nicolasboueme.climbing.model.entity.Comment;
 import com.nicolasboueme.climbing.model.entity.Publication;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PublicationDaoImplementation implements PublicationDao {
@@ -15,7 +20,7 @@ public class PublicationDaoImplementation implements PublicationDao {
     public List<Publication> listPublication() {
         /*List<Publication> publicationList = new ArrayList<Publication>();
         Connection connection;
-        PreparedStatement preparedStatement = null;
+        PreparedStatement preparedStatement;
         ResultSet result;
 
         try {

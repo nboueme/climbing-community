@@ -48,7 +48,7 @@ public class RouteDaoImplementation implements RouteDao {
         return routeList;
     }
 
-    public Route getRoute(int publicationId) {
+    public Route getRoute(int routeId) {
         Route route = new Route();
         Connection connection;
         PreparedStatement preparedStatement;
@@ -57,7 +57,7 @@ public class RouteDaoImplementation implements RouteDao {
         try {
             connection = daoFactory.getConnection();
             preparedStatement = connection.prepareStatement("SELECT publication.name, route.height, route.points_number, route.quotation FROM publication, route WHERE publication.id = route.publication_id AND route.publication_id = ?;");
-            preparedStatement.setInt(1, publicationId);
+            preparedStatement.setInt(1, routeId);
             result = preparedStatement.executeQuery();
 
             while (result.next()) {

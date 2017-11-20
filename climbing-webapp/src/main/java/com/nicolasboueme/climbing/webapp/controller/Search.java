@@ -1,30 +1,29 @@
 package com.nicolasboueme.climbing.webapp.controller;
 
 import com.nicolasboueme.climbing.business.manager.SearchManager;
+import com.nicolasboueme.climbing.model.entity.Publication;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-
-public class Search extends HttpServlet {
+@Controller
+public class Search {
     private SearchManager webappToConsumer = new SearchManager();
 
-    @Override
-    public void init() {
+    @GetMapping("/search")
+    public String searchForm(Model model) {
+        //model.addAttribute("searchPublication", new Publication());
+        return "search";
+    }
+
+    @PostMapping("/search")
+    public String listPublication(@ModelAttribute("searchPublication") Publication publication, ModelMap modelMap) {
         webappToConsumer.initDao();
-    }
-
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String publicationName = request.getParameter("publication_name");
-        request.setAttribute("publication_name", publicationName);
-        request.setAttribute("publicationList", webappToConsumer.getPublicationDao().listPublication());
-
-        this.getServletContext().getRequestDispatcher("/WEB-INF/search.jsp").forward(request, response);
-    }
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        this.getServletContext().getRequestDispatcher("/WEB-INF/search.jsp").forward(request, response);
+        modelMap.addAttribute("publicationName", publication.getName());
+        modelMap.addAttribute("publicationList", webappToConsumer.getPublicationDao().listPublication());
+        return "search";
     }
 }

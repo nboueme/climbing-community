@@ -41,7 +41,7 @@ public class TopoDaoImplementation implements TopoDao {
         return topoList;
     }
 
-    public Topo getTopo(int publicationId) {
+    public Topo getTopo(int topoId) {
         Topo topo = new Topo();
         Connection connection;
         PreparedStatement preparedStatement;
@@ -50,7 +50,7 @@ public class TopoDaoImplementation implements TopoDao {
         try {
             connection = daoFactory.getConnection();
             preparedStatement = connection.prepareStatement("SELECT publication.name, topo.description FROM publication, topo WHERE publication.id = topo.publication_id AND topo.publication_id = ?;");
-            preparedStatement.setInt(1, publicationId);
+            preparedStatement.setInt(1, topoId);
             result = preparedStatement.executeQuery();
 
             while (result.next()) {
