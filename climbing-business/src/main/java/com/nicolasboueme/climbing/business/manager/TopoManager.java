@@ -1,9 +1,9 @@
-package com.nicolasboueme.climbing.business;
+package com.nicolasboueme.climbing.business.manager;
 
 import com.nicolasboueme.climbing.consumer.dao.DaoFactory;
 import com.nicolasboueme.climbing.consumer.dao.TopoDao;
 
-public class TopoBusiness {
+public class TopoManager {
     private TopoDao topoDao;
 
     public void initDao() {

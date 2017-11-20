@@ -1,9 +1,9 @@
-package com.nicolasboueme.climbing.business;
+package com.nicolasboueme.climbing.business.manager;
 
 import com.nicolasboueme.climbing.consumer.dao.DaoFactory;
 import com.nicolasboueme.climbing.consumer.dao.RouteDao;
 
-public class RouteBusiness {
+public class RouteManager {
     private RouteDao routeDao;
 
     public void initDao() {

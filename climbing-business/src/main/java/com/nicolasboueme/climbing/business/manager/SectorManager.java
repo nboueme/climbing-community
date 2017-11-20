@@ -1,9 +1,9 @@
-package com.nicolasboueme.climbing.business;
+package com.nicolasboueme.climbing.business.manager;
 
 import com.nicolasboueme.climbing.consumer.dao.DaoFactory;
 import com.nicolasboueme.climbing.consumer.dao.SectorDao;
 
-public class SectorBusiness {
+public class SectorManager {
     private SectorDao sectorDao;
 
     public void initDao() {

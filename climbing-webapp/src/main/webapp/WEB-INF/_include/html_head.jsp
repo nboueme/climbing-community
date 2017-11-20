@@ -1,3 +1,4 @@
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -6,4 +7,6 @@
       href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
       integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
       crossorigin="anonymous">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/style/custom.css?<%=System.currentTimeMillis()%>" />
+
+<spring:url value="/resources/style/custom.css" var="custom" />
+<link rel="stylesheet" href="${custom}?cache=<%=System.currentTimeMillis()%>" />

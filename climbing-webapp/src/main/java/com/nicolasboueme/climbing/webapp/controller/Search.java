@@ -1,6 +1,6 @@
-package com.nicolasboueme.climbing.webapp.servlet;
+package com.nicolasboueme.climbing.webapp.controller;
 
-import com.nicolasboueme.climbing.business.SearchBusiness;
+import com.nicolasboueme.climbing.business.manager.SearchManager;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class Search extends HttpServlet {
-    private SearchBusiness webappToConsumer = new SearchBusiness();
+    private SearchManager webappToConsumer = new SearchManager();
 
     @Override
     public void init() {

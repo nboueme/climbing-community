@@ -1,9 +1,9 @@
-package com.nicolasboueme.climbing.business;
+package com.nicolasboueme.climbing.business.manager;
 
 import com.nicolasboueme.climbing.consumer.dao.DaoFactory;
 import com.nicolasboueme.climbing.consumer.dao.SpotDao;
 
-public class SpotBusiness {
+public class SpotManager {
     private SpotDao spotDao;
 
     public void initDao() {
