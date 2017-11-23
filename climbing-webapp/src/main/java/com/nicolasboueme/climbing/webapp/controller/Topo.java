@@ -1,20 +1,18 @@
 package com.nicolasboueme.climbing.webapp.controller;
 
-import com.nicolasboueme.climbing.business.manager.TopoManager;
+import com.nicolasboueme.climbing.business.contract.manager.TopoManager;
+import com.nicolasboueme.climbing.webapp.resource.AbstractResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-@RequestMapping("/topo")
-public class Topo {
-    private TopoManager webappToConsumer = new TopoManager();
+public class Topo extends AbstractResource {
+    private TopoManager webappToConsumer = getManagerFactory().getTopoManager();
 
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping("/topo")
     public String listTopo(final ModelMap modelMap) {
-        webappToConsumer.initDao();
-        modelMap.addAttribute("topoList", webappToConsumer.getTopoDao().listTopo());
+        modelMap.addAttribute("topoList", webappToConsumer.listTopo());
         return "topo";
     }
 }

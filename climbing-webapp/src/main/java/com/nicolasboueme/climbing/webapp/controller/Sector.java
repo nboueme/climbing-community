@@ -1,21 +1,19 @@
 package com.nicolasboueme.climbing.webapp.controller;
 
-import com.nicolasboueme.climbing.business.manager.SectorManager;
+import com.nicolasboueme.climbing.business.contract.manager.SectorManager;
+import com.nicolasboueme.climbing.webapp.resource.AbstractResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping("/climbing/{spotId}")
-public class Sector {
-    private SectorManager webappToConsumer = new SectorManager();
+public class Sector extends AbstractResource {
+    private SectorManager webappToConsumer = getManagerFactory().getSectorManager();
 
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping("/climbing/{spotId}")
     public String listSectorsFromParent(final ModelMap modelMap, @PathVariable("spotId") final String spotId) {
-        webappToConsumer.initDao();
-        modelMap.addAttribute("sectorList", webappToConsumer.getSectorDao().listSectorsFromParent(Integer.parseInt(spotId)));
+        modelMap.addAttribute("sectorList", webappToConsumer.listSectorsFromParent(Integer.parseInt(spotId)));
         return "sector";
     }
 }

@@ -113,10 +113,24 @@
                 <artifactId>jstl</artifactId>
                 <version>1.2</version>
             </dependency>
+            <!-- PostgreSQL JDBC driver -->
             <dependency>
                 <groupId>org.postgresql</groupId>
                 <artifactId>postgresql</artifactId>
-                <version>42.1.4.jre7</version>
+                <version>9.4.1212</version>
+                <scope>runtime</scope>
+            </dependency>
+            <!-- JSR-250 -->
+            <dependency>
+                <groupId>javax.annotation</groupId>
+                <artifactId>javax.annotation-api</artifactId>
+                <version>1.2</version>
+            </dependency>
+            <!-- JSR-330 -->
+            <dependency>
+                <groupId>javax.inject</groupId>
+                <artifactId>javax.inject</artifactId>
+                <version>1</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

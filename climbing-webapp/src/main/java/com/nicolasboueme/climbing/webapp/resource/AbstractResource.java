@@ -1,16 +1,16 @@
 package com.nicolasboueme.climbing.webapp.resource;
 
-import com.nicolasboueme.climbing.business.ManagerFactory;
+import com.nicolasboueme.climbing.business.impl.ManagerFactoryImpl;
 
 public abstract class AbstractResource {
 
-    private static ManagerFactory managerFactory;
+    private static ManagerFactoryImpl managerFactory;
 
-    static ManagerFactory getManagerFactory() {
+    protected static ManagerFactoryImpl getManagerFactory() {
         return managerFactory;
     }
 
-    public static void setManagerFactory(ManagerFactory managerFactory) {
+    public static void setManagerFactory(ManagerFactoryImpl managerFactory) {
         AbstractResource.managerFactory = managerFactory;
     }
 }

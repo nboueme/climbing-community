@@ -10,7 +10,7 @@
 
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>/WEB-INF/dispatcher_servlet.xml</param-value>
+        <param-value>classpath:/bootstrapContext.xml</param-value>
     </context-param>
 
     <!-- Declaration of the Spring servlet and its mapping -->
@@ -19,7 +19,7 @@
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <init-param>
             <param-name>contextConfigLocation</param-name>
-            <param-value>/WEB-INF/dispatcher_servlet.xml</param-value>
+            <param-value>classpath:/dispatcherServlet.xml</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
@@ -27,6 +27,12 @@
         <servlet-name>DispatcherServlet</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
+
+    <resource-ref>
+        <res-ref-name>jdbc/DB_CLIMBING</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+    </resource-ref>
 
     <!-- Je cache l'erreur à l'utilisateur par une page error404 -->
     <!--<error-page>

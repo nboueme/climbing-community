@@ -1,20 +1,18 @@
 package com.nicolasboueme.climbing.webapp.controller;
 
-import com.nicolasboueme.climbing.business.manager.SpotManager;
+import com.nicolasboueme.climbing.business.contract.manager.SpotManager;
+import com.nicolasboueme.climbing.webapp.resource.AbstractResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-@RequestMapping("/climbing")
-public class Spot {
-    private SpotManager webappToConsumer = new SpotManager();
+public class Spot extends AbstractResource {
+    private SpotManager webappToConsumer = getManagerFactory().getSpotManager();
 
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping("/climbing")
     public String listSpots(final ModelMap modelMap) {
-        webappToConsumer.initDao();
-        modelMap.addAttribute("spotList", webappToConsumer.getSpotDao().listSpots());
+        modelMap.addAttribute("spotList", webappToConsumer.listSpots());
         return "climbing";
     }
 }

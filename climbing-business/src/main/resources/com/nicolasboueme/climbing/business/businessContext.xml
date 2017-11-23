@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+            http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- Takes into account the configuration of the injections (@Inject...) -->
+    <context:annotation-config/>
+
+    <!-- Scans packages to find the beans which declare themselves (@Named...) -->
+    <context:component-scan base-package="com.nicolasboueme.climbing.business"/>
+
+    <!-- ===== Managers declaration ===== -->
+    <bean id="spotManager" class="com.nicolasboueme.climbing.business.impl.manager.SpotManagerImpl"/>
+    <bean id="sectorManager" class="com.nicolasboueme.climbing.business.impl.manager.SectorManagerImpl"/>
+    <bean id="routeManager" class="com.nicolasboueme.climbing.business.impl.manager.RouteManagerImpl"/>
+    <bean id="topoManager" class="com.nicolasboueme.climbing.business.impl.manager.TopoManagerImpl"/>
+    <bean id="searchManager" class="com.nicolasboueme.climbing.business.impl.manager.SearchManagerImpl"/>
+
+    <!-- ===== ManagerFactory ===== -->
+    <bean id="managerFactory" class="com.nicolasboueme.climbing.business.impl.ManagerFactoryImpl">
+        <property name="spotManager" ref="spotManager"/>
+        <property name="sectorManager" ref="sectorManager"/>
+        <property name="routeManager" ref="routeManager"/>
+        <property name="topoManager" ref="topoManager"/>
+        <property name="searchManager" ref="searchManager"/>
+    </bean>
+</beans>
