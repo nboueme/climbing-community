@@ -3,7 +3,6 @@ package com.nicolasboueme.climbing.consumer.impl.dao;
 import com.nicolasboueme.climbing.consumer.contract.dao.PublicationDao;
 import com.nicolasboueme.climbing.model.entity.Comment;
 import com.nicolasboueme.climbing.model.entity.Publication;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
@@ -14,7 +13,6 @@ public class PublicationDaoImpl extends AbstractDaoImpl implements PublicationDa
 
     public List<Publication> listPublication() {
         /*String sql = "SELECT publication.name FROM publication WHERE publication.name LIKE ?;";
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
 
         RowMapper<Publication> rowMapper = new RowMapper<Publication>() {
             public Publication mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -24,7 +22,7 @@ public class PublicationDaoImpl extends AbstractDaoImpl implements PublicationDa
             }
         };
 
-        return jdbcTemplate.query(sql, rowMapper, "%c%");*/
+        return getJdbcTemplate().query(sql, rowMapper, "%c%");*/
 
         return null;
     }
