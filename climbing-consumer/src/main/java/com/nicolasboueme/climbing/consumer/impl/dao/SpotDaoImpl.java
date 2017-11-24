@@ -5,12 +5,10 @@ import com.nicolasboueme.climbing.model.entity.Spot;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
-import javax.inject.Named;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-@Named
 public class SpotDaoImpl extends AbstractDaoImpl implements SpotDao {
 
     public List<Spot> listSpots() {

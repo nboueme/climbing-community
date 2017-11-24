@@ -1,16 +1,16 @@
 package com.nicolasboueme.climbing.consumer.impl.dao;
 
-import javax.inject.Inject;
-import javax.inject.Named;
 import javax.sql.DataSource;
 
 public abstract class AbstractDaoImpl {
 
-    @Inject
-    @Named("dataSourceClimbing")
-    private DataSource dataSource;
+    private static DataSource dataSource;
 
-    protected DataSource getDataSource() {
+    protected static DataSource getDataSource() {
         return dataSource;
+    }
+
+    public static void setDataSource(DataSource dataSource) {
+        AbstractDaoImpl.dataSource = dataSource;
     }
 }

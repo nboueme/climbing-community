@@ -6,12 +6,10 @@ import com.nicolasboueme.climbing.model.entity.Publication;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
-import javax.inject.Named;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-@Named
 public class PublicationDaoImpl extends AbstractDaoImpl implements PublicationDao {
 
     public List<Publication> listPublication() {

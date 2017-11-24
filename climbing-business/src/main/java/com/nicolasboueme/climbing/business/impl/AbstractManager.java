@@ -2,13 +2,15 @@ package com.nicolasboueme.climbing.business.impl;
 
 import com.nicolasboueme.climbing.consumer.impl.DaoFactoryImpl;
 
-import javax.inject.Inject;
-
 public abstract class AbstractManager {
 
-    @Inject
-    private DaoFactoryImpl daoFactory;
-    protected DaoFactoryImpl getDaoFactory() {
+    private static DaoFactoryImpl daoFactory;
+
+    protected static DaoFactoryImpl getDaoFactory() {
         return daoFactory;
+    }
+
+    public static void setDaoFactory(DaoFactoryImpl daoFactory) {
+        AbstractManager.daoFactory = daoFactory;
     }
 }

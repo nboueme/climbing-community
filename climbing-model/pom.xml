@@ -26,9 +26,5 @@
     <!-- =============================================================== -->
     <dependencies>
         <!-- ===== Third-party libraries ===== -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-        </dependency>
     </dependencies>
 </project>
