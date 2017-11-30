@@ -37,6 +37,14 @@ public class DaoFactoryImpl implements DaoFactory {
         this.topoDao = topoDao;
     }
 
+    private UserDao userDao;
+    public UserDao getUserDao() {
+        return userDao;
+    }
+    public void setUserDao(UserDao userDao) {
+        this.userDao = userDao;
+    }
+
     private PublicationDao publicationDao;
     public PublicationDao getPublicationDao() {
         return publicationDao;

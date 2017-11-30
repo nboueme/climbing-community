@@ -10,6 +10,7 @@
     <bean id="sectorDao" class="com.nicolasboueme.climbing.consumer.impl.dao.SectorDaoImpl"/>
     <bean id="routeDao" class="com.nicolasboueme.climbing.consumer.impl.dao.RouteDaoImpl"/>
     <bean id="topoDao" class="com.nicolasboueme.climbing.consumer.impl.dao.TopoDaoImpl"/>
+    <bean id="userDao" class="com.nicolasboueme.climbing.consumer.impl.dao.UserDaoImpl"/>
     <bean id="publicationDao" class="com.nicolasboueme.climbing.consumer.impl.dao.PublicationDaoImpl"/>
 
     <!-- ===== DaoFactory ===== -->
@@ -18,6 +19,7 @@
         <property name="sectorDao" ref="sectorDao"/>
         <property name="routeDao" ref="routeDao"/>
         <property name="topoDao" ref="topoDao"/>
+        <property name="userDao" ref="userDao"/>
         <property name="publicationDao" ref="publicationDao"/>
     </bean>
 

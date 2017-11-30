@@ -8,7 +8,7 @@
               driverClassName="org.postgresql.Driver"
               username="admin_climbing"
               password="Shangri_La"
-              defaultAutoCommit="false"
+              defaultAutoCommit="true"
               defaultTransactionIsolation="READ_COMMITTED"
 
               initialSize="1"

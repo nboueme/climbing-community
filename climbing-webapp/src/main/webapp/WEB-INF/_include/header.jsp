@@ -16,8 +16,17 @@
                 <li><a href="${pageContext.request.contextPath}/climbing">Sites</a></li>
                 <li><a href="${pageContext.request.contextPath}/topo">Topo</a></li>
                 <li><a href="${pageContext.request.contextPath}/search">Recherche</a></li>
-                <li><a href="#">Créer un compte</a></li>
-                <li><a href="#">S’identifier</a></li>
+                <c:choose>
+                    <c:when test="${ empty sessionScope.user }">
+                        <li><a href="${pageContext.request.contextPath}/inscription">Créer un compte</a></li>
+                        <li><a href="${pageContext.request.contextPath}/login">S’identifier</a></li>
+                    </c:when>
+                    <c:otherwise>
+                        <li><a href="${pageContext.request.contextPath}/logout">Se déconnecter</a></li>
+                        <li>Bonjour ${ sessionScope.user.pseudo }</li>
+                    </c:otherwise>
+                </c:choose>
+
             </ul>
         </div>
 

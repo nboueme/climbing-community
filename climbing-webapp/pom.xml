@@ -80,7 +80,8 @@
                             <filtering>true</filtering>
                             <directory>src/main/webapp</directory>
                             <includes>
-                                <include>WEB-INF/**.jsp</include>
+                                <include>WEB-INF/*.jsp</include>
+                                <include>WEB-INF/*/*.jsp</include>
                             </includes>
                         </resource>
                     </webResources>

@@ -1,11 +1,7 @@
 package com.nicolasboueme.climbing.business.impl;
 
 import com.nicolasboueme.climbing.business.contract.ManagerFactory;
-import com.nicolasboueme.climbing.business.contract.manager.RouteManager;
-import com.nicolasboueme.climbing.business.contract.manager.SearchManager;
-import com.nicolasboueme.climbing.business.contract.manager.SectorManager;
-import com.nicolasboueme.climbing.business.contract.manager.SpotManager;
-import com.nicolasboueme.climbing.business.contract.manager.TopoManager;
+import com.nicolasboueme.climbing.business.contract.manager.*;
 
 public class ManagerFactoryImpl implements ManagerFactory {
 
@@ -47,5 +43,13 @@ public class ManagerFactoryImpl implements ManagerFactory {
     }
     public void setSearchManager(SearchManager searchManager) {
         this.searchManager = searchManager;
+    }
+
+    private UserManager userManager;
+    public UserManager getUserManager() {
+        return this.userManager;
+    }
+    public void setUserManager(UserManager userManager) {
+        this.userManager = userManager;
     }
 }
