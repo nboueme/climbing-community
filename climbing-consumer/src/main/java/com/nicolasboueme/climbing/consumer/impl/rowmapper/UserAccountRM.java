@@ -9,14 +9,18 @@ import java.sql.SQLException;
 public class UserAccountRM implements RowMapper<UserAccount> {
     public UserAccount mapRow(ResultSet rs, int rowNum) throws SQLException {
         UserAccount user = new UserAccount();
-        user.setId(rs.getInt("id"));
-        user.setPseudo(rs.getString("pseudo"));
-        user.setEmail(rs.getString("email"));
-        user.setPassword(rs.getString("password"));
-        user.setImageUrl("image_url");
-        user.setRole(rs.getString("role"));
-        user.setCreatedAt(rs.getTimestamp("created_at"));
-        user.setUpdatedAt(rs.getTimestamp("updated_at"));
+
+        for (int i = 1; i <= rs.getMetaData().getColumnCount(); i++) {
+            if (rs.getMetaData().getColumnName(i).equals("id")) user.setId(rs.getInt("id"));
+            else if (rs.getMetaData().getColumnName(i).equals("pseudo")) user.setPseudo(rs.getString("pseudo"));
+            else if (rs.getMetaData().getColumnName(i).equals("email")) user.setEmail(rs.getString("email"));
+            else if (rs.getMetaData().getColumnName(i).equals("password")) user.setPassword(rs.getString("password"));
+            else if (rs.getMetaData().getColumnName(i).equals("image_url")) user.setImageUrl(rs.getString("image_url"));
+            else if (rs.getMetaData().getColumnName(i).equals("role")) user.setRole(rs.getString("role"));
+            else if (rs.getMetaData().getColumnName(i).equals("created_at")) user.setCreatedAt(rs.getTimestamp("created_at"));
+            else if (rs.getMetaData().getColumnName(i).equals("updated_at")) user.setUpdatedAt(rs.getTimestamp("updated_at"));
+        }
+
         return user;
     }
 }

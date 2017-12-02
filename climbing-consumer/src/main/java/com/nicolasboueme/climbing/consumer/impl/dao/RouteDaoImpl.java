@@ -34,4 +34,16 @@ public class RouteDaoImpl extends AbstractDaoImpl implements RouteDao {
         return getNamedParameterJdbcTemplate().queryForObject(sql, args, rowMapper);
     }
 
+    public List<Route> listLengthsFromRoute(int routeId) {
+        String sql = "SELECT publication.name, route.height, route.points_number, route.quotation, route.publication_id FROM publication, route WHERE publication.id = route.publication_id AND route.parent_publication_id = :route_id AND type_route = :type_route;";
+
+        MapSqlParameterSource args = new MapSqlParameterSource();
+        args.addValue("route_id", routeId, Types.INTEGER);
+        args.addValue("type_route", "length", Types.VARCHAR);
+
+        RowMapper<Route> rowMapper = new RouteRM();
+
+        return getNamedParameterJdbcTemplate().query(sql, args, rowMapper);
+    }
+
 }

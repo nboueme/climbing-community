@@ -1,6 +1,6 @@
 package com.nicolasboueme.climbing.webapp.controller;
 
-import com.nicolasboueme.climbing.business.contract.manager.SearchManager;
+import com.nicolasboueme.climbing.business.contract.manager.PublicationManager;
 import com.nicolasboueme.climbing.model.entity.Publication;
 import com.nicolasboueme.climbing.webapp.resource.AbstractResource;
 import org.springframework.stereotype.Controller;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class Search extends AbstractResource {
-    private SearchManager webappToConsumer = getManagerFactory().getSearchManager();
+    private PublicationManager webappToConsumer = getManagerFactory().getPublicationManager();
 
     @GetMapping("/search")
     public String searchForm(Model model) {

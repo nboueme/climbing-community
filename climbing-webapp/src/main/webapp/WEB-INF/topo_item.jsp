@@ -11,6 +11,8 @@
 <div class="container">
     <h1>${ topo.name }</h1>
     <p>${ topo.description }</p>
+
+    <%@include file="_include/comments.jsp"%>
 </div>
 
 <%@ include file="_include/footer.jsp" %>

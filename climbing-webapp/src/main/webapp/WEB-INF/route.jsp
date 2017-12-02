@@ -31,6 +31,8 @@
         </c:forEach>
         </tbody>
     </table>
+
+    <%@include file="_include/comments.jsp"%>
 </div>
 
 <%@ include file="_include/footer.jsp" %>

@@ -37,12 +37,12 @@ public class ManagerFactoryImpl implements ManagerFactory {
         this.topoManager = topoManager;
     }
 
-    private SearchManager searchManager;
-    public SearchManager getSearchManager() {
-        return this.searchManager;
+    private PublicationManager publicationManager;
+    public PublicationManager getPublicationManager() {
+        return publicationManager;
     }
-    public void setSearchManager(SearchManager searchManager) {
-        this.searchManager = searchManager;
+    public void setPublicationManager(PublicationManager publicationManager) {
+        this.publicationManager = publicationManager;
     }
 
     private UserManager userManager;

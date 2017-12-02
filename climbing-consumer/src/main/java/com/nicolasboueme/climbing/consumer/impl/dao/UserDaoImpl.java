@@ -14,7 +14,7 @@ import java.sql.Types;
 public class UserDaoImpl extends AbstractDaoImpl implements UserDao {
 
     public UserAccount userLogin(String login, String password) {
-        String sql = "SELECT * FROM user_account WHERE email = :user_login OR pseudo = :user_login;";
+        String sql = "SELECT id, pseudo, email, password, role FROM user_account WHERE email = :user_login OR pseudo = :user_login;";
 
         MapSqlParameterSource args = new MapSqlParameterSource();
         args.addValue("user_login", login, Types.VARCHAR);

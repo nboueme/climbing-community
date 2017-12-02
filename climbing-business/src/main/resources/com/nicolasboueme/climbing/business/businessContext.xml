@@ -11,7 +11,7 @@
     <bean id="routeManager" class="com.nicolasboueme.climbing.business.impl.manager.RouteManagerImpl"/>
     <bean id="topoManager" class="com.nicolasboueme.climbing.business.impl.manager.TopoManagerImpl"/>
     <bean id="userManager" class="com.nicolasboueme.climbing.business.impl.manager.UserManagerImpl"/>
-    <bean id="searchManager" class="com.nicolasboueme.climbing.business.impl.manager.SearchManagerImpl"/>
+    <bean id="publicationManager" class="com.nicolasboueme.climbing.business.impl.manager.PublicationManagerImpl"/>
 
     <!-- ===== ManagerFactory ===== -->
     <bean id="managerFactory" class="com.nicolasboueme.climbing.business.impl.ManagerFactoryImpl">
@@ -20,7 +20,7 @@
         <property name="routeManager" ref="routeManager"/>
         <property name="topoManager" ref="topoManager"/>
         <property name="userManager" ref="userManager"/>
-        <property name="searchManager" ref="searchManager"/>
+        <property name="publicationManager" ref="publicationManager"/>
     </bean>
 
     <!-- ==== AbstractManager ===== -->

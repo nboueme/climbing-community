@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface PublicationDao {
     List<Publication>  listPublication();
-    List<Comment> getCommentsFromPublication();
+    List<Comment> getParentsComments(int publicationId);
+    List<Comment> getChildrenComments(int publicationId);
 }

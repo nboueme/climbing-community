@@ -2,7 +2,7 @@ package com.nicolasboueme.climbing.business.contract;
 
 import com.nicolasboueme.climbing.business.contract.manager.SpotManager;
 import com.nicolasboueme.climbing.business.contract.manager.RouteManager;
-import com.nicolasboueme.climbing.business.contract.manager.SearchManager;
+import com.nicolasboueme.climbing.business.contract.manager.PublicationManager;
 import com.nicolasboueme.climbing.business.contract.manager.SectorManager;
 import com.nicolasboueme.climbing.business.contract.manager.TopoManager;
 
@@ -19,6 +19,6 @@ public interface ManagerFactory {
     TopoManager getTopoManager();
     void setTopoManager(TopoManager topoManager);
 
-    SearchManager getSearchManager();
-    void setSearchManager(SearchManager searchManager);
+    PublicationManager getPublicationManager();
+    void setPublicationManager(PublicationManager searchManager);
 }

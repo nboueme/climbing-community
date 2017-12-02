@@ -8,4 +8,6 @@ public interface RouteManager {
     List<Route> listRoutesFromParent(int sectorId);
 
     Route getRoute(int routeId);
+
+    List<Route> listLengthsFromRoute(int routeId);
 }

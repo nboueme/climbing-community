@@ -1,5 +1,6 @@
 package com.nicolasboueme.climbing.model.entity;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Comment {
@@ -10,6 +11,10 @@ public class Comment {
     private Date createdAt;
     private Date updatedAt;
     private String content;
+    private String typeComment;
+
+    private UserAccount author;
+    private Publication publication;
 
     public int getId() {
         return id;
@@ -43,16 +48,16 @@ public class Comment {
         this.parentId = parentId;
     }
 
-    public Date getCreatedAt() {
-        return createdAt;
+    public String getCreatedAt() {
+        return new SimpleDateFormat("dd/MM/yyyy - hh:mm:ss").format(createdAt);
     }
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Date getUpdatedAt() {
-        return updatedAt;
+    public String getUpdatedAt() {
+        return new SimpleDateFormat("dd/MM/yyyy - hh:mm:ss").format(updatedAt);
     }
 
     public void setUpdatedAt(Date updatedAt) {
@@ -65,5 +70,29 @@ public class Comment {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getTypeComment() {
+        return typeComment;
+    }
+
+    public void setTypeComment(String typeComment) {
+        this.typeComment = typeComment;
+    }
+
+    public UserAccount getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(UserAccount author) {
+        this.author = author;
+    }
+
+    public Publication getPublication() {
+        return publication;
+    }
+
+    public void setPublication(Publication publication) {
+        this.publication = publication;
     }
 }

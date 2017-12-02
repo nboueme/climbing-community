@@ -7,4 +7,5 @@ import java.util.List;
 public interface RouteDao {
     List<Route> listRoutesFromParent(int sectorId);
     Route getRoute(int routeId);
+    List<Route> listLengthsFromRoute(int routeId);
 }
