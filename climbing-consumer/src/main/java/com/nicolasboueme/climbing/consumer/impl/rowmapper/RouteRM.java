@@ -10,10 +10,10 @@ public class RouteRM implements RowMapper<Route> {
     public Route mapRow(ResultSet rs, int rowNum) throws SQLException {
         Route route = new Route();
         route.setName(rs.getString("name"));
-        route.setHeight(rs.getInt("height"));
-        route.setPointsNumber(rs.getInt("points_number"));
-        route.setQuotation(rs.getString("quotation"));
         route.setPublicationId(rs.getInt("publication_id"));
+        route.setHeight(rs.getInt("height"));
+        route.setQuotation(rs.getString("quotation"));
+        route.setPointsNumber(rs.getInt("points_number"));
         return route;
     }
 }

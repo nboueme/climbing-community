@@ -12,7 +12,7 @@ import java.util.List;
 public class SectorDaoImpl extends AbstractDaoImpl implements SectorDao {
 
     public List<Sector> listSectorsFromParent(int spotId) {
-        String sql = "SELECT publication.name, sector.height, sector.publication_id FROM publication, sector WHERE publication.id = sector.publication_id AND sector.spot_id = :spot_id;";
+        String sql = "SELECT publication.name, sector.publication_id, sector.spot_id, sector.height FROM publication, sector WHERE publication.id = sector.publication_id AND sector.spot_id = :spot_id;";
 
         MapSqlParameterSource args = new MapSqlParameterSource();
         args.addValue("spot_id", spotId, Types.INTEGER);

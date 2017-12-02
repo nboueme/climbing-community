@@ -10,8 +10,9 @@ public class SectorRM implements RowMapper<Sector> {
     public Sector mapRow(ResultSet rs, int rowNum) throws SQLException {
         Sector sector = new Sector();
         sector.setName(rs.getString("name"));
-        sector.setHeight(rs.getInt("height"));
         sector.setPublicationId(rs.getInt("publication_id"));
+        sector.setSpotId(rs.getInt("spot_id"));
+        sector.setHeight(rs.getInt("height"));
         return sector;
     }
 }

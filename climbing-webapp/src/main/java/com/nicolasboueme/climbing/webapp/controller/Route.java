@@ -14,7 +14,7 @@ public class Route extends AbstractResource {
     private PublicationManager comments = getManagerFactory().getPublicationManager();
 
     @GetMapping("/climbing/{spotId}/sector/{routeId}")
-    public String listRoutesFromParent(final ModelMap modelMap, @PathVariable("spotId") final String spotId, @PathVariable("routeId") final String routeId) {
+    public String listRoutesFromParent(final ModelMap modelMap, @PathVariable String spotId, @PathVariable String routeId) {
         modelMap.addAttribute("spotId", spotId);
         modelMap.addAttribute("routeList", webappToConsumer.listRoutesFromParent(Integer.parseInt(routeId)));
         modelMap.addAttribute("parentsComments", comments.getParentsComments(Integer.parseInt(routeId)));
@@ -23,8 +23,7 @@ public class Route extends AbstractResource {
     }
 
     @GetMapping("/climbing/{spotId}/route/{routeId}")
-    public String getRoute(final ModelMap modelMap, @PathVariable("spotId") final String spotId, @PathVariable("routeId") final String routeId) {
-        modelMap.addAttribute("spotId", spotId);
+    public String getRoute(final ModelMap modelMap, @PathVariable String spotId, @PathVariable String routeId) {
         modelMap.addAttribute("route", webappToConsumer.getRoute(Integer.parseInt(routeId)));
         modelMap.addAttribute("listLength", webappToConsumer.listLengthsFromRoute(Integer.parseInt(routeId)));
         modelMap.addAttribute("parentsComments", comments.getParentsComments(Integer.parseInt(routeId)));

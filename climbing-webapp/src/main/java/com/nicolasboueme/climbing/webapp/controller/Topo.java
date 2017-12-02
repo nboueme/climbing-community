@@ -20,7 +20,7 @@ public class Topo extends AbstractResource {
     }
 
     @GetMapping("/topo/{topoId}")
-    public String getTopo(final ModelMap modelMap, @PathVariable("topoId") final String topoId) {
+    public String getTopo(final ModelMap modelMap, @PathVariable String topoId) {
         modelMap.addAttribute("topo", webappToConsumer.getTopo(Integer.parseInt(topoId)));
         modelMap.addAttribute("parentsComments", comments.getParentsComments(Integer.parseInt(topoId)));
         modelMap.addAttribute("childrenComments", comments.getChildrenComments(Integer.parseInt(topoId)));

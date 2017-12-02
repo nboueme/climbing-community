@@ -14,7 +14,7 @@ public class Sector extends AbstractResource {
     private PublicationManager comments = getManagerFactory().getPublicationManager();
 
     @GetMapping("/climbing/{spotId}")
-    public String listSectorsFromParent(final ModelMap modelMap, @PathVariable("spotId") final String spotId) {
+    public String listSectorsFromParent(final ModelMap modelMap, @PathVariable String spotId) {
         modelMap.addAttribute("sectorList", webappToConsumer.listSectorsFromParent(Integer.parseInt(spotId)));
         modelMap.addAttribute("parentsComments", comments.getParentsComments(Integer.parseInt(spotId)));
         modelMap.addAttribute("childrenComments", comments.getChildrenComments(Integer.parseInt(spotId)));
