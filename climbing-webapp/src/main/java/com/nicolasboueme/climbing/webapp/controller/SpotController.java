@@ -7,7 +7,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class Spot extends AbstractResource {
+public class SpotController extends AbstractResource {
     private SpotManager webappToConsumer = getManagerFactory().getSpotManager();
 
     @GetMapping("/climbing")

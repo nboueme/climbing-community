@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
-public class Search extends AbstractResource {
+public class SearchController extends AbstractResource {
     private PublicationManager webappToConsumer = getManagerFactory().getPublicationManager();
 
     @GetMapping("/search")

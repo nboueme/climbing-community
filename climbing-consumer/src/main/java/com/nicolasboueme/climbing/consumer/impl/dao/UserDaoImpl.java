@@ -13,32 +13,6 @@ import java.sql.Types;
 
 public class UserDaoImpl extends AbstractDaoImpl implements UserDao {
 
-    public UserAccount userLogin(String login, String password) {
-        String sql = "SELECT id, pseudo, email, password, role FROM user_account WHERE email = :user_login OR pseudo = :user_login;";
-
-        MapSqlParameterSource args = new MapSqlParameterSource();
-        args.addValue("user_login", login, Types.VARCHAR);
-
-        RowMapper<UserAccount> rowMapper = new UserAccountRM();
-
-        try {
-            UserAccount user = getNamedParameterJdbcTemplate().queryForObject(sql, args, rowMapper);
-
-            if (BCrypt.checkpw(password, user.getPassword())) {
-                System.out.println("Correct login credentials");
-                return user;
-            }
-            else {
-                System.out.println("Incorrect login credentials");
-                return null;
-            }
-
-        } catch (EmptyResultDataAccessException exception) {
-            System.out.println("Incorrect login credentials");
-            return null;
-        }
-    }
-
     public void addUser(UserAccount user) {
         String sql = "INSERT INTO user_account (pseudo, email, password) VALUES (:user_pseudo, :user_email, :user_password);";
 
@@ -56,4 +30,52 @@ public class UserDaoImpl extends AbstractDaoImpl implements UserDao {
         }
     }
 
+    public UserAccount getUser(UserAccount user) {
+        String sql = "SELECT * FROM user_account WHERE email = :user_login;";
+
+        MapSqlParameterSource args = new MapSqlParameterSource();
+        args.addValue("user_login", user.getEmail(), Types.VARCHAR);
+
+        RowMapper<UserAccount> rowMapper = new UserAccountRM();
+
+        try {
+            UserAccount userQuery = getNamedParameterJdbcTemplate().queryForObject(sql, args, rowMapper);
+
+            if (BCrypt.checkpw(user.getPassword(), userQuery.getPassword())) {
+                System.out.println("Correct login credentials");
+                return userQuery;
+            }
+            else {
+                System.out.println("Incorrect login credentials");
+                return null;
+            }
+
+        } catch (EmptyResultDataAccessException exception) {
+            System.out.println("Incorrect login credentials");
+            return null;
+        }
+    }
+
+    public void updateUser(UserAccount user) {
+        String sql = "UPDATE user_account SET pseudo = :user_pseudo, email = :user_email, password = :user_password, updated_at = now() WHERE user_account.id = :user_id;";
+
+        String hashed = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
+
+        MapSqlParameterSource args = new MapSqlParameterSource();
+        args.addValue("user_id", user.getId(), Types.INTEGER);
+        args.addValue("user_pseudo", user.getPseudo(), Types.VARCHAR);
+        args.addValue("user_email", user.getEmail(), Types.VARCHAR);
+        args.addValue("user_password", hashed, Types.VARCHAR);
+
+        getNamedParameterJdbcTemplate().update(sql, args);
+    }
+
+    public void deleteUser(UserAccount user) {
+        String sql = "DELETE FROM user_account WHERE user_account.id = :user_id;";
+
+        MapSqlParameterSource args = new MapSqlParameterSource();
+        args.addValue("user_id", user.getId(), Types.INTEGER);
+
+        getNamedParameterJdbcTemplate().update(sql, args);
+    }
 }

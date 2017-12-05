@@ -7,5 +7,11 @@ import java.util.List;
 public interface TopoManager {
     List<Topo> listTopo();
 
-    Topo getTopo(int topoId);
+    void addTopo(Topo topo);
+
+    Topo getTopo(Topo topo);
+
+    void updateTopo(Topo topo);
+
+    void deleteTopo(Topo topo);
 }

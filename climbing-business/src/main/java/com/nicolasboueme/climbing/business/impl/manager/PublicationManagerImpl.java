@@ -13,11 +13,11 @@ public class PublicationManagerImpl extends AbstractManager implements Publicati
         return getDaoFactory().getPublicationDao().listPublication();
     }
 
-    public List<Comment> getParentsComments(int publicationId) {
-        return getDaoFactory().getPublicationDao().getParentsComments(publicationId);
+    public List<Comment> getParentsComments(Comment comment) {
+        return getDaoFactory().getPublicationDao().getParentsComments(comment);
     }
 
-    public List<Comment> getChildrenComments(int publicationId) {
-        return getDaoFactory().getPublicationDao().getChildrenComments(publicationId);
+    public List<Comment> getChildrenComments(Comment comment) {
+        return getDaoFactory().getPublicationDao().getChildrenComments(comment);
     }
 }

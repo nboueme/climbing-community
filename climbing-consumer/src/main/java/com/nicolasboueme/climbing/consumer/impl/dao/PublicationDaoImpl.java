@@ -31,7 +31,7 @@ public class PublicationDaoImpl extends AbstractDaoImpl implements PublicationDa
         return null;
     }
 
-    public List<Comment> getParentsComments(int publicationId) {
+    public List<Comment> getParentsComments(Comment comment) {
         String sql = "SELECT comment.id, image_url, pseudo, content, comment.created_at " +
                 "FROM publication, comment, user_account " +
                 "WHERE publication.id = comment.publication_id " +
@@ -41,14 +41,14 @@ public class PublicationDaoImpl extends AbstractDaoImpl implements PublicationDa
                 "ORDER BY comment.created_at ASC;";
 
         MapSqlParameterSource args = new MapSqlParameterSource();
-        args.addValue("publication_id", publicationId, Types.INTEGER);
+        args.addValue("publication_id", comment.getPublicationId(), Types.INTEGER);
 
         RowMapper<Comment> rowMapper = new CommentRM();
 
         return getNamedParameterJdbcTemplate().query(sql, args, rowMapper);
     }
 
-    public List<Comment> getChildrenComments(int publicationId) {
+    public List<Comment> getChildrenComments(Comment comment) {
         String sql = "SELECT image_url, pseudo, content, comment.parent_id, comment.created_at " +
                 "FROM publication, comment, user_account " +
                 "WHERE publication.id = comment.publication_id " +
@@ -58,7 +58,7 @@ public class PublicationDaoImpl extends AbstractDaoImpl implements PublicationDa
                 "ORDER BY comment.created_at ASC;";
 
         MapSqlParameterSource args = new MapSqlParameterSource();
-        args.addValue("publication_id", publicationId, Types.INTEGER);
+        args.addValue("publication_id", comment.getPublicationId(), Types.INTEGER);
 
         RowMapper<Comment> rowMapper = new CommentRM();
 

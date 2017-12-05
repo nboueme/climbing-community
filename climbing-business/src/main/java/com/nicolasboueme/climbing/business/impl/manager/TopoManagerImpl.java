@@ -5,6 +5,7 @@ import com.nicolasboueme.climbing.business.impl.AbstractManager;
 import com.nicolasboueme.climbing.consumer.impl.DaoFactoryImpl;
 import com.nicolasboueme.climbing.consumer.contract.dao.TopoDao;
 import com.nicolasboueme.climbing.model.entity.Topo;
+import com.nicolasboueme.climbing.model.entity.UserAccount;
 
 import java.util.List;
 
@@ -14,7 +15,19 @@ public class TopoManagerImpl extends AbstractManager implements TopoManager {
         return getDaoFactory().getTopoDao().listTopo();
     }
 
-    public Topo getTopo(int topoId) {
-        return getDaoFactory().getTopoDao().getTopo(topoId);
+    public void addTopo(Topo topo) {
+        getDaoFactory().getTopoDao().addTopo(topo);
+    }
+
+    public Topo getTopo(Topo topo) {
+        return getDaoFactory().getTopoDao().getTopo(topo);
+    }
+
+    public void updateTopo(Topo topo) {
+        getDaoFactory().getTopoDao().updateTopo(topo);
+    }
+
+    public void deleteTopo(Topo topo) {
+        getDaoFactory().getTopoDao().deleteTopo(topo);
     }
 }

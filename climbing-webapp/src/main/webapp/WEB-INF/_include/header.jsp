@@ -22,8 +22,14 @@
                         <li><a href="${pageContext.request.contextPath}/login">S’identifier</a></li>
                     </c:when>
                     <c:otherwise>
-                        <li><a href="${pageContext.request.contextPath}/logout">Se déconnecter</a></li>
-                        <li>Bonjour ${ sessionScope.user.pseudo }</li>
+                        <li class="dropdown">
+                            <a data-toggle="dropdown" href="#">${ sessionScope.user.pseudo } <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="${pageContext.request.contextPath}/account/${ sessionScope.user.id }"><span class="glyphicon glyphicon-user"></span> Mon compte</a></li>
+                                <li class="divider"></li>
+                                <li><a href="${pageContext.request.contextPath}/logout"><span class="glyphicon glyphicon-log-out"></span> Se déconnecter</a></li>
+                            </ul>
+                        </li>
                     </c:otherwise>
                 </c:choose>
 
