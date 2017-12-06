@@ -3,6 +3,7 @@ package com.nicolasboueme.climbing.webapp.controller;
 import com.nicolasboueme.climbing.business.contract.manager.PublicationManager;
 import com.nicolasboueme.climbing.business.contract.manager.SectorManager;
 import com.nicolasboueme.climbing.model.entity.Comment;
+import com.nicolasboueme.climbing.model.entity.Sector;
 import com.nicolasboueme.climbing.webapp.resource.AbstractResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -16,10 +17,13 @@ public class SectorController extends AbstractResource {
 
     @GetMapping("/climbing/{spotId}")
     public String listSectorsFromParent(final ModelMap modelMap, @PathVariable String spotId) {
+        Sector sector = new Sector();
+        sector.setSpotId(Integer.parseInt(spotId));
+
         Comment comment = new Comment();
         comment.setPublicationId(Integer.parseInt(spotId));
 
-        modelMap.addAttribute("sectorList", webappToConsumer.listSectorsFromParent(Integer.parseInt(spotId)));
+        modelMap.addAttribute("sectorList", webappToConsumer.listSectorsFromParent(sector));
         modelMap.addAttribute("parentsComments", comments.getParentsComments(comment));
         modelMap.addAttribute("childrenComments", comments.getChildrenComments(comment));
         return "sector";

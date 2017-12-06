@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface SectorManager {
 
-    List<Sector> listSectorsFromParent(int spotId);
+    List<Sector> listSectorsFromParent(Sector sector);
 }

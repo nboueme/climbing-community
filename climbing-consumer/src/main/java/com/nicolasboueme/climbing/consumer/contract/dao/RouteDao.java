@@ -5,7 +5,7 @@ import com.nicolasboueme.climbing.model.entity.Route;
 import java.util.List;
 
 public interface RouteDao {
-    List<Route> listRoutesFromParent(int sectorId);
-    Route getRoute(int routeId);
-    List<Route> listLengthsFromRoute(int routeId);
+    List<Route> listRoutesFromParent(Route route);
+    Route getRoute(Route route);
+    List<Route> listLengthsFromRoute(Route route);
 }

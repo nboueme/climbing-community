@@ -1,3 +1,4 @@
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -52,7 +53,7 @@
             <tr>
                 <td><a href="${pageContext.request.contextPath}/topo/${ topo.publicationId }"><c:out value="${ topo.name }" /></a></td>
                 <td>
-                    <c:out value="${ topo.description }"/><br>
+                    <c:out value="${ topo.description }"/>
                 </td>
             </tr>
         </c:forEach>

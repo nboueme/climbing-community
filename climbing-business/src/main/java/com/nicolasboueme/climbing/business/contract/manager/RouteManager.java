@@ -5,9 +5,9 @@ import com.nicolasboueme.climbing.model.entity.Route;
 import java.util.List;
 
 public interface RouteManager {
-    List<Route> listRoutesFromParent(int sectorId);
+    List<Route> listRoutesFromParent(Route route);
 
-    Route getRoute(int routeId);
+    Route getRoute(Route route);
 
-    List<Route> listLengthsFromRoute(int routeId);
+    List<Route> listLengthsFromRoute(Route route);
 }

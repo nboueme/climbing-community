@@ -8,7 +8,7 @@ import java.util.List;
 
 public class SectorManagerImpl extends AbstractManager implements SectorManager {
 
-    public List<Sector> listSectorsFromParent(int spotId) {
-        return getDaoFactory().getSectorDao().listSectorsFromParent(spotId);
+    public List<Sector> listSectorsFromParent(Sector sector) {
+        return getDaoFactory().getSectorDao().listSectorsFromParent(sector);
     }
 }

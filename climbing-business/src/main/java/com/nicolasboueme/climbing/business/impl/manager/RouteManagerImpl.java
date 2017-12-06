@@ -8,15 +8,15 @@ import java.util.List;
 
 public class RouteManagerImpl extends AbstractManager implements RouteManager {
 
-    public List<Route> listRoutesFromParent(int sectorId) {
-        return getDaoFactory().getRouteDao().listRoutesFromParent(sectorId);
+    public List<Route> listRoutesFromParent(Route route) {
+        return getDaoFactory().getRouteDao().listRoutesFromParent(route);
     }
 
-    public Route getRoute(int routeId) {
-        return getDaoFactory().getRouteDao().getRoute(routeId);
+    public Route getRoute(Route route) {
+        return getDaoFactory().getRouteDao().getRoute(route);
     }
 
-    public List<Route> listLengthsFromRoute(int routeId) {
-        return getDaoFactory().getRouteDao().listLengthsFromRoute(routeId);
+    public List<Route> listLengthsFromRoute(Route route) {
+        return getDaoFactory().getRouteDao().listLengthsFromRoute(route);
     }
 }
