@@ -22,4 +22,38 @@ public class SectorDaoImpl extends AbstractDaoImpl implements SectorDao {
         return getNamedParameterJdbcTemplate().query(sql, args, rowMapper);
     }
 
+    public void addSector(Sector sector) {
+        String sql = "INSERT INTO publication (user_account_id, name) VALUES (:user_id, :publication_name);" +
+                "INSERT INTO sector (publication_id, spot_id, height) VALUES ((SELECT LASTVAL()), :spot_id, :sector_height);";
+
+        MapSqlParameterSource args = new MapSqlParameterSource();
+        args.addValue("user_id", sector.getUserAccountId(), Types.INTEGER);
+        args.addValue("publication_name", sector.getName(), Types.VARCHAR);
+        args.addValue("spot_id", sector.getSpotId(), Types.INTEGER);
+        args.addValue("sector_height", sector.getHeight(), Types.INTEGER);
+
+        getNamedParameterJdbcTemplate().update(sql, args);
+    }
+
+    public void updateSector(Sector sector) {
+        String sql = "UPDATE sector SET height = :sector_height WHERE sector.publication_id = :publication_id;" +
+                "UPDATE publication SET name = :sector_name, updated_at = now() WHERE publication.id = :publication_id;";
+
+        MapSqlParameterSource args = new MapSqlParameterSource();
+        args.addValue("publication_id", sector.getPublicationId(), Types.INTEGER);
+        args.addValue("sector_name", sector.getName(), Types.VARCHAR);
+        args.addValue("sector_height", sector.getHeight(), Types.INTEGER);
+
+        getNamedParameterJdbcTemplate().update(sql, args);
+    }
+
+    public void deleteSector(Sector sector) {
+        String sql = "DELETE FROM sector WHERE sector.publication_id = :publication_id;" +
+                "DELETE FROM publication WHERE publication.id = :publication_id;";
+
+        MapSqlParameterSource args = new MapSqlParameterSource();
+        args.addValue("publication_id", sector.getPublicationId(), Types.INTEGER);
+
+        getNamedParameterJdbcTemplate().update(sql, args);
+    }
 }

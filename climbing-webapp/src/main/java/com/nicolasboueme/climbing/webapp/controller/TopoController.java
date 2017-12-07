@@ -28,16 +28,14 @@ public class TopoController extends AbstractResource {
     }
 
     @PostMapping("/topo")
-    public String addTopo(ModelMap modelMap, HttpServletRequest request) {
+    public void addTopo(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Topo topo = new Topo();
         topo.setUserAccountId(((UserAccount) request.getSession().getAttribute("user")).getId());
         topo.setName(request.getParameter("name"));
         topo.setDescription(request.getParameter("description"));
 
         webappToConsumer.addTopo(topo);
-
-        modelMap.addAttribute("topoList", webappToConsumer.listTopo());
-        return "topo";
+        response.sendRedirect(request.getContextPath() + "/topo");
     }
 
     @GetMapping("/topo/{topoId}")
@@ -54,22 +52,15 @@ public class TopoController extends AbstractResource {
         return "topo_item";
     }
 
-    @PostMapping("/topo/{topoId}")
-    public String updateTopo(ModelMap modelMap, @PathVariable String topoId, HttpServletRequest request) {
+    @PostMapping("/topo/{topoId}/update")
+    public void updateTopo(@PathVariable String topoId, HttpServletRequest request, HttpServletResponse response) throws IOException {
         Topo topo = new Topo();
         topo.setPublicationId(Integer.parseInt(topoId));
         topo.setName(request.getParameter("name"));
         topo.setDescription(request.getParameter("description"));
 
-        Comment comment = new Comment();
-        comment.setPublicationId(Integer.parseInt(topoId));
-
         webappToConsumer.updateTopo(topo);
-
-        modelMap.addAttribute("topo", webappToConsumer.getTopo(topo));
-        modelMap.addAttribute("parentsComments", comments.getParentsComments(comment));
-        modelMap.addAttribute("childrenComments", comments.getChildrenComments(comment));
-        return "topo_item";
+        response.sendRedirect(request.getContextPath() + "/topo");
     }
 
     @PostMapping("/topo/{topoId}/delete")

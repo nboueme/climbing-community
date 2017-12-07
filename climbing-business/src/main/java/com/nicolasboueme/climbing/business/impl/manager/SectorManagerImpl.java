@@ -11,4 +11,16 @@ public class SectorManagerImpl extends AbstractManager implements SectorManager 
     public List<Sector> listSectorsFromParent(Sector sector) {
         return getDaoFactory().getSectorDao().listSectorsFromParent(sector);
     }
+
+    public void addSector(Sector sector) {
+        getDaoFactory().getSectorDao().addSector(sector);
+    }
+
+    public void updateSector(Sector sector) {
+        getDaoFactory().getSectorDao().updateSector(sector);
+    }
+
+    public void deleteSector(Sector sector) {
+        getDaoFactory().getSectorDao().deleteSector(sector);
+    }
 }

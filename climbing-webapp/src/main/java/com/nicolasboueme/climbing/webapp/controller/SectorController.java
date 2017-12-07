@@ -23,6 +23,7 @@ public class SectorController extends AbstractResource {
         Comment comment = new Comment();
         comment.setPublicationId(Integer.parseInt(spotId));
 
+        modelMap.addAttribute("spotId", spotId);
         modelMap.addAttribute("sectorList", webappToConsumer.listSectorsFromParent(sector));
         modelMap.addAttribute("parentsComments", comments.getParentsComments(comment));
         modelMap.addAttribute("childrenComments", comments.getChildrenComments(comment));

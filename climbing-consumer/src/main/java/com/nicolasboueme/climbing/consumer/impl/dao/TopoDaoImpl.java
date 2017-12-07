@@ -44,7 +44,7 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
 
     public void updateTopo(Topo topo) {
         String sql = "UPDATE topo SET description = :topo_description WHERE topo.publication_id = :publication_id;" +
-                "UPDATE publication SET name = :topo_name WHERE publication.id = :publication_id;";
+                "UPDATE publication SET name = :topo_name, updated_at = now() WHERE publication.id = :publication_id;";
 
         MapSqlParameterSource args = new MapSqlParameterSource();
         args.addValue("publication_id", topo.getPublicationId(), Types.INTEGER);

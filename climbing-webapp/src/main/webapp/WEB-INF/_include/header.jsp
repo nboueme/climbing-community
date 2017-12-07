@@ -23,7 +23,7 @@
                     </c:when>
                     <c:otherwise>
                         <li class="dropdown">
-                            <a data-toggle="dropdown" href="#">${ sessionScope.user.pseudo } <b class="caret"></b></a>
+                            <a data-toggle="dropdown" href="">${ sessionScope.user.pseudo } <b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li><a href="${pageContext.request.contextPath}/account/${ sessionScope.user.id }"><span class="glyphicon glyphicon-user"></span> Mon compte</a></li>
                                 <li class="divider"></li>

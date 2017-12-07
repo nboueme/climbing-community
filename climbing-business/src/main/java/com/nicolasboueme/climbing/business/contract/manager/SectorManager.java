@@ -7,4 +7,10 @@ import java.util.List;
 public interface SectorManager {
 
     List<Sector> listSectorsFromParent(Sector sector);
+
+    void addSector(Sector sector);
+
+    void updateSector(Sector sector);
+
+    void deleteSector(Sector sector);
 }

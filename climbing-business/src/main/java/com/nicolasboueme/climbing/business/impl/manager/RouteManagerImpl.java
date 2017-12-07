@@ -12,8 +12,20 @@ public class RouteManagerImpl extends AbstractManager implements RouteManager {
         return getDaoFactory().getRouteDao().listRoutesFromParent(route);
     }
 
+    public void addRoute(Route route) {
+        getDaoFactory().getRouteDao().addRoute(route);
+    }
+
     public Route getRoute(Route route) {
         return getDaoFactory().getRouteDao().getRoute(route);
+    }
+
+    public void updateRoute(Route route) {
+        getDaoFactory().getRouteDao().updateRoute(route);
+    }
+
+    public void deleteRoute(Route route) {
+        getDaoFactory().getRouteDao().deleteRoute(route);
     }
 
     public List<Route> listLengthsFromRoute(Route route) {

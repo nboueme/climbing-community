@@ -9,9 +9,10 @@ import java.sql.SQLException;
 public class SpotRM implements RowMapper<Spot> {
     public Spot mapRow(ResultSet rs, int rowNum) throws SQLException {
         Spot spot = new Spot();
-        spot.setName(rs.getString("name"));
-        spot.setHeight(rs.getInt("height"));
         spot.setPublicationId(rs.getInt("publication_id"));
+        spot.setName(rs.getString("name"));
+        spot.setDescription(rs.getString("description"));
+        spot.setHeight(rs.getInt("height"));
         return spot;
     }
 }
