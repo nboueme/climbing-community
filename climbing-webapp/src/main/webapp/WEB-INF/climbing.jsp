@@ -22,7 +22,7 @@
             <div class="form-group">
                 <label class="control-label col-sm-2" for="name">Nom :</label>
                 <div class="col-sm-10">
-                    <input type="text" required class="form-control" name="name" id="name" placeholder="Enter a spot name" value="Les mines de la Moria" />
+                    <input required type="text" class="form-control" name="name" id="name" placeholder="Enter a spot name" value="Les mines de la Moria" />
                 </div>
             </div>
 

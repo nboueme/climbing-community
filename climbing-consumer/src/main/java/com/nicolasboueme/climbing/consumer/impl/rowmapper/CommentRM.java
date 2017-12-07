@@ -15,6 +15,7 @@ public class CommentRM implements RowMapper<Comment> {
             else if (rs.getMetaData().getColumnName(i).equals("content")) comment.setContent(rs.getString("content"));
             else if (rs.getMetaData().getColumnName(i).equals("parent_id")) comment.setParentId(rs.getInt("parent_id"));
             else if (rs.getMetaData().getColumnName(i).equals("created_at")) comment.setCreatedAt(rs.getTimestamp("created_at"));
+            else if (rs.getMetaData().getColumnName(i).equals("updated_at")) comment.setUpdatedAt(rs.getTimestamp("updated_at"));
         }
 
         UserAccountRM userRM = new UserAccountRM();

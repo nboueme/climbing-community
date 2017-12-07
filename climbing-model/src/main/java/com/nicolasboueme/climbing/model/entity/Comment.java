@@ -49,7 +49,7 @@ public class Comment {
     }
 
     public String getCreatedAt() {
-        return new SimpleDateFormat("dd/MM/yyyy - hh:mm:ss").format(createdAt);
+        return new SimpleDateFormat("dd MMMM yyyy, hh:mm").format(createdAt);
     }
 
     public void setCreatedAt(Date createdAt) {
@@ -57,7 +57,7 @@ public class Comment {
     }
 
     public String getUpdatedAt() {
-        return new SimpleDateFormat("dd/MM/yyyy - hh:mm:ss").format(updatedAt);
+        return new SimpleDateFormat("dd MMMM yyyy, hh:mm").format(updatedAt);
     }
 
     public void setUpdatedAt(Date updatedAt) {

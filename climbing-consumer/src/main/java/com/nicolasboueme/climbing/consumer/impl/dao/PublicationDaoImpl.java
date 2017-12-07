@@ -32,7 +32,7 @@ public class PublicationDaoImpl extends AbstractDaoImpl implements PublicationDa
     }
 
     public List<Comment> getParentsComments(Comment comment) {
-        String sql = "SELECT comment.id, image_url, pseudo, content, comment.created_at " +
+        String sql = "SELECT comment.id, image_url, pseudo, content, comment.created_at, comment.updated_at " +
                 "FROM publication, comment, user_account " +
                 "WHERE publication.id = comment.publication_id " +
                 "AND comment.user_account_id = user_account.id " +
@@ -49,7 +49,7 @@ public class PublicationDaoImpl extends AbstractDaoImpl implements PublicationDa
     }
 
     public List<Comment> getChildrenComments(Comment comment) {
-        String sql = "SELECT image_url, pseudo, content, comment.parent_id, comment.created_at " +
+        String sql = "SELECT image_url, pseudo, content, comment.parent_id, comment.created_at, comment.updated_at " +
                 "FROM publication, comment, user_account " +
                 "WHERE publication.id = comment.publication_id " +
                 "AND comment.user_account_id = user_account.id " +

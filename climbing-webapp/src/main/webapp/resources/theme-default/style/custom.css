@@ -18,3 +18,33 @@ textarea {
     min-height: 100px;
     max-height: 300px;
 }
+
+.comment-list {
+    border: 1px solid #e1e2e3;
+    background-color: #fafafa;
+}
+
+.comment-object {
+    width: 32px;
+    height: 32px;
+}
+
+.comment-object-child {
+    width: 20px;
+    height: 20px;
+}
+
+.thumbnail {
+    border: none;
+    background-color: #fafafa;
+}
+
+.reply-list {
+    margin-bottom: 5px;
+}
+
+.reply-border-left {
+    border-left: 2px solid #e1e2e3;
+    margin-top: 10px;
+    padding-left: 4px;
+}

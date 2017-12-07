@@ -1,6 +1,5 @@
 package com.nicolasboueme.climbing.webapp.controller;
 
-import com.nicolasboueme.climbing.business.contract.manager.PublicationManager;
 import com.nicolasboueme.climbing.business.contract.manager.SpotManager;
 import com.nicolasboueme.climbing.model.entity.Spot;
 import com.nicolasboueme.climbing.model.entity.UserAccount;
@@ -18,7 +17,6 @@ import java.io.IOException;
 @Controller
 public class SpotController extends AbstractResource {
     private SpotManager webappToConsumer = getManagerFactory().getSpotManager();
-    private PublicationManager comments = getManagerFactory().getPublicationManager();
 
     @GetMapping("/climbing")
     public String listSpots(final ModelMap modelMap) {

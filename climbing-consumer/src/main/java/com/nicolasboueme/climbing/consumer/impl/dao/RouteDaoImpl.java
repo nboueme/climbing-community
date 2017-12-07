@@ -12,7 +12,7 @@ import java.util.List;
 public class RouteDaoImpl extends AbstractDaoImpl implements RouteDao {
 
     public List<Route> listRoutesFromParent(Route route) {
-        String sql = "SELECT publication.name, route.publication_id, route.height, quotation, points_number FROM publication, route WHERE publication.id = route.publication_id AND route.sector_id = :sector_id AND type_route = :type_route;";
+        String sql = "SELECT publication.name, route.publication_id, route.sector_id, route.height, quotation, latitude, longitude, points_number FROM publication, route WHERE publication.id = route.publication_id AND route.sector_id = :sector_id AND type_route = :type_route;";
 
         MapSqlParameterSource args = new MapSqlParameterSource();
         args.addValue("sector_id", route.getSectorId(), Types.INTEGER);

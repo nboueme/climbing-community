@@ -11,8 +11,11 @@ public class RouteRM implements RowMapper<Route> {
         Route route = new Route();
         route.setName(rs.getString("name"));
         route.setPublicationId(rs.getInt("publication_id"));
+        route.setSectorId(rs.getInt("sector_id"));
         route.setHeight(rs.getInt("height"));
         route.setQuotation(rs.getString("quotation"));
+        route.setLatitude(rs.getDouble("latitude"));
+        route.setLongitude(rs.getDouble("longitude"));
         route.setPointsNumber(rs.getInt("points_number"));
         return route;
     }
