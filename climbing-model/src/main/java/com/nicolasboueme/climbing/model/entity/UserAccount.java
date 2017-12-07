@@ -1,5 +1,6 @@
 package com.nicolasboueme.climbing.model.entity;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class UserAccount {
@@ -60,16 +61,16 @@ public class UserAccount {
         this.role = role;
     }
 
-    public Date getCreatedAt() {
-        return createdAt;
+    public String getCreatedAt() {
+        return new SimpleDateFormat("dd MMMM yyyy, hh:mm").format(createdAt);
     }
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Date getUpdatedAt() {
-        return updatedAt;
+    public String  getUpdatedAt() {
+        return new SimpleDateFormat("dd MMMM yyyy, hh:mm").format(updatedAt);
     }
 
     public void setUpdatedAt(Date updatedAt) {

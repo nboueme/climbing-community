@@ -54,7 +54,7 @@ public class RouteDaoImpl extends AbstractDaoImpl implements RouteDao {
     }
 
     public Route getRoute(Route route) {
-        String sql = "SELECT publication.name, route.publication_id, route.height, quotation, points_number FROM publication, route WHERE publication.id = route.publication_id AND route.publication_id = :publication_id;";
+        String sql = "SELECT publication.name, route.publication_id, route.sector_id, route.height, quotation, latitude, longitude, points_number FROM publication, route WHERE publication.id = route.publication_id AND route.publication_id = :publication_id;";
 
         MapSqlParameterSource args = new MapSqlParameterSource();
         args.addValue("publication_id", route.getPublicationId(), Types.INTEGER);
@@ -92,7 +92,7 @@ public class RouteDaoImpl extends AbstractDaoImpl implements RouteDao {
     }
 
     public List<Route> listLengthsFromRoute(Route route) {
-        String sql = "SELECT publication.name, route.height, route.points_number, route.quotation, route.publication_id FROM publication, route WHERE publication.id = route.publication_id AND route.parent_publication_id = :route_id AND type_route = :type_route;";
+        String sql = "SELECT publication.name, route.publication_id, route.height, route.points_number, quotation, latitude, longitude FROM publication, route WHERE publication.id = route.publication_id AND route.parent_publication_id = :route_id AND type_route = :type_route;";
 
         MapSqlParameterSource args = new MapSqlParameterSource();
         args.addValue("route_id", route.getParentPublicationId(), Types.INTEGER);

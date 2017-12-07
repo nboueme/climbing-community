@@ -87,10 +87,53 @@ public class RouteController extends AbstractResource {
         Comment comment = new Comment();
         comment.setPublicationId(Integer.parseInt(routeId));
 
+        modelMap.addAttribute("routeId", routeId);
         modelMap.addAttribute("route", webappToConsumer.getRoute(route));
         modelMap.addAttribute("listLength", webappToConsumer.listLengthsFromRoute(route));
         modelMap.addAttribute("parentsComments", comments.getParentsComments(comment));
         modelMap.addAttribute("childrenComments", comments.getChildrenComments(comment));
         return "route_item";
+    }
+
+    @PostMapping("/climbing/{spotId}/route/{routeId}")
+    public void addLength(@PathVariable String spotId, @PathVariable String routeId, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Route route = new Route();
+        route.setUserAccountId(((UserAccount) request.getSession().getAttribute("user")).getId());
+        route.setName(request.getParameter("name"));
+        route.setSectorId(Integer.parseInt(request.getParameter("sector_id")));
+        route.setParentPublicationId(Integer.parseInt(request.getParameter("parent_id")));
+        route.setHeight(Integer.parseInt(request.getParameter("height")));
+        route.setQuotation(request.getParameter("quotation"));
+        route.setLatitude(Double.parseDouble(request.getParameter("latitude")));
+        route.setLongitude(Double.parseDouble(request.getParameter("longitude")));
+        route.setPointsNumber(Integer.parseInt(request.getParameter("points_number")));
+        route.setTypeRoute("length");
+
+        webappToConsumer.addRoute(route);
+        response.sendRedirect(request.getContextPath() + "/climbing/" + spotId + "/route/" + routeId);
+    }
+
+    @PostMapping("/climbing/{spotId}/route/{routeId}/update")
+    public void updateLength(@PathVariable String spotId, @PathVariable String routeId, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Route route = new Route();
+        route.setPublicationId(Integer.parseInt(routeId));
+        route.setName(request.getParameter("name"));
+        route.setHeight(Integer.parseInt(request.getParameter("height")));
+        route.setQuotation(request.getParameter("quotation"));
+        route.setLatitude(Double.parseDouble(request.getParameter("latitude")));
+        route.setLongitude(Double.parseDouble(request.getParameter("longitude")));
+        route.setPointsNumber(Integer.parseInt(request.getParameter("points_number")));
+
+        webappToConsumer.updateRoute(route);
+        response.sendRedirect(request.getContextPath() + "/climbing/" + spotId + "/route/" + request.getParameter("route_id"));
+    }
+
+    @PostMapping("/climbing/{spotId}/route/{childId}/delete")
+    public void deleteLength(@PathVariable String spotId, @PathVariable String childId, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Route route = new Route();
+        route.setPublicationId(Integer.parseInt(childId));
+
+        webappToConsumer.deleteRoute(route);
+        response.sendRedirect(request.getContextPath() + "/climbing/" + spotId + "/route/" + request.getParameter("route_id"));
     }
 }
