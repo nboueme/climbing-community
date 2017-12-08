@@ -39,13 +39,15 @@ public class TopoController extends AbstractResource {
     }
 
     @GetMapping("/topo/{topoId}")
-    public String getTopo(ModelMap modelMap, @PathVariable String topoId) {
+    public String getTopo(ModelMap modelMap, @PathVariable String topoId, HttpServletRequest request) {
         Topo topo = new Topo();
         topo.setPublicationId(Integer.parseInt(topoId));
 
         Comment comment = new Comment();
         comment.setPublicationId(Integer.parseInt(topoId));
 
+        modelMap.addAttribute("currentURI", request.getRequestURI());
+        modelMap.addAttribute("publicationId", topoId);
         modelMap.addAttribute("topo", webappToConsumer.getTopo(topo));
         modelMap.addAttribute("parentsComments", comments.getParentsComments(comment));
         modelMap.addAttribute("childrenComments", comments.getChildrenComments(comment));

@@ -11,7 +11,6 @@ public class Comment {
     private Date createdAt;
     private Date updatedAt;
     private String content;
-    private String typeComment;
 
     private UserAccount author;
     private Publication publication;
@@ -70,14 +69,6 @@ public class Comment {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public String getTypeComment() {
-        return typeComment;
-    }
-
-    public void setTypeComment(String typeComment) {
-        this.typeComment = typeComment;
     }
 
     public UserAccount getAuthor() {

@@ -16,10 +16,13 @@
                 <li><a href="${pageContext.request.contextPath}/climbing">Sites</a></li>
                 <li><a href="${pageContext.request.contextPath}/topo">Topo</a></li>
                 <li><a href="${pageContext.request.contextPath}/search">Recherche</a></li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
                 <c:choose>
                     <c:when test="${ empty sessionScope.user }">
-                        <li><a href="${pageContext.request.contextPath}/inscription">Créer un compte</a></li>
-                        <li><a href="${pageContext.request.contextPath}/login">S’identifier</a></li>
+                        <li><a href="${pageContext.request.contextPath}/inscription"><span class="glyphicon glyphicon-user"></span> Créer un compte</a></li>
+                        <li><a href="${pageContext.request.contextPath}/login"><span class="glyphicon glyphicon-log-in"></span> S’identifier</a></li>
                     </c:when>
                     <c:otherwise>
                         <li class="dropdown">
@@ -32,7 +35,6 @@
                         </li>
                     </c:otherwise>
                 </c:choose>
-
             </ul>
         </div>
 

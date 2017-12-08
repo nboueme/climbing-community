@@ -22,15 +22,16 @@ public class RouteController extends AbstractResource {
     private PublicationManager comments = getManagerFactory().getPublicationManager();
 
     @GetMapping("/climbing/{spotId}/sector/{sectorId}")
-    public String listRoutesFromParent(final ModelMap modelMap, @PathVariable String spotId, @PathVariable String sectorId) {
+    public String listRoutesFromParent(final ModelMap modelMap, @PathVariable String spotId, @PathVariable String sectorId, HttpServletRequest request) {
         Route route = new Route();
         route.setSectorId(Integer.parseInt(sectorId));
 
         Comment comment = new Comment();
         comment.setPublicationId(Integer.parseInt(sectorId));
 
+        modelMap.addAttribute("currentURI", request.getRequestURI());
         modelMap.addAttribute("spotId", spotId);
-        modelMap.addAttribute("sectorId", sectorId);
+        modelMap.addAttribute("publicationId", sectorId);
         modelMap.addAttribute("routeList", webappToConsumer.listRoutesFromParent(route));
         modelMap.addAttribute("parentsComments", comments.getParentsComments(comment));
         modelMap.addAttribute("childrenComments", comments.getChildrenComments(comment));
@@ -79,7 +80,7 @@ public class RouteController extends AbstractResource {
     }
 
     @GetMapping("/climbing/{spotId}/route/{routeId}")
-    public String getRoute(final ModelMap modelMap, @PathVariable String spotId, @PathVariable String routeId) {
+    public String getRoute(final ModelMap modelMap, @PathVariable String spotId, @PathVariable String routeId, HttpServletRequest request) {
         Route route = new Route();
         route.setPublicationId(Integer.parseInt(routeId));
         route.setParentPublicationId(Integer.parseInt(routeId));
@@ -87,7 +88,8 @@ public class RouteController extends AbstractResource {
         Comment comment = new Comment();
         comment.setPublicationId(Integer.parseInt(routeId));
 
-        modelMap.addAttribute("routeId", routeId);
+        modelMap.addAttribute("currentURI", request.getRequestURI());
+        modelMap.addAttribute("publicationId", routeId);
         modelMap.addAttribute("route", webappToConsumer.getRoute(route));
         modelMap.addAttribute("listLength", webappToConsumer.listLengthsFromRoute(route));
         modelMap.addAttribute("parentsComments", comments.getParentsComments(comment));

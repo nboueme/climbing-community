@@ -18,7 +18,7 @@
                 <span class="glyphicon glyphicon-plus"></span> Ajouter un secteur
             </button>
         </p>
-        <form method="post" action="${ spotId }" class="form-horizontal collapse collapse-menu">
+        <form method="post" action="${ publicationId }" class="form-horizontal collapse collapse-menu">
             <div class="form-group">
                 <label class="control-label col-sm-2" for="name">Nom :</label>
                 <div class="col-sm-10">

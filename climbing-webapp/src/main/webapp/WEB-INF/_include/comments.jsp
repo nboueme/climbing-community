@@ -11,9 +11,21 @@
                         <div><a href=""><b>${ parentComment.author.pseudo }</b></a> ${ parentComment.content }</div>
                         <div>
                             <c:if test="${ !empty sessionScope.user }">
-                                <a href="">Répondre</a><span style="color: #90949c;"> · </span>
+                                <a class="option-cursor" data-toggle="collapse" data-target=".collapse-reply-${parentComment.id}">Répondre</a><span class="comment-point"> · </span>
+
+                                <c:if test="${ sessionScope.user.id == parentComment.userAccountId }">
+                                    <a class="option-cursor" data-toggle="modal" data-target=".modal-parent-${ parentComment.id }" data-backdrop="static" data-keyboard="false">Modifier</a><span class="comment-point"> · </span>
+                                </c:if>
+
+                                <c:if test="${ sessionScope.user.role == 'admin' }">
+                                    <form hidden method="post" action="/comment/${parentComment.id}/delete" class="parent-comment-delete${ parentComment.id }">
+                                        <input hidden name="current_uri" title="current_uri" value="${ currentURI }" />
+                                        <input hidden name="parent_id" title="parent_id" value="${ parentComment.id }" />
+                                    </form>
+                                    <a class="option-cursor" onclick="$('.parent-comment-delete${ parentComment.id }').submit();">Supprimer</a><span class="comment-point"> · </span>
+                                </c:if>
                             </c:if>
-                            <span style="color: #90949c;">${ parentComment.createdAt }</span>
+                            <span class="comment-point">${ parentComment.createdAt }</span>
                         </div>
 
                         <c:if test="${ childrenComments.size() > 0 }">
@@ -28,9 +40,47 @@
                                                 <div><a href=""><b>${ childComment.author.pseudo }</b></a> ${ childComment.content }</div>
                                                 <div>
                                                     <c:if test="${ !empty sessionScope.user }">
-                                                        <a href="">Répondre</a><span style="color: #90949c;"> · </span>
+                                                        <a class="option-cursor" data-toggle="collapse" data-target=".collapse-reply-${childComment.parentId}">Répondre</a><span class="comment-point"> · </span>
+
+                                                        <c:if test="${ sessionScope.user.id == childComment.userAccountId }">
+                                                            <a class="option-cursor" data-toggle="modal" data-target=".modal-child-${ childComment.id }" data-backdrop="static" data-keyboard="false">Modifier</a><span class="comment-point"> · </span>
+                                                        </c:if>
+
+                                                        <c:if test="${ sessionScope.user.role == 'admin' }">
+                                                            <form hidden method="post" action="/comment/${childComment.id}/delete" class="child-comment-delete${ childComment.parentId }">
+                                                                <input hidden name="current_uri" title="current_uri" value="${ currentURI }" />
+                                                            </form>
+                                                            <a class="option-cursor" title="Delete" onclick="$('.child-comment-delete${ childComment.parentId }').submit();">Supprimer</a><span class="comment-point"> · </span>
+                                                        </c:if>
                                                     </c:if>
-                                                    <span style="color: #90949c;">${ childComment.createdAt }</span>
+                                                    <span class="comment-point">${ childComment.createdAt }</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </c:if>
+
+                                    <c:if test="${ !empty sessionScope.user && childComment.parentId == parentComment.id }">
+                                        <!-- Child Comment UPDATE -->
+                                        <div class="modal fade modal-child-${ childComment.id }">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                        <h4 class="modal-title">Modification du commentaire</h4>
+                                                    </div>
+
+                                                    <div class="modal-body">
+                                                        <form method="post" action="/comment/${childComment.id}/update" class="form-horizontal publication-update-${childComment.id}">
+                                                            <input hidden name="current_uri" title="current_uri" value="${ currentURI }" />
+                                                            <input required type="text" class="form-control" name="content" placeholder="Votre commentaire..." value="${ childComment.content }" />
+                                                        </form>
+                                                    </div>
+
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                        <button type="button" class="btn btn-primary" onclick="$('.publication-update-${childComment.id}').submit();">Save changes</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -40,8 +90,63 @@
                         </c:if>
 
                     </div>
+
+                    <!-- Child Comment CREATE -->
+                    <c:if test="${ !empty sessionScope.user }">
+                        <form method="post" action="/comment/${parentComment.id}" class="form-horizontal collapse collapse-reply-${parentComment.id}">
+                            <div class="input-group">
+                                <input hidden name="current_uri" title="current_uri" value="${ currentURI }" />
+                                <input hidden name="publication_id" title="publication_id" value="${ publicationId }" />
+                                <input required type="text" class="form-control" name="content" placeholder="Votre réponse..."/>
+                                <span class="input-group-btn">
+                                    <button type="submit" class="btn btn-default">Envoyer</button>
+                                </span>
+                            </div>
+                        </form>
+                    </c:if>
                 </div>
+
+                <c:if test="${ !empty sessionScope.user }">
+                    <!-- Parent Comment UPDATE -->
+                    <div class="modal fade modal-parent-${ parentComment.id }">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Modification du commentaire</h4>
+                                </div>
+
+                                <div class="modal-body">
+                                    <form method="post" action="/comment/${parentComment.id}/update" class="form-horizontal publication-update-${ parentComment.id }">
+                                        <input hidden name="current_uri" title="current_uri" value="${ currentURI }" />
+                                        <input required type="text" class="form-control" name="content" placeholder="Votre commentaire..." value="${ parentComment.content }" />
+                                    </form>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary" onclick="$('.publication-update-${ parentComment.id }').submit();">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </c:if>
             </c:forEach>
+
+            <!-- Parent Comment CREATE -->
+            <c:if test="${ !empty sessionScope.user }">
+                <form method="post" action="/comment/0" class="form-horizontal">
+                    <div class="input-group">
+                        <input hidden name="current_uri" title="current_uri" value="${ currentURI }" />
+                        <input hidden name="publication_id" title="publication_id" value="${ publicationId }" />
+                        <input required type="text" class="form-control" name="content" placeholder="Votre commentaire..."/>
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-default">Envoyer</button>
+                        </span>
+                    </div>
+                </form>
+            </c:if>
         </div>
     </c:when>
     <c:otherwise>
@@ -49,6 +154,19 @@
             <div class="media thumbnail">
                 Il n'y a encore aucun commentaire pour cette publication.
             </div>
+            <!-- Parent Comment CREATE -->
+            <c:if test="${ !empty sessionScope.user }">
+                <form method="post" action="/comment/0" class="form-horizontal">
+                    <div class="input-group">
+                        <input hidden name="current_uri" title="current_uri" value="${ currentURI }" />
+                        <input hidden name="publication_id" title="publication_id" value="${ publicationId }" />
+                        <input required type="text" class="form-control" name="content" placeholder="Votre commentaire..."/>
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-default">Envoyer</button>
+                        </span>
+                    </div>
+                </form>
+            </c:if>
         </div>
     </c:otherwise>
 </c:choose>

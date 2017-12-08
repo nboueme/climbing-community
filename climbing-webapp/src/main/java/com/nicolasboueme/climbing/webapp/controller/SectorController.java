@@ -22,14 +22,15 @@ public class SectorController extends AbstractResource {
     private PublicationManager comments = getManagerFactory().getPublicationManager();
 
     @GetMapping("/climbing/{spotId}")
-    public String listSectorsFromParent(final ModelMap modelMap, @PathVariable String spotId) {
+    public String listSectorsFromParent(final ModelMap modelMap, @PathVariable String spotId, HttpServletRequest request) {
         Sector sector = new Sector();
         sector.setSpotId(Integer.parseInt(spotId));
 
         Comment comment = new Comment();
         comment.setPublicationId(Integer.parseInt(spotId));
 
-        modelMap.addAttribute("spotId", spotId);
+        modelMap.addAttribute("currentURI", request.getRequestURI());
+        modelMap.addAttribute("publicationId", spotId);
         modelMap.addAttribute("sectorList", webappToConsumer.listSectorsFromParent(sector));
         modelMap.addAttribute("parentsComments", comments.getParentsComments(comment));
         modelMap.addAttribute("childrenComments", comments.getChildrenComments(comment));
