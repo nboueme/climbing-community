@@ -13,6 +13,8 @@ public class UserAccount {
     private Date createdAt;
     private Date updatedAt;
 
+    private Topo topo;
+
     public int getId() {
         return id;
     }
@@ -62,7 +64,10 @@ public class UserAccount {
     }
 
     public String getCreatedAt() {
-        return new SimpleDateFormat("dd MMMM yyyy, hh:mm").format(createdAt);
+        if (createdAt != null)
+            return new SimpleDateFormat("dd MMMM yyyy, hh:mm").format(createdAt);
+        else
+            return null;
     }
 
     public void setCreatedAt(Date createdAt) {
@@ -70,10 +75,21 @@ public class UserAccount {
     }
 
     public String  getUpdatedAt() {
-        return new SimpleDateFormat("dd MMMM yyyy, hh:mm").format(updatedAt);
+        if (updatedAt != null)
+            return new SimpleDateFormat("dd MMMM yyyy, hh:mm").format(updatedAt);
+        else
+            return null;
     }
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public Topo getTopo() {
+        return topo;
+    }
+
+    public void setTopo(Topo topo) {
+        this.topo = topo;
     }
 }

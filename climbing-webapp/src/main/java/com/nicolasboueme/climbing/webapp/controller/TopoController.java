@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 @Controller
 public class TopoController extends AbstractResource {
@@ -42,6 +44,10 @@ public class TopoController extends AbstractResource {
     @GetMapping("/topo/{topoId}")
     public String getTopo(ModelMap modelMap, @PathVariable String topoId, HttpServletRequest request) {
         Topo topo = new Topo();
+
+        if (request.getSession().getAttribute("user") != null)
+            topo.setUserAccountId(((UserAccount) request.getSession().getAttribute("user")).getId());
+
         topo.setPublicationId(Integer.parseInt(topoId));
 
         Comment comment = new Comment();
@@ -52,6 +58,8 @@ public class TopoController extends AbstractResource {
         modelMap.addAttribute("topo", webappToConsumer.getTopo(topo));
         modelMap.addAttribute("notRelatedSpots", webappToConsumer.getNotRelatedSpots(topo));
         modelMap.addAttribute("topoHasSpots", webappToConsumer.getTopoHasSpot(topo));
+        modelMap.addAttribute("notRelatedUser", webappToConsumer.getNotRelatedUser(topo));
+        modelMap.addAttribute("userHasTopos", webappToConsumer.getUserHasTopo(topo));
         modelMap.addAttribute("parentsComments", comments.getParentsComments(comment));
         modelMap.addAttribute("childrenComments", comments.getChildrenComments(comment));
         return "topo_item";
@@ -98,6 +106,53 @@ public class TopoController extends AbstractResource {
         spot.setPublicationId(Integer.parseInt(spotId));
 
         webappToConsumer.deleteTopoHastSpot(topo, spot);
+        response.sendRedirect(request.getParameter("current_uri"));
+    }
+
+    @PostMapping("/user-topo/{topoId}")
+    public void addUserHasTopo(@PathVariable String topoId, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        UserAccount user = new UserAccount();
+        user.setId(((UserAccount) request.getSession().getAttribute("user")).getId());
+        user.setTopo(new Topo());
+        user.getTopo().setPublicationId(Integer.parseInt(topoId));
+
+        webappToConsumer.addUserHasTopo(user);
+
+        response.sendRedirect(request.getParameter("current_uri"));
+    }
+
+    @PostMapping("/user-topo/{topoId}/update")
+    public void updateUserHasTopo(@PathVariable String topoId, HttpServletRequest request, HttpServletResponse response) throws IOException, ParseException {
+        UserAccount user = new UserAccount();
+        user.setId(((UserAccount) request.getSession().getAttribute("user")).getId());
+        user.setTopo(new Topo());
+        user.getTopo().setPublicationId(Integer.parseInt(topoId));
+
+        if (request.getParameter("loaned") != null) user.getTopo().setLoaned(true);
+        else user.getTopo().setLoaned(false);
+
+        String expectedPattern = "yyyy-MM-dd";
+        SimpleDateFormat formatter = new SimpleDateFormat(expectedPattern);
+        String borrowingDate = request.getParameter("borrowing_date");
+        String returnDate = request.getParameter("return_date");
+
+        if (!borrowingDate.equals("")) user.getTopo().setBorrowingDate(formatter.parse(borrowingDate));
+        else user.getTopo().setBorrowingDate(null);
+        if (!returnDate.equals("")) user.getTopo().setReturnDate(formatter.parse(returnDate));
+        else user.getTopo().setReturnDate(null);
+
+        webappToConsumer.updateUserHasTopo(user);
+        response.sendRedirect(request.getParameter("current_uri"));
+    }
+
+    @PostMapping("/user-topo/{topoId}/delete")
+    public void deleteUserHasTopo(@PathVariable String topoId, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        UserAccount user = new UserAccount();
+        user.setId(((UserAccount) request.getSession().getAttribute("user")).getId());
+        user.setTopo(new Topo());
+        user.getTopo().setPublicationId(Integer.parseInt(topoId));
+
+        webappToConsumer.deleteUserHasTopo(user);
         response.sendRedirect(request.getParameter("current_uri"));
     }
 }

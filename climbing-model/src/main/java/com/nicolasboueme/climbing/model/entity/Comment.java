@@ -48,7 +48,10 @@ public class Comment {
     }
 
     public String getCreatedAt() {
-        return new SimpleDateFormat("dd MMMM yyyy, hh:mm").format(createdAt);
+        if (createdAt != null)
+            return new SimpleDateFormat("dd MMMM yyyy, hh:mm").format(createdAt);
+        else
+            return null;
     }
 
     public void setCreatedAt(Date createdAt) {
@@ -56,7 +59,10 @@ public class Comment {
     }
 
     public String getUpdatedAt() {
-        return new SimpleDateFormat("dd MMMM yyyy, hh:mm").format(updatedAt);
+        if (updatedAt != null)
+            return new SimpleDateFormat("dd MMMM yyyy, hh:mm").format(updatedAt);
+        else
+            return null;
     }
 
     public void setUpdatedAt(Date updatedAt) {

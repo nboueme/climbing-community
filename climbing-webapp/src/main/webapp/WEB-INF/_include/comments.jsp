@@ -25,7 +25,7 @@
                                     <a class="option-cursor" onclick="$('.parent-comment-delete${ parentComment.id }').submit();">Supprimer</a><span class="comment-point"> · </span>
                                 </c:if>
                             </c:if>
-                            <span class="comment-point">${ parentComment.createdAt }</span>
+                            <span class="comment-point">${ !empty parentComment.updatedAt ? parentComment.updatedAt : parentComment.createdAt }</span>
                         </div>
 
                         <c:if test="${ childrenComments.size() > 0 }">
@@ -53,7 +53,7 @@
                                                             <a class="option-cursor" title="Delete" onclick="$('.child-comment-delete${ childComment.parentId }').submit();">Supprimer</a><span class="comment-point"> · </span>
                                                         </c:if>
                                                     </c:if>
-                                                    <span class="comment-point">${ childComment.createdAt }</span>
+                                                    <span class="comment-point">${ !empty childComment.updatedAt ? childComment.updatedAt : childComment.createdAt }</span>
                                                 </div>
                                             </div>
                                         </div>

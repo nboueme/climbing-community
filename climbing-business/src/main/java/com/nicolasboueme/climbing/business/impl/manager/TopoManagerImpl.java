@@ -4,6 +4,7 @@ import com.nicolasboueme.climbing.business.contract.manager.TopoManager;
 import com.nicolasboueme.climbing.business.impl.AbstractManager;
 import com.nicolasboueme.climbing.model.entity.Spot;
 import com.nicolasboueme.climbing.model.entity.Topo;
+import com.nicolasboueme.climbing.model.entity.UserAccount;
 
 import java.util.List;
 
@@ -43,5 +44,25 @@ public class TopoManagerImpl extends AbstractManager implements TopoManager {
 
     public void deleteTopoHastSpot(Topo topo, Spot spot) {
         getDaoFactory().getTopoDao().deleteTopoHastSpot(topo, spot);
+    }
+
+    public void addUserHasTopo(UserAccount user) {
+        getDaoFactory().getTopoDao().addUserHasTopo(user);
+    }
+
+    public boolean getNotRelatedUser(Topo topo) {
+        return getDaoFactory().getTopoDao().getNotRelatedUser(topo);
+    }
+
+    public List<UserAccount> getUserHasTopo(Topo topo) {
+        return getDaoFactory().getTopoDao().getUserHasTopo(topo);
+    }
+
+    public void updateUserHasTopo(UserAccount user) {
+        getDaoFactory().getTopoDao().updateUserHasTopo(user);
+    }
+
+    public void deleteUserHasTopo(UserAccount user) {
+        getDaoFactory().getTopoDao().deleteUserHasTopo(user);
     }
 }

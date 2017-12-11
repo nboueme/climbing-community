@@ -1,5 +1,6 @@
 package com.nicolasboueme.climbing.model.entity;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public abstract class Publication {
@@ -33,16 +34,22 @@ public abstract class Publication {
         this.name = name;
     }
 
-    public Date getCreatedAt() {
-        return createdAt;
+    public String getCreatedAt() {
+        if (createdAt != null)
+            return new SimpleDateFormat("dd MMMM yyyy").format(createdAt);
+        else
+            return null;
     }
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Date getUpdatedAt() {
-        return updatedAt;
+    public String getUpdatedAt() {
+        if (updatedAt != null)
+            return new SimpleDateFormat("dd MMMM yyyy").format(updatedAt);
+        else
+            return null;
     }
 
     public void setUpdatedAt(Date updatedAt) {

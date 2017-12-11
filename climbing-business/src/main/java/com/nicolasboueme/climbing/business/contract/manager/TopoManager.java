@@ -2,7 +2,9 @@ package com.nicolasboueme.climbing.business.contract.manager;
 
 import com.nicolasboueme.climbing.model.entity.Spot;
 import com.nicolasboueme.climbing.model.entity.Topo;
+import com.nicolasboueme.climbing.model.entity.UserAccount;
 
+import java.text.ParseException;
 import java.util.List;
 
 public interface TopoManager {
@@ -23,4 +25,14 @@ public interface TopoManager {
     List<Topo> getTopoHasSpot(Topo topo);
 
     void deleteTopoHastSpot(Topo topo, Spot spot);
+
+    void addUserHasTopo(UserAccount user);
+
+    boolean getNotRelatedUser(Topo topo);
+
+    List<UserAccount> getUserHasTopo(Topo topo);
+
+    void updateUserHasTopo(UserAccount user);
+
+    void deleteUserHasTopo(UserAccount user);
 }

@@ -44,13 +44,26 @@
                 <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Ajouter</button>
             </div>
         </form>
+
+        <!-- UserHasTopo CREATE -->
+        <c:if test="${ notRelatedUser == false }">
+            <form hidden method="post" action="/user-topo/${ topo.publicationId }" class="user-topo-add">
+                <input hidden name="current_uri" title="current_uri" value="${ currentURI }" />
+                <input hidden name="topo_id" title="topo_id" value="${ topo.publicationId }" />
+            </form>
+            <button type="button" class="btn btn-warning btn-xs" onclick="$('.user-topo-add').submit();">
+                <span class="glyphicon glyphicon-ok"></span> Je possède ce topo
+            </button>
+        </c:if>
     </c:if>
 
+
+    <h4>Description</h4>
     <p>${ topo.description }</p>
 
     <!-- TopoHasSpot READ -->
     <c:if test="${ topoHasSpots.size() > 0 }">
-        <p>${ topo.spotsNumber } spot(s)</p>
+        <h4>${ topo.spotsNumber } spot${ topoHasSpots.size() > 1 ? 's' : '' }</h4>
         <ul>
             <c:forEach var="spot" items="${ topoHasSpots }">
                 <li>
@@ -70,6 +83,92 @@
                 </li>
             </c:forEach>
         </ul>
+    </c:if>
+
+    <!-- UserHasTopo READ -->
+    <c:if test="${ userHasTopos.size() > 0 }">
+        <h4>Topo disponibles à l'emprunt</h4>
+        <table class="table table-bordered table-striped table-condensed">
+            <thead>
+            <tr>
+                <th>Grimpeur</th>
+                <th>Disponibilité</th>
+                <th>Date d'emprunt</th>
+                <th>Date de retour</th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach var="userHasTopo" items="${ userHasTopos }">
+                <tr>
+                    <td><c:out value="${ userHasTopo.pseudo }"/></td>
+                    <td>
+                        <c:choose>
+                            <c:when test="${ !empty sessionScope.user && userHasTopo.id == sessionScope.user.id }">
+                                <a title="Modify" class="option-cursor" data-toggle="modal" data-target=".modal-menu" data-backdrop="static" data-keyboard="false">
+                                    <c:out value="${ userHasTopo.topo.loaned == true ? 'emprunté' : 'disponible' }"/>
+                                </a>
+                            </c:when>
+                            <c:otherwise>
+                                <c:out value="${ userHasTopo.topo.loaned == true ? 'emprunté' : 'disponible' }"/>
+                            </c:otherwise>
+                        </c:choose>
+                    </td>
+                    <td><c:if test="${ !empty userHasTopo.topo.borrowingDateString }"><c:out value="${ userHasTopo.topo.borrowingDateString }"/></c:if></td>
+                    <td><c:if test="${ !empty userHasTopo.topo.returnDateString }"><c:out value="${ userHasTopo.topo.returnDateString }"/></c:if></td>
+                </tr>
+
+                <!-- UserHasTopo UPDATE -->
+                <c:if test="${ !empty sessionScope.user && userHasTopo.id == sessionScope.user.id }">
+                    <div class="modal fade modal-menu">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Mise à jour</h4>
+                                </div>
+
+                                <div class="modal-body">
+                                    <!-- UserHasTopo DELETE -->
+                                    <form hidden method="post" action="/user-topo/${ topo.publicationId }/delete" class="publication-delete">
+                                        <input hidden name="current_uri" title="current_uri" value="${ currentURI }" />
+                                    </form>
+
+                                    <form method="post" action="/user-topo/${ topo.publicationId }/update" class="form-horizontal publication-update">
+                                        <input hidden name="current_uri" title="current_uri" value="${ currentURI }" />
+
+                                        <div class="checkbox">
+                                            <b>Disponibilité : </b>
+                                            <label>
+                                                <input type="checkbox" name="loaned" value="${ userHasTopo.topo.loaned }" ${ userHasTopo.topo.loaned ? 'checked' : '' }/>
+                                                est emprunté
+                                            </label>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="borrowing_date_update">Date d'emprunt :</label>
+                                            <input type="date" class="form-control" name="borrowing_date" id="borrowing_date_update"/>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="return_date_update">Date de retour :</label>
+                                            <input type="date" class="form-control" name="return_date" id="return_date_update"/>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-danger" onclick="$('.publication-delete').submit();">Delete</button>
+                                    <button type="button" class="btn btn-primary" onclick="$('.publication-update').submit();">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </c:if>
+            </c:forEach>
+            </tbody>
+        </table>
     </c:if>
 
     <%@include file="_include/comments.jsp"%>

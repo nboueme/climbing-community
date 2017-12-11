@@ -5,6 +5,7 @@ import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 
 public class TopoRM implements RowMapper<Topo> {
     public Topo mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -15,6 +16,9 @@ public class TopoRM implements RowMapper<Topo> {
             else if (rs.getMetaData().getColumnName(i).equals("description")) topo.setDescription(rs.getString("description"));
             else if (rs.getMetaData().getColumnName(i).equals("topo_id")) topo.setPublicationId(rs.getInt("topo_id"));
             else if (rs.getMetaData().getColumnName(i).equals("spots")) topo.setSpotsNumber(rs.getInt("spots"));
+            else if (rs.getMetaData().getColumnName(i).equals("is_loaned")) topo.setLoaned(rs.getBoolean("is_loaned"));
+            else if (rs.getMetaData().getColumnName(i).equals("borrowing_date")) topo.setBorrowingDate(rs.getDate("borrowing_date"));
+            else if (rs.getMetaData().getColumnName(i).equals("return_date")) topo.setReturnDate(rs.getDate("return_date"));
         }
 
         SpotRM spotRM = new SpotRM();

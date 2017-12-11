@@ -21,6 +21,9 @@ public class UserAccountRM implements RowMapper<UserAccount> {
             else if (rs.getMetaData().getColumnName(i).equals("updated_at")) user.setUpdatedAt(rs.getTimestamp("updated_at"));
         }
 
+        TopoRM topoRM = new TopoRM();
+        user.setTopo(topoRM.mapRow(rs, rowNum));
+
         return user;
     }
 }
