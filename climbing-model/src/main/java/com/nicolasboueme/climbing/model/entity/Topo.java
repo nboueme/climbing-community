@@ -5,6 +5,9 @@ public class Topo extends Publication {
     private String description;
     private String imageUrl;
 
+    private int spotsNumber;
+    private Spot topoHasSpot;
+
     public int getPublicationId() {
         return publicationId;
     }
@@ -27,5 +30,21 @@ public class Topo extends Publication {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public Spot getTopoHasSpot() {
+        return topoHasSpot;
+    }
+
+    public void setTopoHasSpot(Spot topoHasSpot) {
+        this.topoHasSpot = topoHasSpot;
+    }
+
+    public int getSpotsNumber() {
+        return spotsNumber;
+    }
+
+    public void setSpotsNumber(int spotsNumber) {
+        this.spotsNumber = spotsNumber;
     }
 }

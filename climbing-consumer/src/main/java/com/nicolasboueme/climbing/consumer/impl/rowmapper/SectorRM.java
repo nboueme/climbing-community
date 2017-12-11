@@ -9,10 +9,14 @@ import java.sql.SQLException;
 public class SectorRM implements RowMapper<Sector> {
     public Sector mapRow(ResultSet rs, int rowNum) throws SQLException {
         Sector sector = new Sector();
-        sector.setName(rs.getString("name"));
-        sector.setPublicationId(rs.getInt("publication_id"));
-        sector.setSpotId(rs.getInt("spot_id"));
-        sector.setHeight(rs.getInt("height"));
+
+        for (int i = 1; i <= rs.getMetaData().getColumnCount(); i++) {
+            if (rs.getMetaData().getColumnName(i).equals("name")) sector.setName(rs.getString("name"));
+            else if (rs.getMetaData().getColumnName(i).equals("publication_id")) sector.setPublicationId(rs.getInt("publication_id"));
+            else if (rs.getMetaData().getColumnName(i).equals("spot_id")) sector.setSpotId(rs.getInt("spot_id"));
+            else if (rs.getMetaData().getColumnName(i).equals("height")) sector.setHeight(rs.getInt("height"));
+        }
+
         return sector;
     }
 }

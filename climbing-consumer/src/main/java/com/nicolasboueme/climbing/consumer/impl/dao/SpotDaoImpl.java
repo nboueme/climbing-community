@@ -12,7 +12,7 @@ import java.util.List;
 public class SpotDaoImpl extends AbstractDaoImpl implements SpotDao {
 
     public List<Spot> listSpots() {
-        String sql = "SELECT publication.name, spot.publication_id, spot.description, spot.height FROM publication, spot WHERE publication.id = spot.publication_id;";
+        String sql = "SELECT publication.name, spot.publication_id AS spot_id, spot.description, spot.height FROM publication, spot WHERE publication.id = spot.publication_id;";
 
         RowMapper<Spot> rowMapper = new SpotRM();
 

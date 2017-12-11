@@ -47,6 +47,7 @@
         <tr>
             <th>Topo</th>
             <th>Description</th>
+            <th>Spots</th>
             <c:if test="${ !empty sessionScope.user }">
                 <th>Options</th>
             </c:if>
@@ -57,6 +58,7 @@
             <tr>
                 <td><a href="${pageContext.request.contextPath}/topo/${ topo.publicationId }"><c:out value="${ topo.name }" /></a></td>
                 <td><c:out value="${ topo.description }"/></td>
+                <td><c:out value="${ topo.spotsNumber }"/></td>
 
                 <c:if test="${ !empty sessionScope.user }">
                     <td class="text-center">

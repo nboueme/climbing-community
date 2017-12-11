@@ -1,5 +1,6 @@
 package com.nicolasboueme.climbing.business.contract.manager;
 
+import com.nicolasboueme.climbing.model.entity.Spot;
 import com.nicolasboueme.climbing.model.entity.Topo;
 
 import java.util.List;
@@ -14,4 +15,12 @@ public interface TopoManager {
     void updateTopo(Topo topo);
 
     void deleteTopo(Topo topo);
+
+    void addTopoHasSpot(Topo topo, Spot spot);
+
+    List<Spot> getNotRelatedSpots(Topo topo);
+
+    List<Topo> getTopoHasSpot(Topo topo);
+
+    void deleteTopoHastSpot(Topo topo, Spot spot);
 }

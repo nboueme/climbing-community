@@ -2,10 +2,8 @@ package com.nicolasboueme.climbing.business.impl.manager;
 
 import com.nicolasboueme.climbing.business.contract.manager.TopoManager;
 import com.nicolasboueme.climbing.business.impl.AbstractManager;
-import com.nicolasboueme.climbing.consumer.impl.DaoFactoryImpl;
-import com.nicolasboueme.climbing.consumer.contract.dao.TopoDao;
+import com.nicolasboueme.climbing.model.entity.Spot;
 import com.nicolasboueme.climbing.model.entity.Topo;
-import com.nicolasboueme.climbing.model.entity.UserAccount;
 
 import java.util.List;
 
@@ -29,5 +27,21 @@ public class TopoManagerImpl extends AbstractManager implements TopoManager {
 
     public void deleteTopo(Topo topo) {
         getDaoFactory().getTopoDao().deleteTopo(topo);
+    }
+
+    public void addTopoHasSpot(Topo topo, Spot spot) {
+        getDaoFactory().getTopoDao().addTopoHasSpot(topo, spot);
+    }
+
+    public List<Spot> getNotRelatedSpots(Topo topo) {
+        return getDaoFactory().getTopoDao().getNotRelatedSpots(topo);
+    }
+
+    public List<Topo> getTopoHasSpot(Topo topo) {
+        return getDaoFactory().getTopoDao().getTopoHasSpot(topo);
+    }
+
+    public void deleteTopoHastSpot(Topo topo, Spot spot) {
+        getDaoFactory().getTopoDao().deleteTopoHastSpot(topo, spot);
     }
 }

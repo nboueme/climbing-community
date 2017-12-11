@@ -3,6 +3,7 @@ package com.nicolasboueme.climbing.webapp.controller;
 import com.nicolasboueme.climbing.business.contract.manager.PublicationManager;
 import com.nicolasboueme.climbing.business.contract.manager.TopoManager;
 import com.nicolasboueme.climbing.model.entity.Comment;
+import com.nicolasboueme.climbing.model.entity.Spot;
 import com.nicolasboueme.climbing.model.entity.Topo;
 import com.nicolasboueme.climbing.model.entity.UserAccount;
 import com.nicolasboueme.climbing.webapp.resource.AbstractResource;
@@ -49,6 +50,8 @@ public class TopoController extends AbstractResource {
         modelMap.addAttribute("currentURI", request.getRequestURI());
         modelMap.addAttribute("publicationId", topoId);
         modelMap.addAttribute("topo", webappToConsumer.getTopo(topo));
+        modelMap.addAttribute("notRelatedSpots", webappToConsumer.getNotRelatedSpots(topo));
+        modelMap.addAttribute("topoHasSpots", webappToConsumer.getTopoHasSpot(topo));
         modelMap.addAttribute("parentsComments", comments.getParentsComments(comment));
         modelMap.addAttribute("childrenComments", comments.getChildrenComments(comment));
         return "topo_item";
@@ -72,5 +75,29 @@ public class TopoController extends AbstractResource {
 
         webappToConsumer.deleteTopo(topo);
         response.sendRedirect(request.getContextPath() + "/topo");
+    }
+
+    @PostMapping("/topo-spot")
+    public void addTopoHasSpot(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Topo topo = new Topo();
+        topo.setPublicationId(Integer.parseInt(request.getParameter("topo_id")));
+
+        Spot spot = new Spot();
+        spot.setPublicationId(Integer.parseInt(request.getParameter("spot")));
+
+        webappToConsumer.addTopoHasSpot(topo, spot);
+        response.sendRedirect(request.getParameter("current_uri"));
+    }
+
+    @PostMapping("/topo-spot/{spotId}/delete")
+    public void deleteTopoHasSpot(@PathVariable String spotId, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Topo topo = new Topo();
+        topo.setPublicationId(Integer.parseInt(request.getParameter("topo_id")));
+
+        Spot spot = new Spot();
+        spot.setPublicationId(Integer.parseInt(spotId));
+
+        webappToConsumer.deleteTopoHastSpot(topo, spot);
+        response.sendRedirect(request.getParameter("current_uri"));
     }
 }
