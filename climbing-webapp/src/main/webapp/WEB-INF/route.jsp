@@ -19,6 +19,8 @@
             </button>
         </p>
         <form method="post" action="${ publicationId }" class="form-horizontal collapse collapse-menu">
+            <input hidden name="current_uri" title="current_uri" value="${ currentURI }" />
+
             <div class="form-group">
                 <label class="control-label col-sm-2" for="name">Nom :</label>
                 <div class="col-sm-10">
@@ -36,7 +38,13 @@
             <div class="form-group">
                 <label class="control-label col-sm-2" for="quotation">Cotation :</label>
                 <div class="col-sm-10">
-                    <input required type="text" class="form-control" name="quotation" id="quotation" placeholder="Enter a route quotation" value="6a" />
+                    <select name="quotation" id="quotation">
+                        <c:forEach var="quotation_range" begin="3" end="9">
+                            <option value="${ quotation_range }a">${ quotation_range }a</option>
+                            <option value="${ quotation_range }b">${ quotation_range }b</option>
+                            <option value="${ quotation_range }c">${ quotation_range }c</option>
+                        </c:forEach>
+                    </select>
                 </div>
             </div>
 
@@ -85,7 +93,7 @@
         <tbody>
         <c:forEach var="route" items="${ routeList }">
             <tr>
-                <td><a href="${pageContext.request.contextPath}/climbing/${ spotId }/route/${ route.publicationId }"><c:out value="${ route.name }" /></a></td>
+                <td><a href="${pageContext.request.contextPath}/climbing/route/${ route.publicationId }"><c:out value="${ route.name }" /></a></td>
                 <td><c:out value="${ route.height }" /></td>
                 <td><c:out value="${ route.pointsNumber }" /></td>
                 <td><c:out value="${ route.quotation }" /></td>
@@ -93,7 +101,9 @@
                 <c:if test="${ !empty sessionScope.user }">
                     <td class="text-center">
                         <c:if test="${ sessionScope.user.role == 'admin' }">
-                            <form hidden method="post" action="${ route.sectorId }/route/${ route.publicationId }/delete" class="publication-delete${ route.publicationId }"></form>
+                            <form hidden method="post" action="/climbing/route/${ route.publicationId }/delete" class="publication-delete${ route.publicationId }">
+                                <input hidden name="current_uri" title="current_uri" value="${ currentURI }" />
+                            </form>
                         </c:if>
 
                         <div class="btn-group btn-group-xs">
@@ -124,7 +134,9 @@
                             </div>
 
                             <div class="modal-body">
-                                <form method="post" action="${ route.sectorId }/route/${ route.publicationId }/update" class="form-horizontal publication-update">
+                                <form method="post" action="/climbing/route/${ route.publicationId }/update" class="form-horizontal publication-update">
+                                    <input hidden name="current_uri" title="current_uri" value="${ currentURI }" />
+
                                     <div class="form-group">
                                         <label for="name_update">Nom :</label>
                                         <input required type="text" class="form-control" name="name" id="name_update" placeholder="Enter a route name" value="${ route.name }" />
@@ -137,7 +149,14 @@
 
                                     <div class="form-group">
                                         <label for="quotation_update">Cotation :</label>
-                                        <input required type="text" class="form-control" name="quotation" id="quotation_update" placeholder="Enter a route quotation" value="${ route.quotation }" />
+                                        <select name="quotation" id="quotation_update">
+                                            <option value="${ route.quotation }">--</option>
+                                            <c:forEach var="quotation_range" begin="3" end="9">
+                                                <option value="${ quotation_range }a">${ quotation_range }a</option>
+                                                <option value="${ quotation_range }b">${ quotation_range }b</option>
+                                                <option value="${ quotation_range }c">${ quotation_range }c</option>
+                                            </c:forEach>
+                                        </select>
                                     </div>
 
                                     <div class="form-group">

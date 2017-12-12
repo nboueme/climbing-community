@@ -46,26 +46,26 @@ public class SectorController extends AbstractResource {
         sector.setHeight(Integer.parseInt(request.getParameter("height")));
 
         webappToConsumer.addSector(sector);
-        response.sendRedirect(request.getContextPath() + "/climbing/" + spotId);
+        response.sendRedirect(request.getParameter("current_uri"));
     }
 
-    @PostMapping("/climbing/{spotId}/sector/{sectorId}/update")
-    public void updateSector(@PathVariable String spotId, @PathVariable String sectorId, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    @PostMapping("/climbing/sector/{sectorId}/update")
+    public void updateSector(@PathVariable String sectorId, HttpServletRequest request, HttpServletResponse response) throws IOException {
         Sector sector = new Sector();
         sector.setPublicationId(Integer.parseInt(sectorId));
         sector.setName(request.getParameter("name"));
         sector.setHeight(Integer.parseInt(request.getParameter("height")));
 
         webappToConsumer.updateSector(sector);
-        response.sendRedirect(request.getContextPath() + "/climbing/" + spotId);
+        response.sendRedirect(request.getParameter("current_uri"));
     }
 
-    @PostMapping("/climbing/{spotId}/sector/{sectorId}/delete")
-    public void deleteSector(@PathVariable String spotId, @PathVariable String sectorId, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    @PostMapping("/climbing/sector/{sectorId}/delete")
+    public void deleteSector(@PathVariable String sectorId, HttpServletRequest request, HttpServletResponse response) throws IOException {
         Sector sector = new Sector();
         sector.setPublicationId(Integer.parseInt(sectorId));
 
         webappToConsumer.deleteSector(sector);
-        response.sendRedirect(request.getContextPath() + "/climbing/" + spotId);
+        response.sendRedirect(request.getParameter("current_uri"));
     }
 }

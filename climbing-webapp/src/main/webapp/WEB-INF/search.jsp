@@ -62,12 +62,12 @@
                 </c:when>
                 <c:when test="${ typePublication == 'sector' }">
                     <c:forEach var="publication" items="${ publicationList }">
-                        <li><a href="${pageContext.request.contextPath}/climbing/${ publication.spotId }/sector/${ publication.publicationId }"><c:out value="${ publication.name }"/></a></li>
+                        <li><a href="${pageContext.request.contextPath}/climbing/sector/${ publication.publicationId }"><c:out value="${ publication.name }"/></a></li>
                     </c:forEach>
                 </c:when>
                 <c:when test="${ typePublication == 'route' }">
                     <c:forEach var="publication" items="${ publicationList }">
-                        <li><a href="${pageContext.request.contextPath}/climbing/0/route/${ publication.publicationId }"><c:out value="${ publication.name }"/></a></li>
+                        <li><a href="${pageContext.request.contextPath}/climbing/route/${ publication.parentPublicationId == 0 ? publication.publicationId : publication.parentPublicationId }"><c:out value="${ publication.name }"/></a></li>
                     </c:forEach>
                 </c:when>
                 <c:when test="${ typePublication == 'topo' }">

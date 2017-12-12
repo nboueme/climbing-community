@@ -12,13 +12,15 @@
     <h1>${ route.name }</h1>
 
     <!-- Length CREATE -->
-    <c:if test="${ !empty sessionScope.user }">
+    <c:if test="${ !empty sessionScope.user && route.typeRoute == 'route' }">
         <p>
             <button type="button" class="btn btn-primary btn-xs" data-toggle="collapse" data-target=".collapse-menu">
                 <span class="glyphicon glyphicon-plus"></span> Ajouter une voie
             </button>
         </p>
         <form method="post" action="${ route.publicationId }" class="form-horizontal collapse collapse-menu">
+            <input hidden name="current_uri" title="current_uri" value="${ currentURI }" />
+
             <div class="form-group">
                 <label class="control-label col-sm-2" for="name">Nom :</label>
                 <div class="col-sm-10">
@@ -27,7 +29,6 @@
             </div>
 
             <input hidden type="number" name="sector_id" title="sector_id" value="${ route.sectorId }" />
-            <input hidden type="number" name="parent_id" title="parent_id" value="${ route.publicationId }" />
 
             <div class="form-group">
                 <label class="control-label col-sm-2" for="height">Hauteur :</label>
@@ -39,7 +40,13 @@
             <div class="form-group">
                 <label class="control-label col-sm-2" for="quotation">Cotation :</label>
                 <div class="col-sm-10">
-                    <input required type="text" class="form-control" name="quotation" id="quotation" placeholder="Enter a length quotation" value="6a" />
+                    <select name="quotation" id="quotation">
+                        <c:forEach var="quotation_range" begin="3" end="9">
+                            <option value="${ quotation_range }a">${ quotation_range }a</option>
+                            <option value="${ quotation_range }b">${ quotation_range }b</option>
+                            <option value="${ quotation_range }c">${ quotation_range }c</option>
+                        </c:forEach>
+                    </select>
                 </div>
             </div>
 
@@ -102,6 +109,7 @@
                         <td class="text-center">
                             <c:if test="${ sessionScope.user.role == 'admin' }">
                                 <form hidden method="post" action="${ length.publicationId }/delete" class="publication-delete${ length.publicationId }">
+                                    <input hidden name="current_uri" title="current_uri" value="${ currentURI }" />
                                     <input hidden name="route_id" title="route_id" value="${ route.publicationId }" />
                                 </form>
                             </c:if>
@@ -135,6 +143,7 @@
 
                                 <div class="modal-body">
                                     <form method="post" action="${ length.publicationId }/update" class="form-horizontal publication-update">
+                                        <input hidden name="current_uri" title="current_uri" value="${ currentURI }" />
                                         <input hidden name="route_id" title="route_id" value="${ route.publicationId }" />
 
                                         <div class="form-group">
@@ -149,7 +158,14 @@
 
                                         <div class="form-group">
                                             <label for="quotation_update">Cotation :</label>
-                                            <input required type="text" class="form-control" name="quotation" id="quotation_update" placeholder="Enter a route quotation" value="${ length.quotation }" />
+                                            <select name="quotation" id="quotation_update">
+                                                <option value="${ length.quotation }">--</option>
+                                                <c:forEach var="quotation_range" begin="3" end="9">
+                                                    <option value="${ quotation_range }a">${ quotation_range }a</option>
+                                                    <option value="${ quotation_range }b">${ quotation_range }b</option>
+                                                    <option value="${ quotation_range }c">${ quotation_range }c</option>
+                                                </c:forEach>
+                                            </select>
                                         </div>
 
                                         <div class="form-group">

@@ -19,6 +19,8 @@
             </button>
         </p>
         <form method="post" action="${ publicationId }" class="form-horizontal collapse collapse-menu">
+            <input hidden name="current_uri" title="current_uri" value="${ currentURI }" />
+
             <div class="form-group">
                 <label class="control-label col-sm-2" for="name">Nom :</label>
                 <div class="col-sm-10">
@@ -55,13 +57,15 @@
         <tbody>
         <c:forEach var="sector" items="${ sectorList }">
             <tr>
-                <td><a href="${pageContext.request.contextPath}/climbing/${ sector.spotId }/sector/${ sector.publicationId }"><c:out value="${ sector.name }" /></a></td>
+                <td><a href="${pageContext.request.contextPath}/climbing/sector/${ sector.publicationId }"><c:out value="${ sector.name }" /></a></td>
                 <td><c:out value="${ sector.height == 0 ? 'hauteur inconnue' : sector.height }" /></td>
 
                 <c:if test="${ !empty sessionScope.user }">
                     <td class="text-center">
                         <c:if test="${ sessionScope.user.role == 'admin' }">
-                            <form hidden method="post" action="${ sector.spotId }/sector/${ sector.publicationId }/delete" class="publication-delete${ sector.publicationId }"></form>
+                            <form hidden method="post" action="sector/${ sector.publicationId }/delete" class="publication-delete${ sector.publicationId }">
+                                <input hidden name="current_uri" title="current_uri" value="${ currentURI }" />
+                            </form>
                         </c:if>
 
                         <div class="btn-group btn-group-xs">
@@ -92,7 +96,9 @@
                             </div>
 
                             <div class="modal-body">
-                                <form method="post" action="${ sector.spotId }/sector/${ sector.publicationId }/update" class="form-horizontal publication-update">
+                                <form method="post" action="sector/${ sector.publicationId }/update" class="form-horizontal publication-update">
+                                    <input hidden name="current_uri" title="current_uri" value="${ currentURI }" />
+
                                     <div class="form-group">
                                         <label for="name_update">Nom :</label>
                                         <input type="text" class="form-control" name="name" id="name_update" placeholder="Enter a topo name" value="${ sector.name }" />

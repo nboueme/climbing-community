@@ -54,7 +54,7 @@ public class RouteDaoImpl extends AbstractDaoImpl implements RouteDao {
     }
 
     public Route getRoute(Route route) {
-        String sql = "SELECT publication.name, route.publication_id, route.sector_id, route.height, quotation, latitude, longitude, points_number FROM publication, route WHERE publication.id = route.publication_id AND route.publication_id = :publication_id;";
+        String sql = "SELECT publication.name, route.publication_id, route.sector_id, route.height, quotation, latitude, longitude, points_number, type_route FROM publication, route WHERE publication.id = route.publication_id AND route.publication_id = :publication_id;";
 
         MapSqlParameterSource args = new MapSqlParameterSource();
         args.addValue("publication_id", route.getPublicationId(), Types.INTEGER);

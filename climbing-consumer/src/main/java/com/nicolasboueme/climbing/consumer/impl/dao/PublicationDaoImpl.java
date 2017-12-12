@@ -46,7 +46,7 @@ public class PublicationDaoImpl extends AbstractDaoImpl implements PublicationDa
     }
 
     public List<Route> listPublication(Route route) {
-        String sql = "SELECT publication_id, name, height, quotation, points_number " +
+        String sql = "SELECT publication_id, parent_publication_id, name, height, quotation, points_number " +
                 "FROM publication, route " +
                 "WHERE publication.id = route.publication_id " +
                 "AND LOWER(name) LIKE LOWER(:publication_text) " +

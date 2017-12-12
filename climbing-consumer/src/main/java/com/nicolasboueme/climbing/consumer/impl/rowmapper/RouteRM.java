@@ -20,6 +20,7 @@ public class RouteRM implements RowMapper<Route> {
             else if (rs.getMetaData().getColumnName(i).equals("latitude")) route.setLatitude(rs.getDouble("latitude"));
             else if (rs.getMetaData().getColumnName(i).equals("longitude")) route.setLongitude(rs.getDouble("longitude"));
             else if (rs.getMetaData().getColumnName(i).equals("points_number")) route.setPointsNumber(rs.getInt("points_number"));
+            else if (rs.getMetaData().getColumnName(i).equals("type_route")) route.setTypeRoute(rs.getString("type_route"));
         }
 
         return route;
