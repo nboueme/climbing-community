@@ -5,7 +5,6 @@ import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
 
 public class TopoRM implements RowMapper<Topo> {
     public Topo mapRow(ResultSet rs, int rowNum) throws SQLException {

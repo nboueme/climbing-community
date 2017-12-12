@@ -1,12 +1,17 @@
 package com.nicolasboueme.climbing.consumer.contract.dao;
 
-import com.nicolasboueme.climbing.model.entity.Comment;
-import com.nicolasboueme.climbing.model.entity.Publication;
+import com.nicolasboueme.climbing.model.entity.*;
 
 import java.util.List;
 
 public interface PublicationDao {
-    List<Publication>  listPublication();
+    List<Spot> listPublication(Spot spot);
+
+    List<Sector> listPublication(Sector sector);
+
+    List<Route> listPublication(Route route);
+
+    List<Topo> listPublication(Topo topo);
 
     void addComment(Comment comment);
 

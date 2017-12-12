@@ -1,34 +1,84 @@
 package com.nicolasboueme.climbing.consumer.impl.dao;
 
 import com.nicolasboueme.climbing.consumer.contract.dao.PublicationDao;
-import com.nicolasboueme.climbing.consumer.impl.rowmapper.CommentRM;
-import com.nicolasboueme.climbing.model.entity.Comment;
-import com.nicolasboueme.climbing.model.entity.Publication;
-import com.nicolasboueme.climbing.model.entity.UserAccount;
+import com.nicolasboueme.climbing.consumer.impl.rowmapper.*;
+import com.nicolasboueme.climbing.model.entity.*;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Types;
 import java.util.List;
 
 public class PublicationDaoImpl extends AbstractDaoImpl implements PublicationDao {
 
-    public List<Publication> listPublication() {
-        /*String sql = "SELECT publication.name FROM publication WHERE publication.name LIKE ?;";
+    public List<Spot> listPublication(Spot spot) {
+        String sql = "SELECT publication_id AS spot_id, name, description, height " +
+                "FROM publication, spot " +
+                "WHERE publication.id = spot.publication_id " +
+                "AND (LOWER(name) LIKE LOWER('%c%') OR LOWER(description) LIKE LOWER('%c%')) " +
+                "AND (height <= :publication_height OR height ISNULL) " +
+                "ORDER BY name ASC;";
 
-        RowMapper<Publication> rowMapper = new RowMapper<Publication>() {
-            public Publication mapRow(ResultSet rs, int rowNum) throws SQLException {
-                Publication publication = new Publication();
-                publication.setName(rs.getString("name"));
-                return publication;
-            }
-        };
+        MapSqlParameterSource args = new MapSqlParameterSource();
+        args.addValue("publication_text", "%" + spot.getName() + "%", Types.VARCHAR);
+        args.addValue("publication_height", spot.getHeight(), Types.INTEGER);
 
-        return getJdbcTemplate().query(sql, rowMapper, "%c%");*/
+        RowMapper<Spot> rowMapper = new SpotRM();
 
-        return null;
+        return getNamedParameterJdbcTemplate().query(sql, args, rowMapper);
+    }
+
+    public List<Sector> listPublication(Sector sector) {
+        String sql = "SELECT publication_id, spot_id, name, height " +
+                "FROM publication, sector " +
+                "WHERE publication.id = sector.publication_id " +
+                "AND LOWER(name) LIKE LOWER(:publication_text) " +
+                "AND (height <= :publication_height OR height ISNULL) " +
+                "ORDER BY name ASC;";
+
+        MapSqlParameterSource args = new MapSqlParameterSource();
+        args.addValue("publication_text", "%" + sector.getName() + "%", Types.VARCHAR);
+        args.addValue("publication_height", sector.getHeight(), Types.INTEGER);
+
+        RowMapper<Sector> rowMapper = new SectorRM();
+
+        return getNamedParameterJdbcTemplate().query(sql, args, rowMapper);
+    }
+
+    public List<Route> listPublication(Route route) {
+        String sql = "SELECT publication_id, name, height, quotation, points_number " +
+                "FROM publication, route " +
+                "WHERE publication.id = route.publication_id " +
+                "AND LOWER(name) LIKE LOWER(:publication_text) " +
+                "AND (height <= :publication_height OR height ISNULL) " +
+                "AND quotation LIKE :publication_quotation " +
+                "AND (points_number >= :publication_points OR  points_number ISNULL) " +
+                "ORDER BY name ASC;";
+
+        MapSqlParameterSource args = new MapSqlParameterSource();
+        args.addValue("publication_text", "%" + route.getName() + "%", Types.VARCHAR);
+        args.addValue("publication_height", route.getHeight(), Types.INTEGER);
+        args.addValue("publication_quotation", route.getQuotation(), Types.VARCHAR);
+        args.addValue("publication_points", route.getPointsNumber(), Types.INTEGER);
+
+        RowMapper<Route> rowMapper = new RouteRM();
+
+        return getNamedParameterJdbcTemplate().query(sql, args, rowMapper);
+    }
+
+    public List<Topo> listPublication(Topo topo) {
+        String sql = "SELECT publication_id AS topo_id, name, description " +
+                "FROM publication, topo " +
+                "WHERE publication.id = topo.publication_id " +
+                "AND (LOWER(name) LIKE LOWER('%c%') OR LOWER(description) LIKE LOWER('%c%')) " +
+                "ORDER BY name ASC;";
+
+        MapSqlParameterSource args = new MapSqlParameterSource();
+        args.addValue("publication_text", "%" + topo.getName() + "%", Types.VARCHAR);
+
+        RowMapper<Topo> rowMapper = new TopoRM();
+
+        return getNamedParameterJdbcTemplate().query(sql, args, rowMapper);
     }
 
     public void addComment(Comment comment) {
