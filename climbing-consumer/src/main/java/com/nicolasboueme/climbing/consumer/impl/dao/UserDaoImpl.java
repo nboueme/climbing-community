@@ -14,7 +14,7 @@ import java.sql.Types;
 public class UserDaoImpl extends AbstractDaoImpl implements UserDao {
 
     public void addUser(UserAccount user) {
-        String sql = "INSERT INTO user_account (pseudo, email, password) VALUES (:user_pseudo, :user_email, :user_password);";
+        String sql = "INSERT INTO user_account (pseudo, email, password, image_url) VALUES (:user_pseudo, :user_email, :user_password, :user_image);";
 
         String hashed = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
 
@@ -22,6 +22,7 @@ public class UserDaoImpl extends AbstractDaoImpl implements UserDao {
         args.addValue("user_pseudo", user.getPseudo(), Types.VARCHAR);
         args.addValue("user_email", user.getEmail(), Types.VARCHAR);
         args.addValue("user_password", hashed, Types.VARCHAR);
+        args.addValue("user_image", "/image/user/user-0.png", Types.VARCHAR);
 
         try {
             getNamedParameterJdbcTemplate().update(sql, args);
@@ -72,10 +73,14 @@ public class UserDaoImpl extends AbstractDaoImpl implements UserDao {
     }
 
     public void deleteUser(UserAccount user) {
-        String sql = "DELETE FROM user_account WHERE user_account.id = :user_id;";
+        String sql = "UPDATE publication SET user_account_id = :user_robot WHERE user_account_id = :user_id;" +
+                "UPDATE comment SET user_account_id = :user_robot WHERE user_account_id = :user_id;" +
+                "DELETE FROM user_has_topo WHERE user_id = :user_id;" +
+                "DELETE FROM user_account WHERE user_account.id = :user_id;";
 
         MapSqlParameterSource args = new MapSqlParameterSource();
         args.addValue("user_id", user.getId(), Types.INTEGER);
+        args.addValue("user_robot", 0, Types.INTEGER);
 
         getNamedParameterJdbcTemplate().update(sql, args);
     }
