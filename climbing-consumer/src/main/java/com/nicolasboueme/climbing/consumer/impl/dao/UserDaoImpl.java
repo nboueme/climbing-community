@@ -31,10 +31,11 @@ public class UserDaoImpl extends AbstractDaoImpl implements UserDao {
     }
 
     public UserAccount getUser(UserAccount user) {
-        String sql = "SELECT * FROM user_account WHERE email = :user_login;";
+        String sql = "SELECT * FROM user_account WHERE email = :user_login AND role != :not_robot;";
 
         MapSqlParameterSource args = new MapSqlParameterSource();
         args.addValue("user_login", user.getEmail(), Types.VARCHAR);
+        args.addValue("not_robot", "robot", Types.VARCHAR);
 
         RowMapper<UserAccount> rowMapper = new UserAccountRM();
 

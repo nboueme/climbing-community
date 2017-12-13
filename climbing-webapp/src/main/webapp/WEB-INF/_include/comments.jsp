@@ -1,14 +1,14 @@
 <h4>Commentaires</h4>
 <c:choose>
     <c:when test="${ parentsComments.size() > 0 }">
-    <div class="comment-list">
+        <div class="comment-list">
             <c:forEach var="parentComment" items="${ parentsComments }">
                 <div class="media thumbnail">
-                    <a class="pull-left comment-object" href="#">
-                        <img class="media-object" src="${ parentComment.author.imageUrl }">
+                    <a class="pull-left option-cursor">
+                        <img class="media-object comment-object" src="${ parentComment.author.imageUrl }">
                     </a>
                     <div class="media-body">
-                        <div><a href=""><b>${ parentComment.author.pseudo }</b></a> ${ parentComment.content }</div>
+                        <div><a class="option-cursor"><b>${ parentComment.author.pseudo }</b></a> ${ parentComment.content }</div>
                         <div>
                             <c:if test="${ !empty sessionScope.user }">
                                 <a class="option-cursor" data-toggle="collapse" data-target=".collapse-reply-${parentComment.id}">Répondre</a><span class="comment-point"> · </span>
@@ -32,8 +32,8 @@
                                 <c:forEach var="childComment" items="${ childrenComments }">
                                     <c:if test="${ childComment.parentId == parentComment.id }">
                                         <div class="reply-list">
-                                            <a class="pull-left comment-object-child" href="#">
-                                                <img class="media-object" src="${ childComment.author.imageUrl }">
+                                            <a class="pull-left pull-left-child option-cursor">
+                                                <img class="media-object comment-object-child" src="${ childComment.author.imageUrl }">
                                             </a>
                                             <div class="media-body">
                                                 <div><a href=""><b>${ childComment.author.pseudo }</b></a> ${ childComment.content }</div>

@@ -63,7 +63,7 @@ public class UserController extends AbstractResource {
 
         HttpSession session = request.getSession();
 
-        if (request.getParameter("remember") != null) {
+        if (request.getParameter("remember") != null && userQuery != null) {
             session.setAttribute("user", userQuery);
             response.sendRedirect(request.getContextPath() + "/");
         } else {
