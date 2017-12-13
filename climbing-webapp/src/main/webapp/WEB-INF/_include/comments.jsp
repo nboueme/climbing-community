@@ -17,7 +17,7 @@
                                     <a class="option-cursor" data-toggle="modal" data-target=".modal-parent-${ parentComment.id }" data-backdrop="static" data-keyboard="false">Modifier</a><span class="comment-point"> · </span>
                                 </c:if>
 
-                                <c:if test="${ sessionScope.user.role == 'admin' }">
+                                <c:if test="${ sessionScope.user.role == 'admin' || sessionScope.user.id == parentComment.userAccountId }">
                                     <form hidden method="post" action="/comment/${parentComment.id}/delete" class="parent-comment-delete${ parentComment.id }">
                                         <input hidden name="current_uri" title="current_uri" value="${ currentURI }" />
                                     </form>
@@ -45,7 +45,7 @@
                                                             <a class="option-cursor" data-toggle="modal" data-target=".modal-child-${ childComment.id }" data-backdrop="static" data-keyboard="false">Modifier</a><span class="comment-point"> · </span>
                                                         </c:if>
 
-                                                        <c:if test="${ sessionScope.user.role == 'admin' }">
+                                                        <c:if test="${ sessionScope.user.role == 'admin' || sessionScope.user.id == childComment.userAccountId }">
                                                             <form hidden method="post" action="/comment/${childComment.id}/delete" class="child-comment-delete${ childComment.id }">
                                                                 <input hidden name="current_uri" title="current_uri" value="${ currentURI }" />
                                                             </form>

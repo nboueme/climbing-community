@@ -34,6 +34,13 @@ textarea {
 .comment-object-child {
     width: 20px;
     height: 20px;
+    border-radius: 50%;
+}
+
+.user-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
 }
 
 .pull-left {

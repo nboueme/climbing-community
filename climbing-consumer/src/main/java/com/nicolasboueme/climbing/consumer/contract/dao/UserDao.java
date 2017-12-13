@@ -7,6 +7,8 @@ public interface UserDao {
 
     UserAccount getUser(UserAccount user);
 
+    void deleteUserPicture(UserAccount user);
+
     void updateUser(UserAccount user);
 
     void deleteUser(UserAccount user);

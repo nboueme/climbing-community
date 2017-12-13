@@ -7,6 +7,8 @@ public interface UserManager {
 
     UserAccount userLogin(UserAccount user);
 
+    void deleteUserPicture(UserAccount user);
+
     void updateUser(UserAccount user);
 
     void deleteUser(UserAccount user);

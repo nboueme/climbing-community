@@ -58,8 +58,18 @@ public class UserDaoImpl extends AbstractDaoImpl implements UserDao {
         }
     }
 
+    public void deleteUserPicture(UserAccount user) {
+        String sql = "UPDATE user_account SET image_url = :user_image WHERE user_account.id = :user_id;";
+
+        MapSqlParameterSource args = new MapSqlParameterSource();
+        args.addValue("user_id", user.getId(), Types.INTEGER);
+        args.addValue("user_image", user.getImageUrl(), Types.VARCHAR);
+
+        getNamedParameterJdbcTemplate().update(sql, args);
+    }
+
     public void updateUser(UserAccount user) {
-        String sql = "UPDATE user_account SET pseudo = :user_pseudo, email = :user_email, password = :user_password, updated_at = now() WHERE user_account.id = :user_id;";
+        String sql = "UPDATE user_account SET pseudo = :user_pseudo, email = :user_email, password = :user_password, image_url = :user_picture, updated_at = now() WHERE user_account.id = :user_id;";
 
         String hashed = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
 
@@ -67,6 +77,7 @@ public class UserDaoImpl extends AbstractDaoImpl implements UserDao {
         args.addValue("user_id", user.getId(), Types.INTEGER);
         args.addValue("user_pseudo", user.getPseudo(), Types.VARCHAR);
         args.addValue("user_email", user.getEmail(), Types.VARCHAR);
+        args.addValue("user_picture", user.getImageUrl(), Types.VARCHAR);
         args.addValue("user_password", hashed, Types.VARCHAR);
 
         getNamedParameterJdbcTemplate().update(sql, args);

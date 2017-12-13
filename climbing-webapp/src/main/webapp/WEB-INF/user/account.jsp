@@ -17,32 +17,50 @@
             <p>Utilisateur mis-à-jour le ${ sessionScope.user.updatedAt }</p>
         </c:if>
 
-        <form method="post" action="/account/${ sessionScope.user.id }" class="form-horizontal">
+        <div>
+            <img class="user-img option-cursor" src="${ sessionScope.user.imageUrl }" data-toggle="collapse" data-target=".collapse-delete-picture">
+            <a class="option-cursor collapse collapse-delete-picture" onclick="$('.delete-picture').submit();">
+                <span class="glyphicon glyphicon-minus"></span> Supprimer
+            </a>
+
+            <form hidden method="post" action="/account/${ sessionScope.user.id }/picture-delete" class="form-horizontal delete-picture">
+                <input hidden name="current_uri" title="current_uri" value="${ currentURI }" />
+            </form>
+        </div>
+
+        <form method="post" action="/account/${ sessionScope.user.id }" enctype="multipart/form-data" class="form-horizontal">
             <div class="form-group">
                 <label class="control-label col-sm-2" for="pseudo">Pseudo :</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name="pseudo" id="pseudo" placeholder="New pseudo" value="${ sessionScope.user.pseudo }"/>
+                    <input required type="text" class="form-control" name="pseudo" id="pseudo" placeholder="New pseudo" value="${ sessionScope.user.pseudo }"/>
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="control-label col-sm-2" for="email">Email :</label>
                 <div class="col-sm-10">
-                    <input type="email" class="form-control" name="email" id="email" placeholder="New email" value="${ sessionScope.user.email }"/>
+                    <input required type="email" class="form-control" name="email" id="email" placeholder="New email" value="${ sessionScope.user.email }"/>
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="control-label col-sm-2" for="lastPassword">Ancien mot de passe :</label>
+                <label class="control-label col-sm-2" for="last_password">Ancien mot de passe :</label>
                 <div class="col-sm-10">
-                    <input type="password" class="form-control" name="lastPassword" id="lastPassword" placeholder="Last password"/>
+                    <input required type="password" class="form-control" name="last_password" id="last_password" placeholder="Last password"/>
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="control-label col-sm-2" for="newPassword">Nouveau mot de passe :</label>
+                <label class="control-label col-sm-2" for="new_password">Nouveau mot de passe :</label>
                 <div class="col-sm-10">
-                    <input type="password" required class="form-control" name="newPassword" id="newPassword" placeholder="New password"/>
+                    <input required type="password" class="form-control" name="new_password" id="new_password" placeholder="New password"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="picture">Photo de profil :</label>
+                <div class="col-sm-10">
+                    <input type="file" name="picture" id="picture"/>
                 </div>
             </div>
 
