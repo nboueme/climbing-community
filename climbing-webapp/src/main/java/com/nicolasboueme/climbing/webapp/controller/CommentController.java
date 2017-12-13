@@ -42,8 +42,6 @@ public class CommentController extends AbstractResource {
     public void deleteComment(@PathVariable String commentId, HttpServletRequest request, HttpServletResponse response) throws IOException {
         Comment comment = new Comment();
         comment.setId(Integer.parseInt(commentId));
-        if (request.getParameter("parent_id") != null)
-            comment.setParentId(Integer.parseInt(request.getParameter("parent_id")));
 
         comments.deleteComment(comment);
         response.sendRedirect(request.getParameter("current_uri"));

@@ -20,30 +20,32 @@
             </form>
         </c:if>
 
-        <!-- TopoHasSpot CREATE -->
-        <p>
-            <button type="button" class="btn btn-primary btn-xs" data-toggle="collapse" data-target=".collapse-menu">
-                <span class="glyphicon glyphicon-plus"></span> Lier un spot
-            </button>
-        </p>
+        <c:if test="${ notRelatedSpots.size() > 0 }">
+            <!-- TopoHasSpot CREATE -->
+            <p>
+                <button type="button" class="btn btn-primary btn-xs" data-toggle="collapse" data-target=".collapse-menu">
+                    <span class="glyphicon glyphicon-plus"></span> Lier un spot
+                </button>
+            </p>
 
-        <form method="post" action="/topo-spot" class="form-horizontal collapse collapse-menu">
-            <div class="form-group">
-                <input hidden name="current_uri" title="current_uri" value="${ currentURI }" />
-                <input hidden name="topo_id" title="topo_id" value="${ topo.publicationId }" />
+            <form method="post" action="/topo-spot" class="form-horizontal collapse collapse-menu">
+                <div class="form-group">
+                    <input hidden name="current_uri" title="current_uri" value="${ currentURI }" />
+                    <input hidden name="topo_id" title="topo_id" value="${ topo.publicationId }" />
 
-                <label for="spots">Nom :</label>
-                <select name="spot" id="spots">
-                    <c:forEach var="spot" items="${ notRelatedSpots }">
-                        <option value="${ spot.publicationId }">${ spot.name }</option>
-                    </c:forEach>
-                </select>
-            </div>
+                    <label for="spots">Nom :</label>
+                    <select name="spot" id="spots">
+                        <c:forEach var="spot" items="${ notRelatedSpots }">
+                            <option value="${ spot.publicationId }">${ spot.name }</option>
+                        </c:forEach>
+                    </select>
+                </div>
 
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Ajouter</button>
-            </div>
-        </form>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Ajouter</button>
+                </div>
+            </form>
+        </c:if>
 
         <!-- UserHasTopo CREATE -->
         <c:if test="${ notRelatedUser == false }">

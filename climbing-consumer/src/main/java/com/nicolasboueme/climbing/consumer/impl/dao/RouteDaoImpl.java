@@ -82,7 +82,7 @@ public class RouteDaoImpl extends AbstractDaoImpl implements RouteDao {
     }
 
     public void deleteRoute(Route route) {
-        String sql = "DELETE FROM route WHERE route.publication_id = :publication_id;" +
+        String sql = "DELETE FROM publication WHERE publication.id IN (SELECT route.publication_id FROM route WHERE route.parent_publication_id = :publication_id);" +
                 "DELETE FROM publication WHERE publication.id = :publication_id;";
 
         MapSqlParameterSource args = new MapSqlParameterSource();

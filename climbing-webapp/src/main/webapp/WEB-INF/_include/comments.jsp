@@ -20,7 +20,6 @@
                                 <c:if test="${ sessionScope.user.role == 'admin' }">
                                     <form hidden method="post" action="/comment/${parentComment.id}/delete" class="parent-comment-delete${ parentComment.id }">
                                         <input hidden name="current_uri" title="current_uri" value="${ currentURI }" />
-                                        <input hidden name="parent_id" title="parent_id" value="${ parentComment.id }" />
                                     </form>
                                     <a class="option-cursor" onclick="$('.parent-comment-delete${ parentComment.id }').submit();">Supprimer</a><span class="comment-point"> · </span>
                                 </c:if>
@@ -47,10 +46,10 @@
                                                         </c:if>
 
                                                         <c:if test="${ sessionScope.user.role == 'admin' }">
-                                                            <form hidden method="post" action="/comment/${childComment.id}/delete" class="child-comment-delete${ childComment.parentId }">
+                                                            <form hidden method="post" action="/comment/${childComment.id}/delete" class="child-comment-delete${ childComment.id }">
                                                                 <input hidden name="current_uri" title="current_uri" value="${ currentURI }" />
                                                             </form>
-                                                            <a class="option-cursor" title="Delete" onclick="$('.child-comment-delete${ childComment.parentId }').submit();">Supprimer</a><span class="comment-point"> · </span>
+                                                            <a class="option-cursor" title="Delete" onclick="$('.child-comment-delete${ childComment.id }').submit();">Supprimer</a><span class="comment-point"> · </span>
                                                         </c:if>
                                                     </c:if>
                                                     <span class="comment-point">${ !empty childComment.updatedAt ? childComment.updatedAt : childComment.createdAt }</span>

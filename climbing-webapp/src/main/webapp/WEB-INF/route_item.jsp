@@ -108,9 +108,8 @@
                     <c:if test="${ !empty sessionScope.user }">
                         <td class="text-center">
                             <c:if test="${ sessionScope.user.role == 'admin' }">
-                                <form hidden method="post" action="${ length.publicationId }/delete" class="publication-delete${ length.publicationId }">
+                                <form hidden method="post" action="/climbing/route/${ length.publicationId }/delete" class="publication-delete${ length.publicationId }">
                                     <input hidden name="current_uri" title="current_uri" value="${ currentURI }" />
-                                    <input hidden name="route_id" title="route_id" value="${ route.publicationId }" />
                                 </form>
                             </c:if>
 
@@ -198,7 +197,9 @@
         </table>
     </c:if>
 
-    <%@include file="_include/comments.jsp"%>
+    <c:if test="${ route.typeRoute == 'route' }">
+        <%@include file="_include/comments.jsp"%>
+    </c:if>
 </div>
 
 <%@ include file="_include/footer.jsp" %>

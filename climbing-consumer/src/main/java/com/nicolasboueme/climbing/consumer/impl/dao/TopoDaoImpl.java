@@ -42,10 +42,10 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
 
     public Topo getTopo(Topo topo) {
         String sql = "SELECT publication.name, topo.description, count(spot_id) as spots, topo.publication_id AS topo_id " +
-                "FROM topo, publication, topo_has_spot " +
-                "WHERE publication.id = topo.publication_id " +
-                "AND topo_has_spot.topo_id = topo.publication_id " +
-                "AND topo.publication_id = :publication_id " +
+                "FROM topo " +
+                "LEFT OUTER JOIN publication ON publication.id = topo.publication_id " +
+                "LEFT OUTER JOIN topo_has_spot ON topo_id = topo.publication_id " +
+                "WHERE topo.publication_id = :publication_id " +
                 "GROUP BY topo.publication_id, publication.name;";
 
         MapSqlParameterSource args = new MapSqlParameterSource();
@@ -69,8 +69,7 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
     }
 
     public void deleteTopo(Topo topo) {
-        String sql = "DELETE FROM topo WHERE topo.publication_id = :publication_id;" +
-                "DELETE FROM publication WHERE publication.id = :publication_id;";
+        String sql = "DELETE FROM publication WHERE publication.id = :publication_id;";
 
         MapSqlParameterSource args = new MapSqlParameterSource();
         args.addValue("publication_id", topo.getPublicationId(), Types.INTEGER);

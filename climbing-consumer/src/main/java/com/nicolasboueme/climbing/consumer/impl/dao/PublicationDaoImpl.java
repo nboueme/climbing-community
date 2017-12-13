@@ -146,18 +146,10 @@ public class PublicationDaoImpl extends AbstractDaoImpl implements PublicationDa
     }
 
     public void deleteComment(Comment comment) {
-        String sql;
+        String sql = "DELETE FROM comment WHERE comment.id = :comment_id;";
 
         MapSqlParameterSource args = new MapSqlParameterSource();
         args.addValue("comment_id", comment.getId(), Types.INTEGER);
-
-        if (comment.getParentId() != 0) {
-            sql = "DELETE FROM comment WHERE comment.parent_id = :parent_id;" +
-                    "DELETE FROM comment WHERE comment.id = :comment_id;";
-            args.addValue("parent_id", comment.getParentId(), Types.INTEGER);
-        } else {
-            sql = "DELETE FROM comment WHERE comment.id = :comment_id;";
-        }
 
         getNamedParameterJdbcTemplate().update(sql, args);
     }
