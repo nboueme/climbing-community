@@ -22,6 +22,10 @@ public class TopoManagerImpl extends AbstractManager implements TopoManager {
         return getDaoFactory().getTopoDao().getTopo(topo);
     }
 
+    public void deleteTopoPicture(Topo topo) {
+        getDaoFactory().getTopoDao().deleteTopoPicture(topo);
+    }
+
     public void updateTopo(Topo topo) {
         getDaoFactory().getTopoDao().updateTopo(topo);
     }

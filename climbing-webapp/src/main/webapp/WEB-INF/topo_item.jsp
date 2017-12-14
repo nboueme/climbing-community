@@ -11,9 +11,24 @@
 <div class="container">
     <h1>${ topo.name }</h1>
 
+    <c:if test="${ !empty topo.imageUrl }">
+        <div>
+            <img class="topo-img option-cursor" src="${ topo.imageUrl }" data-toggle="collapse" data-target=".collapse-delete-picture">
+            <a class="option-cursor collapse collapse-delete-picture" onclick="$('.delete-picture').submit();">
+                <span class="glyphicon glyphicon-minus"></span> Supprimer
+            </a>
+
+            <form hidden method="post" action="/topo/${ topo.publicationId }/picture-delete" class="form-horizontal delete-picture">
+                <input hidden name="current_uri" title="current_uri" value="${ currentURI }" />
+                <input hidden name="picture" title="picture" value="${ topo.imageUrl }" />
+            </form>
+        </div>
+    </c:if>
+
     <c:if test="${ !empty sessionScope.user }">
         <c:if test="${ sessionScope.user.role == 'admin' }">
             <form method="post" action="/topo/${ topo.publicationId }/delete">
+                <input hidden name="picture" title="picture" value="${ topo.imageUrl }" />
                 <button type="submit" class="btn btn-danger btn-xs">
                     <span class="glyphicon glyphicon-remove"></span> Supprimer le topo
                 </button>

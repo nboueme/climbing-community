@@ -16,7 +16,7 @@ import java.util.List;
 public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
 
     public List<Topo> listTopo() {
-        String sql = "SELECT publication.name, topo.description, count(spot_id) as spots, topo.publication_id AS topo_id " +
+        String sql = "SELECT publication.name, topo.description, topo.image_url, count(spot_id) as spots, topo.publication_id AS topo_id " +
                 "FROM topo " +
                 "LEFT OUTER JOIN publication ON publication.id = topo.publication_id " +
                 "LEFT OUTER JOIN topo_has_spot ON topo_id = topo.publication_id " +
@@ -41,7 +41,7 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
     }
 
     public Topo getTopo(Topo topo) {
-        String sql = "SELECT publication.name, topo.description, count(spot_id) as spots, topo.publication_id AS topo_id " +
+        String sql = "SELECT publication.name, topo.description, topo.image_url, count(spot_id) as spots, topo.publication_id AS topo_id " +
                 "FROM topo " +
                 "LEFT OUTER JOIN publication ON publication.id = topo.publication_id " +
                 "LEFT OUTER JOIN topo_has_spot ON topo_id = topo.publication_id " +
@@ -56,14 +56,25 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
         return getNamedParameterJdbcTemplate().queryForObject(sql, args, rowMapper);
     }
 
+    public void deleteTopoPicture(Topo topo) {
+        String sql = "UPDATE topo SET image_url = :topo_image WHERE topo.publication_id = :topo_id;";
+
+        MapSqlParameterSource args = new MapSqlParameterSource();
+        args.addValue("topo_id", topo.getPublicationId(), Types.INTEGER);
+        args.addValue("topo_image", null, Types.VARCHAR);
+
+        getNamedParameterJdbcTemplate().update(sql, args);
+    }
+
     public void updateTopo(Topo topo) {
-        String sql = "UPDATE topo SET description = :topo_description WHERE topo.publication_id = :publication_id;" +
+        String sql = "UPDATE topo SET description = :topo_description, image_url = :topo_image WHERE topo.publication_id = :publication_id;" +
                 "UPDATE publication SET name = :topo_name, updated_at = now() WHERE publication.id = :publication_id;";
 
         MapSqlParameterSource args = new MapSqlParameterSource();
         args.addValue("publication_id", topo.getPublicationId(), Types.INTEGER);
         args.addValue("topo_name", topo.getName(), Types.VARCHAR);
         args.addValue("topo_description", topo.getDescription(), Types.VARCHAR);
+        args.addValue("topo_image", topo.getImageUrl(), Types.VARCHAR);
 
         getNamedParameterJdbcTemplate().update(sql, args);
     }

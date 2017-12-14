@@ -43,6 +43,10 @@ textarea {
     border-radius: 50%;
 }
 
+.topo-img {
+    height: 200px;
+}
+
 .pull-left {
     padding-left: 5px;
     padding-right: 5px;

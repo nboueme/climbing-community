@@ -63,7 +63,9 @@
                 <c:if test="${ !empty sessionScope.user }">
                     <td class="text-center">
                         <c:if test="${ sessionScope.user.role == 'admin' }">
-                            <form hidden method="post" action="/topo/${ topo.publicationId }/delete" class="publication-delete${ topo.publicationId }"></form>
+                            <form hidden method="post" action="/topo/${ topo.publicationId }/delete" class="publication-delete${ topo.publicationId }">
+                                <input hidden name="picture" title="picture" value="${ topo.imageUrl }" />
+                            </form>
                         </c:if>
 
                         <div class="btn-group btn-group-xs">
@@ -94,7 +96,7 @@
                             </div>
 
                             <div class="modal-body">
-                                <form method="post" action="/topo/${ topo.publicationId }/update" class="form-horizontal publication-update">
+                                <form method="post" action="/topo/${ topo.publicationId }/update" enctype="multipart/form-data" class="form-horizontal publication-update">
                                     <div class="form-group">
                                         <label for="name_update">Nom :</label>
                                         <input type="text" class="form-control" name="name" id="name_update" placeholder="Enter a topo name" value="${ topo.name }" />
@@ -104,6 +106,12 @@
                                         <label for="description_update">Description :</label>
                                         <textarea class="form-control" name="description" id="description_update" placeholder="Enter a topo description">${ topo.description }</textarea>
                                     </div>
+
+                                    <div class="form-group">
+                                        <label for="picture_update">Photo du topo :</label>
+                                        <input type="file" name="picture" id="picture_update"/>
+                                    </div>
+                                    <input hidden name="current_picture" title="picture" value="${ topo.imageUrl }" />
                                 </form>
                             </div>
 

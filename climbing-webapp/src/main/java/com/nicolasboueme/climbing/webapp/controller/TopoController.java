@@ -12,9 +12,14 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -65,12 +70,47 @@ public class TopoController extends AbstractResource {
         return "topo_item";
     }
 
+    @PostMapping("/topo/{topoId}/picture-delete")
+    public void deleteTopoPicture(@PathVariable String topoId, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Topo topo = new Topo();
+        topo.setPublicationId(Integer.parseInt(topoId));
+        topo.setImageUrl(request.getParameter("picture"));
+
+        File file = new File("/Users/nicolasboueme/p3-climbing" + topo.getImageUrl());
+        file.delete();
+
+        webappToConsumer.deleteTopoPicture(topo);
+
+        response.sendRedirect(request.getParameter("current_uri"));
+    }
+
     @PostMapping("/topo/{topoId}/update")
-    public void updateTopo(@PathVariable String topoId, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void updateTopo(@PathVariable String topoId, @RequestParam("picture") MultipartFile file, HttpServletRequest request, HttpServletResponse response) throws IOException {
         Topo topo = new Topo();
         topo.setPublicationId(Integer.parseInt(topoId));
         topo.setName(request.getParameter("name"));
         topo.setDescription(request.getParameter("description"));
+
+        if (!file.isEmpty()) {
+            byte[] bytes = file.getBytes();
+
+            // Creating the directory to store file
+            String rootPath = "/Users/nicolasboueme/p3-climbing/image";
+            File dir = new File(rootPath + File.separator + "topo");
+            if (!dir.exists())
+                dir.mkdirs();
+
+            // Create the file on server
+            File serverFile = new File(dir.getAbsolutePath() + File.separator + "topo-" + topo.getPublicationId() + ".jpg");
+            BufferedOutputStream stream = new BufferedOutputStream(
+                    new FileOutputStream(serverFile));
+            stream.write(bytes);
+            stream.close();
+
+            topo.setImageUrl("/image/topo/" + serverFile.getName());
+        } else {
+            topo.setImageUrl(request.getParameter("current_picture"));
+        }
 
         webappToConsumer.updateTopo(topo);
         response.sendRedirect(request.getContextPath() + "/topo");
@@ -80,6 +120,10 @@ public class TopoController extends AbstractResource {
     public void deleteTopo(@PathVariable String topoId, HttpServletRequest request, HttpServletResponse response) throws IOException {
         Topo topo = new Topo();
         topo.setPublicationId(Integer.parseInt(topoId));
+        topo.setImageUrl(request.getParameter("picture"));
+
+        File file = new File("/Users/nicolasboueme/p3-climbing" + topo.getImageUrl());
+        file.delete();
 
         webappToConsumer.deleteTopo(topo);
         response.sendRedirect(request.getContextPath() + "/topo");

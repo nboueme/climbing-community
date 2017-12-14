@@ -19,13 +19,15 @@
 
         <div>
             <img class="user-img option-cursor" src="${ sessionScope.user.imageUrl }" data-toggle="collapse" data-target=".collapse-delete-picture">
-            <a class="option-cursor collapse collapse-delete-picture" onclick="$('.delete-picture').submit();">
-                <span class="glyphicon glyphicon-minus"></span> Supprimer
-            </a>
+            <c:if test="${ sessionScope.user.imageUrl != '/image/user/user-0.png' }">
+                <a class="option-cursor collapse collapse-delete-picture" onclick="$('.delete-picture').submit();">
+                    <span class="glyphicon glyphicon-minus"></span> Supprimer
+                </a>
 
-            <form hidden method="post" action="/account/${ sessionScope.user.id }/picture-delete" class="form-horizontal delete-picture">
-                <input hidden name="current_uri" title="current_uri" value="${ currentURI }" />
-            </form>
+                <form hidden method="post" action="/account/${ sessionScope.user.id }/picture-delete" class="form-horizontal delete-picture">
+                    <input hidden name="current_uri" title="current_uri" value="${ currentURI }" />
+                </form>
+            </c:if>
         </div>
 
         <form method="post" action="/account/${ sessionScope.user.id }" enctype="multipart/form-data" class="form-horizontal">

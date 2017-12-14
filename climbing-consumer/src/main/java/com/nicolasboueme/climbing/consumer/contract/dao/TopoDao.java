@@ -14,6 +14,8 @@ public interface TopoDao {
 
     Topo getTopo(Topo topo);
 
+    void deleteTopoPicture(Topo topo);
+
     void updateTopo(Topo topo);
     
     void deleteTopo(Topo topo);

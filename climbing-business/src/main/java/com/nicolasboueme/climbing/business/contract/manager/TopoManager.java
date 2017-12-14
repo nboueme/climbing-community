@@ -4,7 +4,6 @@ import com.nicolasboueme.climbing.model.entity.Spot;
 import com.nicolasboueme.climbing.model.entity.Topo;
 import com.nicolasboueme.climbing.model.entity.UserAccount;
 
-import java.text.ParseException;
 import java.util.List;
 
 public interface TopoManager {
@@ -13,6 +12,8 @@ public interface TopoManager {
     void addTopo(Topo topo);
 
     Topo getTopo(Topo topo);
+
+    void deleteTopoPicture(Topo topo);
 
     void updateTopo(Topo topo);
 

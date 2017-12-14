@@ -154,6 +154,14 @@ public class UserController extends AbstractResource {
         HttpSession session = request.getSession();
         UserAccount userSession = (UserAccount) session.getAttribute("user");
 
+        String defaultPictureURI = "/image/user/user-0.png";
+
+        if (!userSession.getImageUrl().equals(defaultPictureURI)) {
+            File file = new File("/Users/nicolasboueme/p3-climbing" + userSession.getImageUrl());
+            file.delete();
+            userSession.setImageUrl(defaultPictureURI);
+        }
+
         webappToConsumer.deleteUser(userSession);
 
         session.invalidate();

@@ -14,6 +14,7 @@ public class TopoRM implements RowMapper<Topo> {
             if (rs.getMetaData().getColumnName(i).equals("name")) topo.setName(rs.getString("name"));
             else if (rs.getMetaData().getColumnName(i).equals("description")) topo.setDescription(rs.getString("description"));
             else if (rs.getMetaData().getColumnName(i).equals("topo_id")) topo.setPublicationId(rs.getInt("topo_id"));
+            else if (rs.getMetaData().getColumnName(i).equals("image_url")) topo.setImageUrl(rs.getString("image_url"));
             else if (rs.getMetaData().getColumnName(i).equals("spots")) topo.setSpotsNumber(rs.getInt("spots"));
             else if (rs.getMetaData().getColumnName(i).equals("is_loaned")) topo.setLoaned(rs.getBoolean("is_loaned"));
             else if (rs.getMetaData().getColumnName(i).equals("borrowing_date")) topo.setBorrowingDate(rs.getDate("borrowing_date"));
