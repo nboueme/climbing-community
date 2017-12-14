@@ -24,7 +24,7 @@ public class SectorDaoImpl extends AbstractDaoImpl implements SectorDao {
 
     public void addSector(Sector sector) {
         String sql = "INSERT INTO publication (user_account_id, name) VALUES (:user_id, :publication_name);" +
-                "INSERT INTO sector (publication_id, spot_id, height) VALUES ((SELECT LASTVAL()), :spot_id, :sector_height);";
+                "INSERT INTO sector (publication_id, spot_id, height) VALUES ((SELECT currval('publication_id_seq')), :spot_id, :sector_height);";
 
         MapSqlParameterSource args = new MapSqlParameterSource();
         args.addValue("user_id", sector.getUserAccountId(), Types.INTEGER);

@@ -21,7 +21,7 @@ public class SpotDaoImpl extends AbstractDaoImpl implements SpotDao {
 
     public void addSpot(Spot spot) {
         String sql = "INSERT INTO publication (user_account_id, name) VALUES (:user_id, :publication_name);" +
-                "INSERT INTO spot (publication_id, description, height) VALUES ((SELECT LASTVAL()), :spot_description, :spot_height);";
+                "INSERT INTO spot (publication_id, description, height) VALUES ((SELECT currval('publication_id_seq')), :spot_description, :spot_height);";
 
         MapSqlParameterSource args = new MapSqlParameterSource();
         args.addValue("user_id", spot.getUserAccountId(), Types.INTEGER);

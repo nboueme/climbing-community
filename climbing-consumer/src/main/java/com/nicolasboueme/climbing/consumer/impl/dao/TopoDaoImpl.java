@@ -30,7 +30,7 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
 
     public void addTopo(Topo topo) {
         String sql = "INSERT INTO publication (user_account_id, name) VALUES (:user_id, :publication_name);" +
-                "INSERT INTO topo (publication_id, description) VALUES ((SELECT LASTVAL()), :topo_description);";
+                "INSERT INTO topo (publication_id, description) VALUES ((SELECT currval('publication_id_seq')), :topo_description);";
 
         MapSqlParameterSource args = new MapSqlParameterSource();
         args.addValue("user_id", topo.getUserAccountId(), Types.INTEGER);

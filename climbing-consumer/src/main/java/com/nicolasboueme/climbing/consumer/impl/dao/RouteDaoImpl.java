@@ -41,13 +41,13 @@ public class RouteDaoImpl extends AbstractDaoImpl implements RouteDao {
             sql = "INSERT INTO publication (user_account_id, name) " +
                     "VALUES (:user_id, :publication_name);" +
                     "INSERT INTO route (publication_id, sector_id, parent_publication_id, height, quotation, latitude, longitude, points_number, type_route) " +
-                    "VALUES ((SELECT LASTVAL()), :sector_id, :parent_id, :route_height, :route_quotation, :route_latitude, :route_longitude, :route_points, :type_route);";
+                    "VALUES ((SELECT currval('publication_id_seq')), :sector_id, :parent_id, :route_height, :route_quotation, :route_latitude, :route_longitude, :route_points, :type_route);";
             args.addValue("parent_id", route.getParentPublicationId(), Types.INTEGER);
         } else {
             sql = "INSERT INTO publication (user_account_id, name) " +
                     "VALUES (:user_id, :publication_name);" +
                     "INSERT INTO route (publication_id, sector_id, height, quotation, latitude, longitude, points_number, type_route) " +
-                    "VALUES ((SELECT LASTVAL()), :sector_id, :route_height, :route_quotation, :route_latitude, :route_longitude, :route_points, :type_route);";
+                    "VALUES ((SELECT currval('publication_id_seq')), :sector_id, :route_height, :route_quotation, :route_latitude, :route_longitude, :route_points, :type_route);";
         }
 
         getNamedParameterJdbcTemplate().update(sql, args);
