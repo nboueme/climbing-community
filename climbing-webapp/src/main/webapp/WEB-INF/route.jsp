@@ -1,3 +1,4 @@
+<%--suppress XmlDuplicatedId --%>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -18,54 +19,54 @@
                 <span class="glyphicon glyphicon-plus"></span> Ajouter une voie
             </button>
         </p>
-        <form method="post" action="${ publicationId }" class="form-horizontal collapse collapse-menu">
+        <form:form method="post" action="/climbing/sector/${publicationId}" class="form-horizontal collapse collapse-menu" modelAttribute="route">
             <input hidden name="current_uri" title="current_uri" value="${ currentURI }" />
 
             <div class="form-group">
-                <label class="control-label col-sm-2" for="name">Nom :</label>
+                <form:label class="control-label col-sm-2" path="name">Nom :</form:label>
                 <div class="col-sm-10">
-                    <input required type="text" class="form-control" name="name" id="name" placeholder="Enter a route name" value="Les mines de la Moria" />
+                    <form:input type="text" class="form-control" path="name" placeholder="Enter a route name"/>
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="control-label col-sm-2" for="height">Hauteur :</label>
+                <form:label class="control-label col-sm-2" path="height">Hauteur :</form:label>
                 <div class="col-sm-10">
-                    <input required type="number" class="form-control" name="height" id="height" placeholder="Enter a route height" min="0" max="60"/>
+                    <form:input type="number" class="form-control" path="height" placeholder="Enter a route height" min="0" max="60"/>
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="control-label col-sm-2" for="quotation">Cotation :</label>
+                <form:label class="control-label col-sm-2" path="quotation">Cotation :</form:label>
                 <div class="col-sm-10">
-                    <select name="quotation" id="quotation">
+                    <form:select path="quotation">
                         <c:forEach var="quotation_range" begin="3" end="9">
-                            <option value="${ quotation_range }a">${ quotation_range }a</option>
-                            <option value="${ quotation_range }b">${ quotation_range }b</option>
-                            <option value="${ quotation_range }c">${ quotation_range }c</option>
+                            <form:option value="${ quotation_range }a">${ quotation_range }a</form:option>
+                            <form:option value="${ quotation_range }b">${ quotation_range }b</form:option>
+                            <form:option value="${ quotation_range }c">${ quotation_range }c</form:option>
                         </c:forEach>
-                    </select>
+                    </form:select>
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="control-label col-sm-2" for="latitude">Latitude :</label>
+                <form:label class="control-label col-sm-2" path="latitude">Latitude :</form:label>
                 <div class="col-sm-10">
-                    <input required type="text" class="form-control" name="latitude" id="latitude" placeholder="Enter a route latitude" value="44.500052" />
+                    <form:input type="text" class="form-control" path="latitude" placeholder="Enter a route latitude" value="44.500052" />
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="control-label col-sm-2" for="longitude">Longitude :</label>
+                <form:label class="control-label col-sm-2" path="longitude">Longitude :</form:label>
                 <div class="col-sm-10">
-                    <input required type="text" class="form-control" name="longitude" id="longitude" placeholder="Enter a route longitude" value="5.933146" />
+                    <form:input type="text" class="form-control" path="longitude" placeholder="Enter a route longitude" value="5.933146" />
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="control-label col-sm-2" for="points_number">Nombre de points :</label>
+                <form:label class="control-label col-sm-2" path="pointsNumber">Nombre de points :</form:label>
                 <div class="col-sm-10">
-                    <input required type="number" class="form-control" name="points_number" id="points_number" placeholder="Enter a route points number" min="0" max="60"/>
+                    <form:input type="number" class="form-control" path="pointsNumber" placeholder="Enter a route points number" min="0" max="60"/>
                 </div>
             </div>
 
@@ -74,7 +75,7 @@
                     <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Ajouter</button>
                 </div>
             </div>
-        </form>
+        </form:form>
     </c:if>
 
     <!-- Route READ -->
@@ -101,9 +102,7 @@
                 <c:if test="${ !empty sessionScope.user }">
                     <td class="text-center">
                         <c:if test="${ sessionScope.user.role == 'admin' }">
-                            <form hidden method="post" action="/climbing/route/${ route.publicationId }/delete" class="publication-delete${ route.publicationId }">
-                                <input hidden name="current_uri" title="current_uri" value="${ currentURI }" />
-                            </form>
+                            <form:form method="post" action="/climbing/${route.sectorId}/route/${ route.publicationId }/delete" class="publication-delete${ route.publicationId }" modelAttribute="route"/>
                         </c:if>
 
                         <div class="btn-group btn-group-xs">
@@ -134,46 +133,44 @@
                             </div>
 
                             <div class="modal-body">
-                                <form method="post" action="/climbing/route/${ route.publicationId }/update" class="form-horizontal publication-update">
-                                    <input hidden name="current_uri" title="current_uri" value="${ currentURI }" />
-
+                                <form:form method="post" action="/climbing/${route.sectorId}/route/${route.publicationId}/update" class="form-horizontal publication-update" modelAttribute="route">
                                     <div class="form-group">
                                         <label for="name_update">Nom :</label>
-                                        <input required type="text" class="form-control" name="name" id="name_update" placeholder="Enter a route name" value="${ route.name }" />
+                                        <form:input type="text" class="form-control" path="name" id="name_update" placeholder="Enter a route name" value="${ route.name }" />
                                     </div>
 
                                     <div class="form-group">
                                         <label for="height_update">Hauteur :</label>
-                                        <input required type="number" class="form-control" name="height" id="height_update" placeholder="Enter a route height" min="0" max="60" value="${ route.height }"/>
+                                        <form:input type="number" class="form-control" path="height" id="height_update" placeholder="Enter a route height" min="0" max="60" value="${ route.height }"/>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="quotation_update">Cotation :</label>
-                                        <select name="quotation" id="quotation_update">
-                                            <option value="${ route.quotation }">--</option>
+                                        <form:select path="quotation" id="quotation_update">
+                                            <form:option value="${ route.quotation }">--</form:option>
                                             <c:forEach var="quotation_range" begin="3" end="9">
-                                                <option value="${ quotation_range }a">${ quotation_range }a</option>
-                                                <option value="${ quotation_range }b">${ quotation_range }b</option>
-                                                <option value="${ quotation_range }c">${ quotation_range }c</option>
+                                                <form:option value="${ quotation_range }a">${ quotation_range }a</form:option>
+                                                <form:option value="${ quotation_range }b">${ quotation_range }b</form:option>
+                                                <form:option value="${ quotation_range }c">${ quotation_range }c</form:option>
                                             </c:forEach>
-                                        </select>
+                                        </form:select>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="latitude_update">Latitude :</label>
-                                        <input required type="text" class="form-control" name="latitude" id="latitude_update" placeholder="Enter a route latitude" value="${ route.latitude }" />
+                                        <form:input type="text" class="form-control" path="latitude" id="latitude_update" placeholder="Enter a route latitude" value="${ route.latitude }" />
                                     </div>
 
                                     <div class="form-group">
                                         <label for="longitude_update">Longitude :</label>
-                                        <input required type="text" class="form-control" name="longitude" id="longitude_update" placeholder="Enter a route longitude" value="${ route.longitude }" />
+                                        <form:input type="text" class="form-control" path="longitude" id="longitude_update" placeholder="Enter a route longitude" value="${ route.longitude }" />
                                     </div>
 
                                     <div class="form-group">
                                         <label for="points_number_update">Nombre de points :</label>
-                                        <input required type="number" class="form-control" name="points_number" id="points_number_update" placeholder="Enter a route points number" min="0" max="60" value="${ route.pointsNumber }"/>
+                                        <form:input type="number" class="form-control" path="pointsNumber" id="points_number_update" placeholder="Enter a route points number" min="0" max="60" value="${ route.pointsNumber }"/>
                                     </div>
-                                </form>
+                                </form:form>
                             </div>
 
                             <div class="modal-footer">

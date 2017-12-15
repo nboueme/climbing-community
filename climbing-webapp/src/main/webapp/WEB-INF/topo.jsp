@@ -18,18 +18,18 @@
                 <span class="glyphicon glyphicon-plus"></span> Ajouter un topo
             </button>
         </p>
-        <form method="post" action="topo" class="form-horizontal collapse collapse-menu">
+        <form:form method="post" action="/topo" class="form-horizontal collapse collapse-menu" modelAttribute="topo">
             <div class="form-group">
-                <label class="control-label col-sm-2" for="name">Nom :</label>
+                <form:label class="control-label col-sm-2" path="name">Nom :</form:label>
                 <div class="col-sm-10">
-                    <input required type="text" class="form-control" name="name" id="name" placeholder="Enter a topo name" value="Les mines de la Moria" />
+                    <form:input type="text" class="form-control" path="name" placeholder="Enter a topo name"/>
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="control-label col-sm-2" for="description">Description :</label>
+                <form:label class="control-label col-sm-2" path="description">Description :</form:label>
                 <div class="col-sm-10">
-                    <textarea class="form-control" name="description" id="description" placeholder="Enter a topo description">Top cool !!</textarea>
+                    <form:textarea class="form-control" path="description" placeholder="Enter a topo description"/>
                 </div>
             </div>
 
@@ -38,7 +38,7 @@
                     <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Ajouter</button>
                 </div>
             </div>
-        </form>
+        </form:form>
     </c:if>
 
     <!-- Topo READ -->
@@ -63,9 +63,9 @@
                 <c:if test="${ !empty sessionScope.user }">
                     <td class="text-center">
                         <c:if test="${ sessionScope.user.role == 'admin' }">
-                            <form hidden method="post" action="/topo/${ topo.publicationId }/delete" class="publication-delete${ topo.publicationId }">
+                            <form:form method="post" action="/topo/${topo.publicationId}/delete" class="publication-delete${ topo.publicationId }" modelAttribute="topo">
                                 <input hidden name="picture" title="picture" value="${ topo.imageUrl }" />
-                            </form>
+                            </form:form>
                         </c:if>
 
                         <div class="btn-group btn-group-xs">
@@ -96,10 +96,10 @@
                             </div>
 
                             <div class="modal-body">
-                                <form method="post" action="/topo/${ topo.publicationId }/update" enctype="multipart/form-data" class="form-horizontal publication-update">
+                                <form:form method="post" action="/topo/${topo.publicationId}/update" enctype="multipart/form-data" class="form-horizontal publication-update" modelAttribute="topo">
                                     <div class="form-group">
                                         <label for="name_update">Nom :</label>
-                                        <input type="text" class="form-control" name="name" id="name_update" placeholder="Enter a topo name" value="${ topo.name }" />
+                                        <form:input type="text" class="form-control" path="name" id="name_update" placeholder="Enter a topo name" value="${ topo.name }" />
                                     </div>
 
                                     <div class="form-group">
@@ -109,10 +109,10 @@
 
                                     <div class="form-group">
                                         <label for="picture_update">Photo du topo :</label>
-                                        <input type="file" name="picture" id="picture_update"/>
+                                        <input type="file" name="file" id="picture_update"/>
                                     </div>
-                                    <input hidden name="current_picture" title="picture" value="${ topo.imageUrl }" />
-                                </form>
+                                    <input hidden name="currentPicture" title="picture" value="${ topo.imageUrl }" />
+                                </form:form>
                             </div>
 
                             <div class="modal-footer">

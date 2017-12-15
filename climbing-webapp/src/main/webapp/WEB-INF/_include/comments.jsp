@@ -19,7 +19,7 @@
 
                                 <c:if test="${ sessionScope.user.role == 'admin' || sessionScope.user.id == parentComment.userAccountId }">
                                     <form hidden method="post" action="/comment/${parentComment.id}/delete" class="parent-comment-delete${ parentComment.id }">
-                                        <input hidden name="current_uri" title="current_uri" value="${ currentURI }" />
+                                        <input hidden name="currentURI" title="currentURI" value="${ currentURI }" />
                                     </form>
                                     <a class="option-cursor" onclick="$('.parent-comment-delete${ parentComment.id }').submit();">Supprimer</a><span class="comment-point"> · </span>
                                 </c:if>
@@ -47,7 +47,7 @@
 
                                                         <c:if test="${ sessionScope.user.role == 'admin' || sessionScope.user.id == childComment.userAccountId }">
                                                             <form hidden method="post" action="/comment/${childComment.id}/delete" class="child-comment-delete${ childComment.id }">
-                                                                <input hidden name="current_uri" title="current_uri" value="${ currentURI }" />
+                                                                <input hidden name="currentURI" title="currentURI" value="${ currentURI }" />
                                                             </form>
                                                             <a class="option-cursor" title="Delete" onclick="$('.child-comment-delete${ childComment.id }').submit();">Supprimer</a><span class="comment-point"> · </span>
                                                         </c:if>
@@ -71,7 +71,7 @@
 
                                                     <div class="modal-body">
                                                         <form method="post" action="/comment/${childComment.id}/update" class="form-horizontal publication-update-${childComment.id}">
-                                                            <input hidden name="current_uri" title="current_uri" value="${ currentURI }" />
+                                                            <input hidden name="currentURI" title="currentURI" value="${ currentURI }" />
                                                             <input required type="text" class="form-control" name="content" placeholder="Votre commentaire..." value="${ childComment.content }" />
                                                         </form>
                                                     </div>
@@ -94,8 +94,8 @@
                     <c:if test="${ !empty sessionScope.user }">
                         <form method="post" action="/comment/${parentComment.id}" class="form-horizontal collapse collapse-reply-${parentComment.id}">
                             <div class="input-group">
-                                <input hidden name="current_uri" title="current_uri" value="${ currentURI }" />
-                                <input hidden name="publication_id" title="publication_id" value="${ publicationId }" />
+                                <input hidden name="currentURI" title="currentURI" value="${ currentURI }" />
+                                <input hidden name="publicationId" title="publicationId" value="${ publicationId }" />
                                 <input required type="text" class="form-control" name="content" placeholder="Votre réponse..."/>
                                 <span class="input-group-btn">
                                     <button type="submit" class="btn btn-default">Envoyer</button>
@@ -118,7 +118,7 @@
 
                                 <div class="modal-body">
                                     <form method="post" action="/comment/${parentComment.id}/update" class="form-horizontal publication-update-${ parentComment.id }">
-                                        <input hidden name="current_uri" title="current_uri" value="${ currentURI }" />
+                                        <input hidden name="currentURI" title="currentURI" value="${ currentURI }" />
                                         <input required type="text" class="form-control" name="content" placeholder="Votre commentaire..." value="${ parentComment.content }" />
                                     </form>
                                 </div>
@@ -137,8 +137,8 @@
             <c:if test="${ !empty sessionScope.user }">
                 <form method="post" action="/comment/0" class="form-horizontal">
                     <div class="input-group">
-                        <input hidden name="current_uri" title="current_uri" value="${ currentURI }" />
-                        <input hidden name="publication_id" title="publication_id" value="${ publicationId }" />
+                        <input hidden name="currentURI" title="currentURI" value="${ currentURI }" />
+                        <input hidden name="publicationId" title="publicationId" value="${ publicationId }" />
                         <input required type="text" class="form-control" name="content" placeholder="Votre commentaire..."/>
                         <span class="input-group-btn">
                             <button type="submit" class="btn btn-default">Envoyer</button>
@@ -157,8 +157,8 @@
             <c:if test="${ !empty sessionScope.user }">
                 <form method="post" action="/comment/0" class="form-horizontal">
                     <div class="input-group">
-                        <input hidden name="current_uri" title="current_uri" value="${ currentURI }" />
-                        <input hidden name="publication_id" title="publication_id" value="${ publicationId }" />
+                        <input hidden name="currentURI" title="currentURI" value="${ currentURI }" />
+                        <input hidden name="publicationId" title="publicationId" value="${ publicationId }" />
                         <input required type="text" class="form-control" name="content" placeholder="Votre commentaire..."/>
                         <span class="input-group-btn">
                             <button type="submit" class="btn btn-default">Envoyer</button>

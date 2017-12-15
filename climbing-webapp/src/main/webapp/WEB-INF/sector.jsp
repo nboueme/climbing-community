@@ -1,3 +1,4 @@
+<%--suppress XmlDuplicatedId --%>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -18,20 +19,18 @@
                 <span class="glyphicon glyphicon-plus"></span> Ajouter un secteur
             </button>
         </p>
-        <form method="post" action="${ publicationId }" class="form-horizontal collapse collapse-menu">
-            <input hidden name="current_uri" title="current_uri" value="${ currentURI }" />
-
+        <form:form method="post" action="/climbing/${publicationId}" class="form-horizontal collapse collapse-menu" modelAttribute="sector">
             <div class="form-group">
-                <label class="control-label col-sm-2" for="name">Nom :</label>
+                <form:label class="control-label col-sm-2" path="name">Nom :</form:label>
                 <div class="col-sm-10">
-                    <input required type="text" class="form-control" name="name" id="name" placeholder="Enter a sector name" value="Les mines de la Moria" />
+                    <form:input type="text" class="form-control" path="name" placeholder="Enter a sector name"/>
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="control-label col-sm-2" for="height">Hauteur :</label>
+                <form:label class="control-label col-sm-2" path="height">Hauteur :</form:label>
                 <div class="col-sm-10">
-                    <input required type="number" class="form-control" name="height" id="height" placeholder="Enter a sector height" min="0" max="60"/>
+                    <form:input type="number" class="form-control" path="height" placeholder="Enter a sector height" min="0" max="60"/>
                 </div>
             </div>
 
@@ -40,7 +39,7 @@
                     <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Ajouter</button>
                 </div>
             </div>
-        </form>
+        </form:form>
     </c:if>
 
     <!-- Sector READ -->
@@ -57,15 +56,13 @@
         <tbody>
         <c:forEach var="sector" items="${ sectorList }">
             <tr>
-                <td><a href="${pageContext.request.contextPath}/climbing/sector/${ sector.publicationId }"><c:out value="${ sector.name }" /></a></td>
+                <td><a href="${pageContext.request.contextPath}/climbing/sector/${sector.publicationId}"><c:out value="${ sector.name }" /></a></td>
                 <td><c:out value="${ sector.height == 0 ? 'hauteur inconnue' : sector.height }" /></td>
 
                 <c:if test="${ !empty sessionScope.user }">
                     <td class="text-center">
                         <c:if test="${ sessionScope.user.role == 'admin' }">
-                            <form hidden method="post" action="sector/${ sector.publicationId }/delete" class="publication-delete${ sector.publicationId }">
-                                <input hidden name="current_uri" title="current_uri" value="${ currentURI }" />
-                            </form>
+                            <form:form method="post" action="/climbing/${sector.spotId}/sector/${sector.publicationId}/delete" class="publication-delete${ sector.publicationId }" modelAttribute="sector"/>
                         </c:if>
 
                         <div class="btn-group btn-group-xs">
@@ -96,19 +93,17 @@
                             </div>
 
                             <div class="modal-body">
-                                <form method="post" action="sector/${ sector.publicationId }/update" class="form-horizontal publication-update">
-                                    <input hidden name="current_uri" title="current_uri" value="${ currentURI }" />
-
+                                <form:form method="post" action="/climbing/${sector.spotId}/sector/${sector.publicationId}/update" class="form-horizontal publication-update" modelAttribute="sector">
                                     <div class="form-group">
                                         <label for="name_update">Nom :</label>
-                                        <input type="text" class="form-control" name="name" id="name_update" placeholder="Enter a topo name" value="${ sector.name }" />
+                                        <form:input type="text" class="form-control" path="name" id="name_update" placeholder="Enter a topo name" value="${ sector.name }" />
                                     </div>
 
                                     <div class="form-group">
                                         <label for="height_update">Hauteur :</label>
-                                        <input required type="number" class="form-control" name="height" id="height_update" placeholder="Enter a spot height" min="0" max="60" value="${ sector.height }"/>
+                                        <form:input type="number" class="form-control" path="height" id="height_update" placeholder="Enter a spot height" min="0" max="60" value="${ sector.height }"/>
                                     </div>
-                                </form>
+                                </form:form>
                             </div>
 
                             <div class="modal-footer">

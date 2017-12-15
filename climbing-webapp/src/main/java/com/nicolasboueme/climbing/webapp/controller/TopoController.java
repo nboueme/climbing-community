@@ -9,11 +9,9 @@ import com.nicolasboueme.climbing.model.entity.UserAccount;
 import com.nicolasboueme.climbing.webapp.resource.AbstractResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,20 +28,75 @@ public class TopoController extends AbstractResource {
     private PublicationManager comments = getManagerFactory().getPublicationManager();
 
     @GetMapping("/topo")
-    public String listTopo(ModelMap modelMap) {
+    public ModelAndView listTopo(ModelMap modelMap) {
         modelMap.addAttribute("topoList", webappToConsumer.listTopo());
-        return "topo";
+        return new ModelAndView("topo", "topo", new Topo());
     }
 
     @PostMapping("/topo")
-    public void addTopo(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Topo topo = new Topo();
-        topo.setUserAccountId(((UserAccount) request.getSession().getAttribute("user")).getId());
-        topo.setName(request.getParameter("name"));
-        topo.setDescription(request.getParameter("description"));
+    public String addTopo(@ModelAttribute Topo topo, @SessionAttribute UserAccount user) {
+        topo.setUserAccountId(user.getId());
 
         webappToConsumer.addTopo(topo);
-        response.sendRedirect(request.getContextPath() + "/topo");
+        return "redirect:/topo";
+    }
+
+    @PostMapping("/topo/{topoId}/update")
+    public String updateTopo(@ModelAttribute Topo topo, @PathVariable String topoId, @RequestParam String description, @RequestParam MultipartFile file, @RequestParam String currentPicture) throws IOException {
+        topo.setPublicationId(Integer.parseInt(topoId));
+        topo.setDescription(description);
+
+        if (!file.isEmpty()) {
+            byte[] bytes = file.getBytes();
+
+            // Creating the directory to store file
+            String rootPath = "/Users/nicolasboueme/p3-climbing/image";
+            File dir = new File(rootPath + File.separator + "topo");
+            if (!dir.exists())
+                //noinspection ResultOfMethodCallIgnored
+                dir.mkdirs();
+
+            // Create the file on server
+            File serverFile = new File(dir.getAbsolutePath() + File.separator + "topo-" + topo.getPublicationId() + ".jpg");
+            BufferedOutputStream stream = new BufferedOutputStream(
+                    new FileOutputStream(serverFile));
+            stream.write(bytes);
+            stream.close();
+
+            topo.setImageUrl("/image/topo/" + serverFile.getName());
+        } else {
+            topo.setImageUrl(currentPicture);
+        }
+
+        webappToConsumer.updateTopo(topo);
+        return "redirect:/topo";
+    }
+
+    @PostMapping("/topo/{topoId}/picture-delete")
+    public String deleteTopoPicture(@ModelAttribute Topo topo, @PathVariable String topoId, @RequestParam String picture) {
+        topo.setPublicationId(Integer.parseInt(topoId));
+        topo.setImageUrl(picture);
+
+        File file = new File("/Users/nicolasboueme/p3-climbing" + topo.getImageUrl());
+        //noinspection ResultOfMethodCallIgnored
+        file.delete();
+
+        webappToConsumer.deleteTopoPicture(topo);
+
+        return "redirect:/topo/" + topoId;
+    }
+
+    @PostMapping("/topo/{topoId}/delete")
+    public String deleteTopo(@ModelAttribute Topo topo, @PathVariable String topoId, @RequestParam String picture) {
+        topo.setPublicationId(Integer.parseInt(topoId));
+        topo.setImageUrl(picture);
+
+        File file = new File("/Users/nicolasboueme/p3-climbing" + topo.getImageUrl());
+        //noinspection ResultOfMethodCallIgnored
+        file.delete();
+
+        webappToConsumer.deleteTopo(topo);
+        return "redirect:/topo";
     }
 
     @GetMapping("/topo/{topoId}")
@@ -70,105 +123,42 @@ public class TopoController extends AbstractResource {
         return "topo_item";
     }
 
-    @PostMapping("/topo/{topoId}/picture-delete")
-    public void deleteTopoPicture(@PathVariable String topoId, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    @PostMapping("/topo-spot/{topoId}")
+    public String addTopoHasSpot(@PathVariable String topoId, @RequestParam int spotId) {
         Topo topo = new Topo();
         topo.setPublicationId(Integer.parseInt(topoId));
-        topo.setImageUrl(request.getParameter("picture"));
-
-        File file = new File("/Users/nicolasboueme/p3-climbing" + topo.getImageUrl());
-        file.delete();
-
-        webappToConsumer.deleteTopoPicture(topo);
-
-        response.sendRedirect(request.getParameter("current_uri"));
-    }
-
-    @PostMapping("/topo/{topoId}/update")
-    public void updateTopo(@PathVariable String topoId, @RequestParam("picture") MultipartFile file, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Topo topo = new Topo();
-        topo.setPublicationId(Integer.parseInt(topoId));
-        topo.setName(request.getParameter("name"));
-        topo.setDescription(request.getParameter("description"));
-
-        if (!file.isEmpty()) {
-            byte[] bytes = file.getBytes();
-
-            // Creating the directory to store file
-            String rootPath = "/Users/nicolasboueme/p3-climbing/image";
-            File dir = new File(rootPath + File.separator + "topo");
-            if (!dir.exists())
-                dir.mkdirs();
-
-            // Create the file on server
-            File serverFile = new File(dir.getAbsolutePath() + File.separator + "topo-" + topo.getPublicationId() + ".jpg");
-            BufferedOutputStream stream = new BufferedOutputStream(
-                    new FileOutputStream(serverFile));
-            stream.write(bytes);
-            stream.close();
-
-            topo.setImageUrl("/image/topo/" + serverFile.getName());
-        } else {
-            topo.setImageUrl(request.getParameter("current_picture"));
-        }
-
-        webappToConsumer.updateTopo(topo);
-        response.sendRedirect(request.getContextPath() + "/topo");
-    }
-
-    @PostMapping("/topo/{topoId}/delete")
-    public void deleteTopo(@PathVariable String topoId, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Topo topo = new Topo();
-        topo.setPublicationId(Integer.parseInt(topoId));
-        topo.setImageUrl(request.getParameter("picture"));
-
-        File file = new File("/Users/nicolasboueme/p3-climbing" + topo.getImageUrl());
-        file.delete();
-
-        webappToConsumer.deleteTopo(topo);
-        response.sendRedirect(request.getContextPath() + "/topo");
-    }
-
-    @PostMapping("/topo-spot")
-    public void addTopoHasSpot(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Topo topo = new Topo();
-        topo.setPublicationId(Integer.parseInt(request.getParameter("topo_id")));
 
         Spot spot = new Spot();
-        spot.setPublicationId(Integer.parseInt(request.getParameter("spot")));
+        spot.setPublicationId(spotId);
 
         webappToConsumer.addTopoHasSpot(topo, spot);
-        response.sendRedirect(request.getParameter("current_uri"));
+        return "redirect:/topo/" + topoId;
     }
 
     @PostMapping("/topo-spot/{spotId}/delete")
-    public void deleteTopoHasSpot(@PathVariable String spotId, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public String deleteTopoHasSpot(@PathVariable String spotId, @RequestParam int topoId) {
         Topo topo = new Topo();
-        topo.setPublicationId(Integer.parseInt(request.getParameter("topo_id")));
+        topo.setPublicationId(topoId);
 
         Spot spot = new Spot();
         spot.setPublicationId(Integer.parseInt(spotId));
 
         webappToConsumer.deleteTopoHastSpot(topo, spot);
-        response.sendRedirect(request.getParameter("current_uri"));
+        return "redirect:/topo/" + topoId;
     }
 
     @PostMapping("/user-topo/{topoId}")
-    public void addUserHasTopo(@PathVariable String topoId, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        UserAccount user = new UserAccount();
-        user.setId(((UserAccount) request.getSession().getAttribute("user")).getId());
+    public String addUserHasTopo(@PathVariable String topoId, @SessionAttribute UserAccount user) {
         user.setTopo(new Topo());
         user.getTopo().setPublicationId(Integer.parseInt(topoId));
 
         webappToConsumer.addUserHasTopo(user);
-
-        response.sendRedirect(request.getParameter("current_uri"));
+        return "redirect:/topo/" + topoId;
     }
 
     @PostMapping("/user-topo/{topoId}/update")
-    public void updateUserHasTopo(@PathVariable String topoId, HttpServletRequest request, HttpServletResponse response) throws IOException, ParseException {
-        UserAccount user = new UserAccount();
-        user.setId(((UserAccount) request.getSession().getAttribute("user")).getId());
+    public String updateUserHasTopo(@PathVariable String topoId, @SessionAttribute UserAccount user, HttpServletRequest request) throws ParseException {
+        user.setId(user.getId());
         user.setTopo(new Topo());
         user.getTopo().setPublicationId(Integer.parseInt(topoId));
 
@@ -186,17 +176,16 @@ public class TopoController extends AbstractResource {
         else user.getTopo().setReturnDate(null);
 
         webappToConsumer.updateUserHasTopo(user);
-        response.sendRedirect(request.getParameter("current_uri"));
+        return "redirect:/topo/" + topoId;
     }
 
     @PostMapping("/user-topo/{topoId}/delete")
-    public void deleteUserHasTopo(@PathVariable String topoId, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        UserAccount user = new UserAccount();
-        user.setId(((UserAccount) request.getSession().getAttribute("user")).getId());
+    public String deleteUserHasTopo(@PathVariable String topoId, @SessionAttribute UserAccount user) {
+        user.setId(user.getId());
         user.setTopo(new Topo());
         user.getTopo().setPublicationId(Integer.parseInt(topoId));
 
         webappToConsumer.deleteUserHasTopo(user);
-        response.sendRedirect(request.getParameter("current_uri"));
+        return "redirect:/topo/" + topoId;
     }
 }

@@ -18,21 +18,20 @@
                 <span class="glyphicon glyphicon-minus"></span> Supprimer
             </a>
 
-            <form hidden method="post" action="/topo/${ topo.publicationId }/picture-delete" class="form-horizontal delete-picture">
-                <input hidden name="current_uri" title="current_uri" value="${ currentURI }" />
+            <form:form method="post" action="/topo/${topo.publicationId}/picture-delete" class="form-horizontal delete-picture" modelAttribute="topo">
                 <input hidden name="picture" title="picture" value="${ topo.imageUrl }" />
-            </form>
+            </form:form>
         </div>
     </c:if>
 
     <c:if test="${ !empty sessionScope.user }">
         <c:if test="${ sessionScope.user.role == 'admin' }">
-            <form method="post" action="/topo/${ topo.publicationId }/delete">
+            <form:form method="post" action="/topo/${topo.publicationId}/delete" modelAttribute="topo">
                 <input hidden name="picture" title="picture" value="${ topo.imageUrl }" />
                 <button type="submit" class="btn btn-danger btn-xs">
                     <span class="glyphicon glyphicon-remove"></span> Supprimer le topo
                 </button>
-            </form>
+            </form:form>
         </c:if>
 
         <c:if test="${ notRelatedSpots.size() > 0 }">
@@ -43,13 +42,10 @@
                 </button>
             </p>
 
-            <form method="post" action="/topo-spot" class="form-horizontal collapse collapse-menu">
+            <form method="post" action="/topo-spot/${topo.publicationId}" class="form-horizontal collapse collapse-menu">
                 <div class="form-group">
-                    <input hidden name="current_uri" title="current_uri" value="${ currentURI }" />
-                    <input hidden name="topo_id" title="topo_id" value="${ topo.publicationId }" />
-
                     <label for="spots">Nom :</label>
-                    <select name="spot" id="spots">
+                    <select name="spotId" id="spots">
                         <c:forEach var="spot" items="${ notRelatedSpots }">
                             <option value="${ spot.publicationId }">${ spot.name }</option>
                         </c:forEach>
@@ -64,10 +60,7 @@
 
         <!-- UserHasTopo CREATE -->
         <c:if test="${ notRelatedUser == false }">
-            <form hidden method="post" action="/user-topo/${ topo.publicationId }" class="user-topo-add">
-                <input hidden name="current_uri" title="current_uri" value="${ currentURI }" />
-                <input hidden name="topo_id" title="topo_id" value="${ topo.publicationId }" />
-            </form>
+            <form hidden method="post" action="/user-topo/${ topo.publicationId }" class="user-topo-add"></form>
             <button type="button" class="btn btn-warning btn-xs" onclick="$('.user-topo-add').submit();">
                 <span class="glyphicon glyphicon-ok"></span> Je possède ce topo
             </button>
@@ -89,8 +82,7 @@
                     <!-- TopoHasSpot DELETE -->
                     <c:if test="${ sessionScope.user.role == 'admin' }">
                         <form hidden method="post" action="/topo-spot/${ spot.topoHasSpot.publicationId }/delete" class="spot-delete${ spot.topoHasSpot.publicationId }">
-                            <input hidden name="current_uri" title="current_uri" value="${ currentURI }" />
-                            <input hidden name="topo_id" title="topo_id" value="${ topo.publicationId }" />
+                            <input hidden name="topoId" title="topo_id" value="${ topo.publicationId }" />
                         </form>
                         <span class="comment-point"> · </span>
                         <a title="Delete" class="option-cursor" onclick="$('.spot-delete${ spot.topoHasSpot.publicationId }').submit();">
@@ -147,13 +139,9 @@
 
                                 <div class="modal-body">
                                     <!-- UserHasTopo DELETE -->
-                                    <form hidden method="post" action="/user-topo/${ topo.publicationId }/delete" class="publication-delete">
-                                        <input hidden name="current_uri" title="current_uri" value="${ currentURI }" />
-                                    </form>
+                                    <form hidden method="post" action="/user-topo/${topo.publicationId}/delete" class="publication-delete"></form>
 
                                     <form method="post" action="/user-topo/${ topo.publicationId }/update" class="form-horizontal publication-update">
-                                        <input hidden name="current_uri" title="current_uri" value="${ currentURI }" />
-
                                         <div class="checkbox">
                                             <b>Disponibilité : </b>
                                             <label>

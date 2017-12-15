@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -24,16 +23,16 @@ public class UserController extends AbstractResource {
     private UserManager webappToConsumer = getManagerFactory().getUserManager();
 
     @GetMapping("/inscription")
-    public String inscription(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public String inscription(HttpServletRequest request) {
         HttpSession session = request.getSession();
         if (session.getAttribute("user") != null) {
-            response.sendRedirect(request.getContextPath() + "/");
+            return "redirect:/";
         }
         return "user/inscription";
     }
 
     @PostMapping("/inscription")
-    public String addUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public String addUser(HttpServletRequest request) {
         UserAccount user = new UserAccount();
         user.setPseudo(request.getParameter("pseudo"));
         user.setEmail(request.getParameter("email"));
@@ -45,22 +44,20 @@ public class UserController extends AbstractResource {
 
         HttpSession session = request.getSession();
         session.setAttribute("user", userQuery);
-        response.sendRedirect(request.getContextPath() + "/");
-
-        return "user/inscription";
+        return "redirect:/";
     }
 
     @GetMapping("/login")
-    public String login(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public String login(HttpServletRequest request) {
         HttpSession session = request.getSession();
         if (session.getAttribute("user") != null) {
-            response.sendRedirect(request.getContextPath() + "/");
+            return "redirect:/";
         }
         return "user/login";
     }
 
     @PostMapping("/login")
-    public String userLogin(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public String userLogin(HttpServletRequest request) {
         UserAccount user = new UserAccount();
         user.setEmail(request.getParameter("email"));
         user.setPassword(request.getParameter("password"));
@@ -71,19 +68,19 @@ public class UserController extends AbstractResource {
 
         if (request.getParameter("remember") != null && userQuery != null) {
             session.setAttribute("user", userQuery);
-            response.sendRedirect(request.getContextPath() + "/");
+            return "redirect:/";
         } else {
             session.invalidate();
         }
 
-        return "user/login";
+        return "redirect:/login";
     }
 
     @GetMapping("/account/{userId}")
-    public String userAccount(@PathVariable("userId") String userId, ModelMap modelMap, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public String userAccount(@PathVariable("userId") String userId, ModelMap modelMap, HttpServletRequest request) {
         HttpSession session = request.getSession();
         if (session.getAttribute("user") == null) {
-            response.sendRedirect(request.getContextPath() + "/login");
+            return "redirect:/login";
         }
 
         modelMap.addAttribute("currentURI", request.getRequestURI());
@@ -92,7 +89,7 @@ public class UserController extends AbstractResource {
     }
 
     @PostMapping("/account/{userId}/picture-delete")
-    public void deleteUserPicture(@PathVariable String userId, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public String deleteUserPicture(@PathVariable String userId, HttpServletRequest request) {
         HttpSession session = request.getSession();
         UserAccount userSession = (UserAccount) session.getAttribute("user");
 
@@ -100,13 +97,14 @@ public class UserController extends AbstractResource {
 
         if (!userSession.getImageUrl().equals(defaultPictureURI)) {
             File file = new File("/Users/nicolasboueme/p3-climbing" + userSession.getImageUrl());
+            //noinspection ResultOfMethodCallIgnored
             file.delete();
             userSession.setImageUrl(defaultPictureURI);
         }
 
         webappToConsumer.deleteUserPicture(userSession);
 
-        response.sendRedirect(request.getParameter("current_uri"));
+        return "redirect:/account/" + userId;
     }
 
     @PostMapping("/account/{userId}")
@@ -124,6 +122,7 @@ public class UserController extends AbstractResource {
             String rootPath = "/Users/nicolasboueme/p3-climbing/image";
             File dir = new File(rootPath + File.separator + "user");
             if (!dir.exists())
+                //noinspection ResultOfMethodCallIgnored
                 dir.mkdirs();
 
             // Create the file on server
@@ -146,11 +145,11 @@ public class UserController extends AbstractResource {
             System.out.println("Mauvais mot de passe !");
         }
 
-        return "user/account";
+        return "redirect:/account/" + userId;
     }
 
     @PostMapping("/account/{userId}/delete")
-    public void deleteUser(@PathVariable String userId, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public String deleteUser(@PathVariable String userId, HttpServletRequest request) {
         HttpSession session = request.getSession();
         UserAccount userSession = (UserAccount) session.getAttribute("user");
 
@@ -158,6 +157,7 @@ public class UserController extends AbstractResource {
 
         if (!userSession.getImageUrl().equals(defaultPictureURI)) {
             File file = new File("/Users/nicolasboueme/p3-climbing" + userSession.getImageUrl());
+            //noinspection ResultOfMethodCallIgnored
             file.delete();
             userSession.setImageUrl(defaultPictureURI);
         }
@@ -165,13 +165,13 @@ public class UserController extends AbstractResource {
         webappToConsumer.deleteUser(userSession);
 
         session.invalidate();
-        response.sendRedirect(request.getContextPath() + "/");
+        return "redirect:/";
     }
 
     @GetMapping("/logout")
-    public void userLogout(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public String userLogout(HttpServletRequest request) {
         HttpSession session = request.getSession();
         session.invalidate();
-        response.sendRedirect(request.getContextPath() + "/");
+        return "redirect:/";
     }
 }

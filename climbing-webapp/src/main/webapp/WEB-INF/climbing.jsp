@@ -1,3 +1,4 @@
+<%--suppress XmlDuplicatedId --%>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -18,25 +19,25 @@
                 <span class="glyphicon glyphicon-plus"></span> Ajouter un spot
             </button>
         </p>
-        <form method="post" action="climbing" class="form-horizontal collapse collapse-menu">
+        <form:form method="post" action="/climbing" class="form-horizontal collapse collapse-menu" modelAttribute="spot">
             <div class="form-group">
-                <label class="control-label col-sm-2" for="name">Nom :</label>
+                <form:label class="control-label col-sm-2" path="name">Nom :</form:label>
                 <div class="col-sm-10">
-                    <input required type="text" class="form-control" name="name" id="name" placeholder="Enter a spot name" value="Les mines de la Moria" />
+                    <form:input type="text" class="form-control" path="name" placeholder="Enter a spot name"/>
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="control-label col-sm-2" for="description">Description :</label>
+                <form:label class="control-label col-sm-2" path="description">Description :</form:label>
                 <div class="col-sm-10">
-                    <textarea class="form-control" name="description" id="description" placeholder="Enter a spot description">Top cool !!</textarea>
+                    <form:textarea class="form-control" path="description" placeholder="Enter a spot description"/>
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="control-label col-sm-2" for="height">Hauteur :</label>
+                <form:label class="control-label col-sm-2" path="height">Hauteur :</form:label>
                 <div class="col-sm-10">
-                    <input required type="number" class="form-control" name="height" id="height" placeholder="Enter a spot height" min="0" max="60"/>
+                    <form:input type="number" class="form-control" path="height" placeholder="Enter a spot height" min="0" max="60"/>
                 </div>
             </div>
 
@@ -45,7 +46,7 @@
                     <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Ajouter</button>
                 </div>
             </div>
-        </form>
+        </form:form>
     </c:if>
 
     <!-- Spot READ -->
@@ -61,7 +62,7 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach var="spot" items="${ spotList }">
+        <c:forEach var="spot" items="${ spotList }" varStatus="spotStatus">
             <tr>
                 <td><a href="${pageContext.request.contextPath}/climbing/${ spot.publicationId }"><c:out value="${ spot.name }" /></a></td>
                 <td>${ spot.description }</td>
@@ -70,7 +71,7 @@
                 <c:if test="${ !empty sessionScope.user }">
                     <td class="text-center">
                         <c:if test="${ sessionScope.user.role == 'admin' }">
-                            <form hidden method="post" action="/climbing/${ spot.publicationId }/delete" class="publication-delete${ spot.publicationId }"></form>
+                            <form:form method="post" action="/climbing/${ spot.publicationId }/delete" class="publication-delete${ spot.publicationId }" modelAttribute="spot"/>
                         </c:if>
 
                         <div class="btn-group btn-group-xs">
@@ -101,10 +102,10 @@
                             </div>
 
                             <div class="modal-body">
-                                <form method="post" action="/climbing/${ spot.publicationId }/update" class="form-horizontal publication-update">
+                                <form:form method="post" action="/climbing/${ spot.publicationId }/update" class="form-horizontal publication-update" modelAttribute="spot">
                                     <div class="form-group">
                                         <label for="name_update">Nom :</label>
-                                        <input type="text" class="form-control" name="name" id="name_update" placeholder="Enter a topo name" value="${ spot.name }" />
+                                        <form:input type="text" class="form-control" path="name" id="name_update" placeholder="Enter a spot name" value="${ spot.name }" />
                                     </div>
 
                                     <div class="form-group">
@@ -114,9 +115,9 @@
 
                                     <div class="form-group">
                                         <label for="height_update">Hauteur :</label>
-                                        <input required type="number" class="form-control" name="height" id="height_update" placeholder="Enter a spot height" min="0" max="60" value="${ spot.height }"/>
+                                        <form:input type="number" class="form-control" path="height" id="height_update" placeholder="Enter a spot height" min="0" max="60" value="${ spot.height }"/>
                                     </div>
-                                </form>
+                                </form:form>
                             </div>
 
                             <div class="modal-footer">

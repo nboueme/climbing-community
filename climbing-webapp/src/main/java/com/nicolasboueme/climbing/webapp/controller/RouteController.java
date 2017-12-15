@@ -8,13 +8,10 @@ import com.nicolasboueme.climbing.model.entity.UserAccount;
 import com.nicolasboueme.climbing.webapp.resource.AbstractResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 @Controller
 public class RouteController extends AbstractResource {
@@ -22,7 +19,7 @@ public class RouteController extends AbstractResource {
     private PublicationManager comments = getManagerFactory().getPublicationManager();
 
     @GetMapping("/climbing/sector/{sectorId}")
-    public String listRoutesFromParent(ModelMap modelMap, @PathVariable String sectorId, HttpServletRequest request) {
+    public ModelAndView listRoutesFromParent(ModelMap modelMap, @PathVariable String sectorId, HttpServletRequest request) {
         Route route = new Route();
         route.setSectorId(Integer.parseInt(sectorId));
 
@@ -34,52 +31,37 @@ public class RouteController extends AbstractResource {
         modelMap.addAttribute("routeList", webappToConsumer.listRoutesFromParent(route));
         modelMap.addAttribute("parentsComments", comments.getParentsComments(comment));
         modelMap.addAttribute("childrenComments", comments.getChildrenComments(comment));
-        return "route";
+        return new ModelAndView("route", "route", new Route());
     }
 
     @PostMapping("/climbing/sector/{sectorId}")
-    public void addRoute(@PathVariable String sectorId, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Route route = new Route();
-        route.setUserAccountId(((UserAccount) request.getSession().getAttribute("user")).getId());
-        route.setName(request.getParameter("name"));
+    public String addRoute(@ModelAttribute Route route, @SessionAttribute UserAccount user, @PathVariable String sectorId) {
+        route.setUserAccountId(user.getId());
         route.setSectorId(Integer.parseInt(sectorId));
-        route.setHeight(Integer.parseInt(request.getParameter("height")));
-        route.setQuotation(request.getParameter("quotation"));
-        route.setLatitude(Double.parseDouble(request.getParameter("latitude")));
-        route.setLongitude(Double.parseDouble(request.getParameter("longitude")));
-        route.setPointsNumber(Integer.parseInt(request.getParameter("points_number")));
         route.setTypeRoute("route");
 
         webappToConsumer.addRoute(route);
-        response.sendRedirect(request.getParameter("current_uri"));
+        return "redirect:/climbing/sector/" + sectorId;
     }
 
-    @PostMapping("/climbing/route/{routeId}/update")
-    public void updateRoute(@PathVariable String routeId, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Route route = new Route();
+    @PostMapping("/climbing/{sectorId}/route/{routeId}/update")
+    public String updateRoute(@ModelAttribute Route route, @PathVariable String sectorId, @PathVariable String routeId) {
         route.setPublicationId(Integer.parseInt(routeId));
-        route.setName(request.getParameter("name"));
-        route.setHeight(Integer.parseInt(request.getParameter("height")));
-        route.setQuotation(request.getParameter("quotation"));
-        route.setLatitude(Double.parseDouble(request.getParameter("latitude")));
-        route.setLongitude(Double.parseDouble(request.getParameter("longitude")));
-        route.setPointsNumber(Integer.parseInt(request.getParameter("points_number")));
 
         webappToConsumer.updateRoute(route);
-        response.sendRedirect(request.getParameter("current_uri"));
+        return "redirect:/climbing/sector/" + sectorId;
     }
 
-    @PostMapping("/climbing/route/{routeId}/delete")
-    public void deleteRoute(@PathVariable String routeId, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Route route = new Route();
+    @PostMapping("/climbing/{sectorId}/route/{routeId}/delete")
+    public String deleteRoute(@ModelAttribute Route route, @PathVariable String sectorId, @PathVariable String routeId) {
         route.setPublicationId(Integer.parseInt(routeId));
 
         webappToConsumer.deleteRoute(route);
-        response.sendRedirect(request.getParameter("current_uri"));
+        return "redirect:/climbing/sector/" + sectorId;
     }
 
     @GetMapping("/climbing/route/{routeId}")
-    public String getRoute(ModelMap modelMap, @PathVariable String routeId, HttpServletRequest request) {
+    public ModelAndView getRoute(ModelMap modelMap, @PathVariable String routeId, HttpServletRequest request) {
         Route route = new Route();
         route.setPublicationId(Integer.parseInt(routeId));
         route.setParentPublicationId(Integer.parseInt(routeId));
@@ -93,24 +75,33 @@ public class RouteController extends AbstractResource {
         modelMap.addAttribute("listLength", webappToConsumer.listLengthsFromRoute(route));
         modelMap.addAttribute("parentsComments", comments.getParentsComments(comment));
         modelMap.addAttribute("childrenComments", comments.getChildrenComments(comment));
-        return "route_item";
+        return new ModelAndView("route_item", "length", new Route());
     }
 
-    @PostMapping("/climbing/route/{parentId}")
-    public void addLength(@PathVariable String parentId, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Route route = new Route();
-        route.setUserAccountId(((UserAccount) request.getSession().getAttribute("user")).getId());
-        route.setName(request.getParameter("name"));
-        route.setSectorId(Integer.parseInt(request.getParameter("sector_id")));
-        route.setParentPublicationId(Integer.parseInt(parentId));
-        route.setHeight(Integer.parseInt(request.getParameter("height")));
-        route.setQuotation(request.getParameter("quotation"));
-        route.setLatitude(Double.parseDouble(request.getParameter("latitude")));
-        route.setLongitude(Double.parseDouble(request.getParameter("longitude")));
-        route.setPointsNumber(Integer.parseInt(request.getParameter("points_number")));
-        route.setTypeRoute("length");
+    @PostMapping("/climbing/route/{parentId}/{sectorId}")
+    public String addLength(@ModelAttribute Route length, @SessionAttribute UserAccount user, @PathVariable String parentId, @PathVariable String sectorId) {
+        length.setUserAccountId(user.getId());
+        length.setSectorId(Integer.parseInt(sectorId));
+        length.setParentPublicationId(Integer.parseInt(parentId));
+        length.setTypeRoute("length");
 
-        webappToConsumer.addRoute(route);
-        response.sendRedirect(request.getParameter("current_uri"));
+        webappToConsumer.addRoute(length);
+        return "redirect:/climbing/route/" + parentId;
+    }
+
+    @PostMapping("/climbing/route/{parentId}/{lengthId}/update")
+    public String updateLength(@ModelAttribute Route length, @PathVariable String parentId, @PathVariable String lengthId) {
+        length.setPublicationId(Integer.parseInt(lengthId));
+
+        webappToConsumer.updateRoute(length);
+        return "redirect:/climbing/route/" + parentId;
+    }
+
+    @PostMapping("/climbing/route/{parentId}/{lengthId}/delete")
+    public String deleteLength(@ModelAttribute Route length, @PathVariable String parentId, @PathVariable String lengthId) {
+        length.setPublicationId(Integer.parseInt(lengthId));
+
+        webappToConsumer.deleteRoute(length);
+        return "redirect:/climbing/route/" + parentId;
     }
 }

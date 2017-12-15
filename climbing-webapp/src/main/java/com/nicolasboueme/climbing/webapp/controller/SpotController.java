@@ -6,54 +6,41 @@ import com.nicolasboueme.climbing.model.entity.UserAccount;
 import com.nicolasboueme.climbing.webapp.resource.AbstractResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class SpotController extends AbstractResource {
     private SpotManager webappToConsumer = getManagerFactory().getSpotManager();
 
     @GetMapping("/climbing")
-    public String listSpots(final ModelMap modelMap) {
+    public ModelAndView listSpots(ModelMap modelMap) {
         modelMap.addAttribute("spotList", webappToConsumer.listSpots());
-        return "climbing";
+        return new ModelAndView("climbing", "spot", new Spot());
     }
 
     @PostMapping("/climbing")
-    public void addSpot(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Spot spot = new Spot();
-        spot.setUserAccountId(((UserAccount) request.getSession().getAttribute("user")).getId());
-        spot.setName(request.getParameter("name"));
-        spot.setDescription(request.getParameter("description"));
-        spot.setHeight(Integer.parseInt(request.getParameter("height")));
+    public String addSpot(@ModelAttribute Spot spot, @SessionAttribute UserAccount user) {
+        spot.setUserAccountId(user.getId());
 
         webappToConsumer.addSpot(spot);
-        response.sendRedirect(request.getContextPath() + "/climbing");
+        return "redirect:/climbing";
     }
 
     @PostMapping("/climbing/{spotId}/update")
-    public void updateSpot(@PathVariable String spotId, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Spot spot = new Spot();
+    public String updateSpot(@ModelAttribute Spot spot, @PathVariable String spotId, @RequestParam String description) {
         spot.setPublicationId(Integer.parseInt(spotId));
-        spot.setName(request.getParameter("name"));
-        spot.setDescription(request.getParameter("description"));
-        spot.setHeight(Integer.parseInt(request.getParameter("height")));
+        spot.setDescription(description);
 
         webappToConsumer.updateSpot(spot);
-        response.sendRedirect(request.getContextPath() + "/climbing");
+        return "redirect:/climbing";
     }
 
     @PostMapping("/climbing/{spotId}/delete")
-    public void deleteSpot(@PathVariable String spotId, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Spot spot = new Spot();
+    public String deleteSpot(@ModelAttribute Spot spot, @PathVariable String spotId) {
         spot.setPublicationId(Integer.parseInt(spotId));
 
         webappToConsumer.deleteSpot(spot);
-        response.sendRedirect(request.getContextPath() + "/climbing");
+        return "redirect:/climbing";
     }
 }

@@ -7,43 +7,41 @@ import com.nicolasboueme.climbing.webapp.resource.AbstractResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 @Controller
 public class CommentController extends AbstractResource {
     private PublicationManager comments = getManagerFactory().getPublicationManager();
 
     @PostMapping("/comment/{parentId}")
-    public void addComment(@PathVariable String parentId, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public String addComment(@PathVariable String parentId, @SessionAttribute UserAccount user, @RequestParam int publicationId, @RequestParam String content, @RequestParam String currentURI) {
         Comment comment = new Comment();
-        comment.setUserAccountId(((UserAccount) request.getSession().getAttribute("user")).getId());
-        comment.setPublicationId(Integer.parseInt(request.getParameter("publication_id")));
+        comment.setUserAccountId(user.getId());
+        comment.setPublicationId(publicationId);
         if (parentId != null) comment.setParentId(Integer.parseInt(parentId));
-        comment.setContent(request.getParameter("content"));
+        comment.setContent(content);
 
         comments.addComment(comment);
-        response.sendRedirect(request.getParameter("current_uri"));
+        return "redirect:" + currentURI;
     }
 
     @PostMapping("/comment/{commentId}/update")
-    public void updateComment(@PathVariable String commentId, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public String updateComment(@PathVariable String commentId, @RequestParam String content, @RequestParam String currentURI) {
         Comment comment = new Comment();
         comment.setId(Integer.parseInt(commentId));
-        comment.setContent(request.getParameter("content"));
+        comment.setContent(content);
 
         comments.updateComment(comment);
-        response.sendRedirect(request.getParameter("current_uri"));
+        return "redirect:" + currentURI;
     }
 
     @PostMapping("/comment/{commentId}/delete")
-    public void deleteComment(@PathVariable String commentId, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public String deleteComment(@PathVariable String commentId, @RequestParam String currentURI) {
         Comment comment = new Comment();
         comment.setId(Integer.parseInt(commentId));
 
         comments.deleteComment(comment);
-        response.sendRedirect(request.getParameter("current_uri"));
+        return "redirect:" + currentURI;
     }
 }
