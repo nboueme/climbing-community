@@ -16,7 +16,7 @@
     <c:if test="${ !empty sessionScope.user && route.typeRoute == 'route' }">
         <p>
             <button type="button" class="btn btn-primary btn-xs" data-toggle="collapse" data-target=".collapse-menu">
-                <span class="glyphicon glyphicon-plus"></span> Ajouter une voie
+                <span class="glyphicon glyphicon-plus"></span> Ajouter une longueur
             </button>
         </p>
         <form:form method="post" action="/climbing/route/${route.publicationId}/${route.sectorId}" class="form-horizontal collapse collapse-menu" modelAttribute="length">
@@ -76,6 +76,7 @@
         </form:form>
     </c:if>
 
+    <h4>Description</h4>
     <p>${ route.name } -> ${ route.height } mètres, ${ route.pointsNumber } points, coté ${ route.quotation }</p>
 
     <c:if test="${ listLength.size() > 0 }">
