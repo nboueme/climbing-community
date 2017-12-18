@@ -1,0 +1,6 @@
+INSERT INTO public.route (publication_id, sector_id, parent_publication_id, height, quotation, latitude, longitude, points_number, type_route) VALUES (6, 3, null, null, '6b', 44.500052, 5.929022, null, 'route');
+INSERT INTO public.route (publication_id, sector_id, parent_publication_id, height, quotation, latitude, longitude, points_number, type_route) VALUES (7, 3, null, null, '7a', 44.500052, 5.929022, null, 'route');
+INSERT INTO public.route (publication_id, sector_id, parent_publication_id, height, quotation, latitude, longitude, points_number, type_route) VALUES (8, 4, null, null, '6a', 44.498682, 5.933146, null, 'route');
+INSERT INTO public.route (publication_id, sector_id, parent_publication_id, height, quotation, latitude, longitude, points_number, type_route) VALUES (9, 4, null, null, '5c', 44.498682, 5.933146, null, 'route');
+INSERT INTO public.route (publication_id, sector_id, parent_publication_id, height, quotation, latitude, longitude, points_number, type_route) VALUES (10, 5, null, null, '6a', 44.497778, 5.937530, null, 'route');
+INSERT INTO public.route (publication_id, sector_id, parent_publication_id, height, quotation, latitude, longitude, points_number, type_route) VALUES (11, 5, null, null, '7b', 44.497778, 5.937530, null, 'route');

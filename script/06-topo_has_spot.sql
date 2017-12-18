@@ -1,0 +1,1 @@
+INSERT INTO public.topo_has_spot (topo_id, spot_id) VALUES (1, 2);
