@@ -15,21 +15,21 @@
         <div class="form-group">
             <label class="control-label col-sm-2" for="pseudo">Pseudo :</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" name="pseudo" id="pseudo" placeholder="Enter pseudo" value="Gandalfou" />
+                <input type="text" class="form-control" name="pseudo" id="pseudo" placeholder="Enter pseudo"/>
             </div>
         </div>
 
         <div class="form-group">
             <label class="control-label col-sm-2" for="email">Email :</label>
             <div class="col-sm-10">
-                <input type="email" class="form-control" name="email" id="email" placeholder="Enter email" value="lotr_gandalfou@gmail.com" />
+                <input type="email" class="form-control" name="email" id="email" placeholder="Enter email"/>
             </div>
         </div>
 
         <div class="form-group">
             <label class="control-label col-sm-2" for="password">Mot de passe :</label>
             <div class="col-sm-10">
-                <input type="password" class="form-control" name="password" id="password" placeholder="Enter password" value="lotr_gandalfou" />
+                <input type="password" class="form-control" name="password" id="password" placeholder="Enter password"/>
             </div>
         </div>
 
